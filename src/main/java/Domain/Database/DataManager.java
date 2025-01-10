@@ -50,7 +50,7 @@ public class DataManager {
                     endDate,
                     record.getValue(APPOINTMENT.TITLE),
                     record.getValue(APPOINTMENT.DESCRIPTION),
-                    null //TODO: implement Method for getting the Tags associated with the Appointments
+                    getTagByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID))
             );
 
         } catch (SQLException e) {
