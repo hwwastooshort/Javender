@@ -3,9 +3,9 @@ package Domain.Entities;
 public class Tag {
     private int tagId;
     private String name;
-    private int color; // Hex-Code for Color
+    private String color; // Hex-Code for Color
 
-    public Tag(int tagId, String name, int color) {
+    public Tag(int tagId, String name, String color) {
         this.tagId = tagId;
         this.name = name;
         this.color = color;
@@ -27,11 +27,11 @@ public class Tag {
         this.name = name;
     }
 
-    public int getColor() {
+    public String getColor() {
         return color;
     }
 
-    public void setColor(int color) {
+    public void setColor(String color) {
         this.color = color;
     }
 

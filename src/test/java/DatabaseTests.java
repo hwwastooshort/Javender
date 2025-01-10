@@ -2,12 +2,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import Domain.Database.DataManager;
 import Domain.Entities.Appointment;
+import Domain.Entities.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class DatabaseTests {
     @Test
@@ -37,5 +39,11 @@ public class DatabaseTests {
         assertEquals("Doctor Appointment", result.getTitle());
         assertEquals("Annual checkup", result.getDescription());
     }
-
+    @Test
+    void testGetTagsByIdFromDatabase(){
+        DataManager dm = new DataManager();
+        int appointmentId = 3;
+        List<Tag> tags = dm.getTagByAppointmentId(appointmentId);
+        System.out.println(tags);
+    }
 }
