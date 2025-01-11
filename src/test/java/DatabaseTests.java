@@ -154,22 +154,22 @@ public class DatabaseTests {
         Appointment actualFirstAppointment = actualAppointments.get(0);
         Appointment actualSecondAppointment = actualAppointments.get(1);
 
-        List<Tag> actualFirstAppointmentTags = new ArrayList<>();
-        actualFirstAppointmentTags.add(new Tag(1, "testingTag", "yellow"));
+        List<Tag> expectedFirstAppointmentTags = new ArrayList<>();
+        expectedFirstAppointmentTags.add(new Tag(1, "testingTag", "yellow"));
 
-        List<Tag> actualSecondAppointmentTags = new ArrayList<>();
-        actualSecondAppointmentTags.add(new Tag(1, "testingTag", "yellow"));
-        actualSecondAppointmentTags.add(new Tag(4, "Work", "blue"));
+        List<Tag> expectedSecondAppointmentTags = new ArrayList<>();
+        expectedSecondAppointmentTags.add(new Tag(1, "testingTag", "yellow"));
+        expectedSecondAppointmentTags.add(new Tag(4, "Work", "blue"));
 
         Appointment expectedFirstAppointment = new Appointment
                 (2, LocalDateTime.parse("2025-01-02T14:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                         LocalDateTime.parse("2025-01-02T15:30:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME), "Team Meeting",
-                        "Monthly progress update", actualFirstAppointmentTags);
+                        "Monthly progress update", expectedFirstAppointmentTags);
 
         Appointment expectedSecondAppointment = new Appointment
                 (3, LocalDateTime.parse("2025-01-03T09:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                         LocalDateTime.parse("2025-01-03T10:30:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME), "Client Presentation",
-                        "Present new project proposal", actualSecondAppointmentTags);
+                        "Present new project proposal", expectedSecondAppointmentTags);
 
         assertEquals(expectedFirstAppointment.getAppointmentId(), actualFirstAppointment.getAppointmentId());
         assertEquals(expectedFirstAppointment.getStartDate(), actualFirstAppointment.getStartDate());
