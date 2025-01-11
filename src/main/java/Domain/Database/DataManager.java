@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static org.jooq.generated.Tables.*;
 
@@ -88,13 +89,13 @@ public class DataManager {
                 return Optional.empty();
             }
 
-            List<Tag> tagList = new ArrayList<>();
-            result.forEach(record -> {
-                int tagId = record.getValue(TAG.TAGID);
-                String color = record.getValue(TAG.COLOR);
-                String name = record.getValue(TAG.NAME);
-                tagList.add(new Tag(tagId, name, color));
-            });
+            List<Tag> tagList = result.stream()
+                    .map(record -> new Tag(
+                            record.getValue(TAG.TAGID),
+                            record.getValue(TAG.NAME),
+                            record.getValue(TAG.COLOR)
+                    ))
+                    .collect(Collectors.toList());
 
             return Optional.of(tagList);
 
