@@ -1,0 +1,50 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Java CI/CD with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Validate and build the project
+      run: mvn clean compile
+
+    - name: Generate jOOQ sources
+      run: mvn generate-sources
+
+    - name: Run tests
+      run: mvn test
+
+    - name: Package the application
+      run: mvn package
+
+    - name: Deploy artifact (optional)
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: javender-artifact
+        path: target/*.jar
