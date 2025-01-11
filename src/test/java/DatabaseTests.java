@@ -8,12 +8,14 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class DatabaseTests {
+
     @Test
     public void testDatabaseConnection() {
         String url = "jdbc:sqlite:src/main/resources/javenderDataBase.db";
@@ -67,5 +69,62 @@ public class DatabaseTests {
         expectedTags.add(new Tag(4, "Work", "blue"));
 
         assertEquals(expectedTags, actualTags, "There should be 2 Tags matching to appointmentId 3");
+    }
+
+
+    @Test
+    void testGetAppointmentsByStartDate() {
+        DataManager dm = new DataManager();
+        LocalDate testDate = LocalDate.of(2025, 1, 1);
+
+        Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByDate(testDate, DataManager.DateFilter.STARTDATE);
+
+        assertTrue(optionalAppointments.isPresent(), "Appointments for the given date should not be empty");
+        List<Appointment> appointments = optionalAppointments.get();
+        assertFalse(appointments.isEmpty(), "Appointment list should not be empty");
+
+        Appointment firstAppointment = appointments.get(0);
+        assertEquals(1, firstAppointment.getAppointmentId());
+        assertEquals("Doctor Appointment", firstAppointment.getTitle());
+    }
+
+    @Test
+    void testGetAppointmentsByEndDate() {
+        DataManager dm = new DataManager();
+        LocalDate testDate = LocalDate.of(2025, 1, 2);
+
+        Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByDate(testDate, DataManager.DateFilter.ENDDATE);
+
+        assertTrue(optionalAppointments.isPresent(), "Appointments for the given date should not be empty");
+        List<Appointment> appointments = optionalAppointments.get();
+        assertFalse(appointments.isEmpty(), "Appointment list should not be empty");
+
+        Appointment firstAppointment = appointments.get(0);
+        assertEquals(2, firstAppointment.getAppointmentId());
+        assertEquals("Team Meeting", firstAppointment.getTitle());
+    }
+
+    @Test
+    void testGetAppointmentsByRangeWithTwoMatchingDates() {
+        DataManager dm = new DataManager();
+        LocalDateTime rangeStart = LocalDateTime.of(2025, 1, 1, 00, 0);
+        LocalDateTime rangeEnd = LocalDateTime.of(2025, 1, 2, 16, 0);
+
+        Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByRange(rangeStart, rangeEnd);
+
+        assertTrue(optionalAppointments.isPresent(), "Appointments for the given range should not be empty");
+        List<Appointment> appointments = optionalAppointments.get();
+        assertFalse(appointments.isEmpty(), "Appointment list should not be empty");
+        assertEquals(2, appointments.size(), "There are 2 Elements in this range");
+    }
+
+    @Test
+    void testGetApppointmentsByRangeWithNoMatches() {
+        DataManager dm = new DataManager();
+        LocalDateTime rangeStart = LocalDateTime.of(2030, 1, 1, 0, 0);
+        LocalDateTime rangeEnd = LocalDateTime.of(2040, 1,1,0,0);
+
+        Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByRange(rangeStart, rangeEnd);
+        assertFalse(optionalAppointments.isPresent(), "There should be no Appointments in that Time Range");
     }
 }
