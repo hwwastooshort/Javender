@@ -32,6 +32,7 @@ public class DataManager {
         ENDDATE
     }
 
+
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(PATH_TO_DATABASE);
     }
@@ -115,7 +116,15 @@ public class DataManager {
         }
     }
 
-    public Optional<List<Appointment>> getAppointmentsByDate(LocalDate date, DateFilter filter) {
+    /**
+     * Method for fetching a list of appointments, which starts or ends at a specific date
+     *
+     * @param date the date to be searched for
+     * @param dateFilter the filter option to decide if the given date should match the start- or the end date of an appointment
+     * @return the list of appointments matching the date, returns null, if no appointments were found
+     */
+
+    public Optional<List<Appointment>> getAppointmentsByDate(LocalDate date, DateFilter dateFilter) {
         try (Connection conn = getConnection()) {
             DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
 
@@ -123,7 +132,7 @@ public class DataManager {
 
             Result<?> result;
 
-            switch (filter){
+            switch (dateFilter){
                 case STARTDATE:
                     result = create.select()
                         .from(APPOINTMENT)
@@ -171,6 +180,13 @@ public class DataManager {
         }
     }
 
+    /**
+     * Method for fetching Appointments in a given Time Intervall
+     * @param startDateTime start of the Intervall
+     * @param endDateTime end of the Intervall
+     * @return Optional of a List of Appointments, returns an empty Optional if Query has no matches
+     */
+
     public Optional<List<Appointment>> getAppointmentsByRange(LocalDateTime startDateTime, LocalDateTime endDateTime) {
         try (Connection conn = getConnection()) {
             DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
@@ -213,6 +229,12 @@ public class DataManager {
         }
     }
 
+    /**
+     * Method for fetching a Tag based on its tagId
+     * @param tagId the given tagId
+     * @return Optional of Tag, returns an empty Optional if Query has no matches
+     */
+
     public Optional<Tag> getTagById(int tagId){
         try(Connection conn = getConnection()){
             DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
@@ -234,6 +256,12 @@ public class DataManager {
         }
         return Optional.empty();
     }
+
+    /**
+     * Method for fetching Appointments based on a given tagId
+     * @param tagId the given tagId
+     * @return Optional of List of Appointment, returns an empty Optional if Query has no matches
+     */
 
     public Optional<List<Appointment>> getAppointmentsByTagId(int tagId){
        try(Connection conn = getConnection()){
