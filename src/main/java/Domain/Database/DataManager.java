@@ -103,4 +103,57 @@ public class DataManager {
             throw new RuntimeException(e);
         }
     }
+
+    public Optional<Tag> getTagById(int tagId){
+        try(Connection conn = getConnection()){
+            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
+            Record record = create.select().from(TAG).where(TAG.TAGID.eq(tagId)).fetchOne();
+
+            if(record == null){
+                return Optional.empty();
+            }
+
+            Tag tag = new Tag(record.getValue(TAG.TAGID),
+                    record.getValue(TAG.NAME),
+                    record.getValue(TAG.COLOR)
+            );
+
+            return Optional.of(tag);
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
+    public Optional<List<Appointment>> getAppointmentsByTagId(int tagId){
+       try(Connection conn = getConnection()){
+           DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
+           Result<?> result = create.select()
+                                    .from(APPOINTMENT)
+                                    .join(APPOINTMENTTAG).on(APPOINTMENT.APPOINTMENTID.eq(APPOINTMENTTAG.APPOINTMENTID))
+                                    .where(APPOINTMENTTAG.TAGID.eq(tagId))
+                                    .fetch();
+           if(result.isEmpty()){
+               return Optional.empty();
+           }
+
+           List<Appointment> appointmentList = result.stream()
+                   .map(record -> new Appointment(
+                           record.getValue(APPOINTMENT.APPOINTMENTID),
+                           LocalDateTime.parse(record.getValue(APPOINTMENT.STARTDATE)),
+                           LocalDateTime.parse(record.getValue(APPOINTMENT.ENDDATE)),
+                           record.getValue(APPOINTMENT.TITLE),
+                           record.getValue(APPOINTMENT.DESCRIPTION),
+                           getTagByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).get()
+                   ))
+                   .collect(Collectors.toList());
+
+           return Optional.of(appointmentList);
+
+       }catch(SQLException e){
+            e.printStackTrace();
+       }
+       return Optional.empty();
+    }
 }

@@ -68,4 +68,64 @@ public class DatabaseTests {
 
         assertEquals(expectedTags, actualTags, "There should be 2 Tags matching to appointmentId 3");
     }
+
+    @Test
+    void testGetTagById(){
+        DataManager dm = new DataManager();
+        int tagId = 1;
+
+        Optional<Tag> optionalTag = dm.getTagById(tagId);
+        assertTrue(optionalTag.isPresent(), "Tag with tagId = 1 should exist");
+
+        Tag expectedTag = new Tag(1, "testingTag", "yellow");
+        Tag actualTag = optionalTag.get();
+
+        assertEquals(expectedTag.getTagId(), actualTag.getTagId());
+        assertEquals(expectedTag.getColor(), actualTag.getColor());
+        assertEquals(expectedTag.getName(), actualTag.getName());
+    }
+    @Test
+    void testGetAppointmentsByTagId(){
+        DataManager dm = new DataManager();
+        int tagId = 1;
+
+        Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByTagId(tagId);
+        assertTrue(optionalAppointments.isPresent(), "Appointments should be present for tagId = 1");
+
+        List<Appointment> actualAppointments = optionalAppointments.get();
+        Appointment actualFirstAppointment = actualAppointments.get(0);
+        Appointment actualSecondAppointment = actualAppointments.get(1);
+
+        List<Tag> actualFirstAppointmentTags = new ArrayList<>();
+        actualFirstAppointmentTags.add(new Tag(1, "testingTag", "yellow"));
+
+        List<Tag> actualSecondAppointmentTags = new ArrayList<>();
+        actualSecondAppointmentTags.add(new Tag(1, "testingTag", "yellow"));
+        actualSecondAppointmentTags.add(new Tag(4, "Work", "blue"));
+
+        Appointment expectedFirstAppointment = new Appointment
+                (2, LocalDateTime.parse("2025-01-02T14:00:00"),
+                        LocalDateTime.parse("2025-01-02T15:30:00"), "Team Meeting",
+                        "Monthly progress update", actualFirstAppointmentTags);
+
+        Appointment expectedSecondAppointment = new Appointment
+                (3, LocalDateTime.parse("2025-01-03T09:00:00"),
+                        LocalDateTime.parse("2025-01-03T10:30:00"), "Client Presentation",
+                        "Present new project proposal", actualSecondAppointmentTags);
+
+        assertEquals(expectedFirstAppointment.getAppointmentId(), actualFirstAppointment.getAppointmentId());
+        assertEquals(expectedFirstAppointment.getStartDate(), actualFirstAppointment.getStartDate());
+        assertEquals(expectedFirstAppointment.getEndDate(), actualFirstAppointment.getEndDate());
+        assertEquals(expectedFirstAppointment.getTitle(), actualFirstAppointment.getTitle());
+        assertEquals(expectedFirstAppointment.getDescription(), actualFirstAppointment.getDescription());
+        assertEquals(expectedFirstAppointment.getTags(), actualFirstAppointment.getTags());
+
+        assertEquals(expectedSecondAppointment.getAppointmentId(), actualSecondAppointment.getAppointmentId());
+        assertEquals(expectedSecondAppointment.getStartDate(), actualSecondAppointment.getStartDate());
+        assertEquals(expectedSecondAppointment.getEndDate(), actualSecondAppointment.getEndDate());
+        assertEquals(expectedSecondAppointment.getTitle(), actualSecondAppointment.getTitle());
+        assertEquals(expectedSecondAppointment.getDescription(), actualSecondAppointment.getDescription());
+        assertEquals(expectedSecondAppointment.getTags(), actualSecondAppointment.getTags());
+
+    }
 }
