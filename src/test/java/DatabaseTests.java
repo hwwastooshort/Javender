@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -161,13 +162,13 @@ public class DatabaseTests {
         actualSecondAppointmentTags.add(new Tag(4, "Work", "blue"));
 
         Appointment expectedFirstAppointment = new Appointment
-                (2, LocalDateTime.parse("2025-01-02T14:00:00"),
-                        LocalDateTime.parse("2025-01-02T15:30:00"), "Team Meeting",
+                (2, LocalDateTime.parse("2025-01-02T14:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                        LocalDateTime.parse("2025-01-02T15:30:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME), "Team Meeting",
                         "Monthly progress update", actualFirstAppointmentTags);
 
         Appointment expectedSecondAppointment = new Appointment
-                (3, LocalDateTime.parse("2025-01-03T09:00:00"),
-                        LocalDateTime.parse("2025-01-03T10:30:00"), "Client Presentation",
+                (3, LocalDateTime.parse("2025-01-03T09:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                        LocalDateTime.parse("2025-01-03T10:30:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME), "Client Presentation",
                         "Present new project proposal", actualSecondAppointmentTags);
 
         assertEquals(expectedFirstAppointment.getAppointmentId(), actualFirstAppointment.getAppointmentId());
