@@ -344,4 +344,8 @@ public class DataManager {
             return false;
         }
     }
+
+    public boolean removeAppointment(Appointment appointment) {
+        return removeAppointmentById(appointment.getAppointmentId());
+    }
 }
