@@ -3,12 +3,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import Domain.Database.DataManager;
 import Domain.Entities.Appointment;
 import Domain.Entities.Tag;
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -23,6 +20,7 @@ public class DatabaseInsertTests {
     @AfterEach
     void cleanUp() {
         dm.removeAppointmentById(100);
+        dm.removeTagByTagId(100);
     }
 
     @Test
@@ -55,7 +53,6 @@ public class DatabaseInsertTests {
 
     @Test
     void testUnsuccessfulAppointmentInsertion_IdAlreadyInDataBase() {
-        DataManager dm = new DataManager();
         Appointment appointment = new Appointment(
                 1,
                 LocalDateTime.parse("2025-01-01T10:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
@@ -67,5 +64,13 @@ public class DatabaseInsertTests {
 
         boolean result = dm.addAppointment(appointment);
         assertFalse(result, "Insertion should fail, Id is already in use");
+    }
+
+    @Test
+    void testSuccessfulTagInsertion() {
+        Tag tag = new Tag(100, "Simon Says a lot", "käseweiß");
+        boolean result = dm.addTag(tag);
+        assertTrue(result, "Insertion should not fail, tagId is free");
+
     }
 }

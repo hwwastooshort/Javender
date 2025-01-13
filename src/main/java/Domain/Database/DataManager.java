@@ -351,4 +351,42 @@ public class DataManager {
     public boolean removeAppointment(Appointment appointment) {
         return removeAppointmentById(appointment.getAppointmentId());
     }
+
+
+    public boolean removeTagByTagId(int tagId) {
+        try(Connection conn = getConnection()) {
+           DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
+
+           create.deleteFrom(TAG).where(TAG.TAGID.eq(tagId)).execute();
+           return true;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean removeTag(Tag tag) {
+        return removeTagByTagId(tag.getTagId());
+    }
+
+    public boolean addTag(Tag tag) {
+        try (Connection conn = getConnection()) {
+            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
+
+            int tagId = tag.getTagId();
+            String name = tag.getName();
+            String color = tag.getColor();
+
+            create.insertInto(TAG).values(tagId, name, color).execute();
+            return true;
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return false;
+        } catch (org.jooq.exception.IntegrityConstraintViolationException e) {
+            System.err.println("Integrity constraint violated: " + e.getMessage());
+            return false;
+        }
+    }
 }
