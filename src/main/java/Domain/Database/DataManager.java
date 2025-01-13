@@ -296,4 +296,52 @@ public class DataManager {
         }
         return Optional.empty();
     }
+
+    public boolean addAppointment(Appointment appointment) {
+        try (Connection conn = getConnection()) {
+            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
+
+            int appointmentId = appointment.getAppointmentId();
+            LocalDateTime startDate = appointment.getStartDate();
+            LocalDateTime endDate = appointment.getEndDate();
+            String title = appointment.getTitle();
+            String description = appointment.getDescription();
+            List<Tag> tags = appointment.getTags();
+
+            create.insertInto(APPOINTMENT, APPOINTMENT.APPOINTMENTID, APPOINTMENT.STARTDATE, APPOINTMENT.ENDDATE,
+                    APPOINTMENT.TITLE, APPOINTMENT.DESCRIPTION)
+                    .values(appointmentId, startDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                            endDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), title, description).execute();
+
+            if (tags != null && !tags.isEmpty()) {
+                for (Tag tag : tags) {
+                    create.insertInto(APPOINTMENTTAG, APPOINTMENTTAG.APPOINTMENTID, APPOINTMENTTAG.TAGID)
+                            .values(appointmentId, tag.getTagId())
+                            .execute();
+                }
+            }
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean removeAppointmentById(int appointmentId) {
+        try (Connection conn = getConnection()) {
+            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
+
+            create.deleteFrom(APPOINTMENTTAG)
+                    .where(APPOINTMENTTAG.APPOINTMENTID.eq(appointmentId))
+                    .execute();
+
+            create.delete(APPOINTMENT).where(APPOINTMENT.APPOINTMENTID.eq(appointmentId))
+                    .execute();
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
