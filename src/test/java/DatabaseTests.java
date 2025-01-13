@@ -56,6 +56,7 @@ public class DatabaseTests {
         expectedList.add(firstTagInExpectedList);
         assertEquals(expectedList, result.getTags(), "Appointment 1 should only have 1 Tag");
     }
+
     @Test
     void testGetTagsByIdFromDatabase() {
         DataManager dm = new DataManager();
@@ -127,8 +128,9 @@ public class DatabaseTests {
         Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByRange(rangeStart, rangeEnd);
         assertFalse(optionalAppointments.isPresent(), "There should be no Appointments in that Time Range");
     }
+
     @Test
-    void testGetTagById(){
+    void testGetTagById() {
         DataManager dm = new DataManager();
         int tagId = 1;
 
@@ -142,8 +144,9 @@ public class DatabaseTests {
         assertEquals(expectedTag.getColor(), actualTag.getColor());
         assertEquals(expectedTag.getName(), actualTag.getName());
     }
+
     @Test
-    void testGetAppointmentsByTagId(){
+    void testGetAppointmentsByTagId() {
         DataManager dm = new DataManager();
         int tagId = 1;
 
