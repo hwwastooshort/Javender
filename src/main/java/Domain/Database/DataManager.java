@@ -309,7 +309,7 @@ public class DataManager {
             List<Tag> tags = appointment.getTags();
 
             create.insertInto(APPOINTMENT, APPOINTMENT.APPOINTMENTID, APPOINTMENT.STARTDATE, APPOINTMENT.ENDDATE,
-                    APPOINTMENT.TITLE, APPOINTMENT.DESCRIPTION)
+                            APPOINTMENT.TITLE, APPOINTMENT.DESCRIPTION)
                     .values(appointmentId, startDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                             endDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), title, description).execute();
 
@@ -321,6 +321,9 @@ public class DataManager {
                 }
             }
             return true;
+        } catch (org.jooq.exception.IntegrityConstraintViolationException e) {
+            System.err.println("Integrity constraint violated: " + e.getMessage());
+            return false;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
