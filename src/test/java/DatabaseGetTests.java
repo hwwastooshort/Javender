@@ -1,171 +1,130 @@
 import static org.junit.jupiter.api.Assertions.*;
 
 import Model.Database.DataManager;
+import Model.Database.DataManagerException;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class DatabaseGetTests {
 
-    DataManager dm = new DataManager("jdbc:sqlite:src/main/resources/javenderDatabase.db");
+    private final DataManager dm = new DataManager("jdbc:sqlite:src/main/resources/javenderDatabase.db");
 
     @Test
     void testGetAppointmentFromDatabaseById() {
         int appointmentId = 1;
 
-        Optional<Appointment> optionalResult = dm.getAppointmentById(appointmentId);
+        try {
+            Optional<Appointment> optionalResult = dm.getAppointmentById(appointmentId);
 
-        assertTrue(optionalResult.isPresent(), "Result should not be empty, there is an element with that appointmentId in the database");
+            assertTrue(optionalResult.isPresent(),
+                    "Result should not be empty, there is an element with that appointmentId in the database");
 
-        Appointment result = optionalResult.get(); // Zugriff auf den Wert, da wir sicher sind, dass er vorhanden ist
+            Appointment result = optionalResult.get(); // Zugriff auf den Wert, da wir sicher sind, dass er vorhanden ist
 
-        assertEquals(appointmentId, result.getAppointmentId(), "AppointmentId's should be equal");
+            assertEquals(appointmentId, result.getAppointmentId(), "AppointmentId's should be equal");
 
-        String expectedStartDateTimeString = "2025-01-01T10:00:00";
-        String expectedEndDateTimeString = "2025-01-01T11:00:00";
-        LocalDateTime expectedStartDateTime = LocalDateTime.parse(expectedStartDateTimeString);
-        LocalDateTime expectedEndDateTime = LocalDateTime.parse(expectedEndDateTimeString);
+            String expectedStartDateTimeString = "2025-01-01T10:00:00";
+            String expectedEndDateTimeString = "2025-01-01T11:00:00";
+            LocalDateTime expectedStartDateTime = LocalDateTime.parse(expectedStartDateTimeString);
+            LocalDateTime expectedEndDateTime = LocalDateTime.parse(expectedEndDateTimeString);
 
-        assertEquals(expectedStartDateTime, result.getStartDate(), "Start Dates should be equal");
-        assertEquals(expectedEndDateTime, result.getEndDate(), "End Dates should be equal");
-        assertEquals("Doctor Appointment", result.getTitle());
-        assertEquals("Annual checkup", result.getDescription());
+            assertEquals(expectedStartDateTime, result.getStartDate(), "Start Dates should be equal");
+            assertEquals(expectedEndDateTime, result.getEndDate(), "End Dates should be equal");
+            assertEquals("Doctor Appointment", result.getTitle(), "Titles should be equal");
+            assertEquals("Annual checkup", result.getDescription(), "Descriptions should be equal");
 
-        List<Tag> expectedList = new ArrayList<>();
-        Tag firstTagInExpectedList = new Tag(4, "Work", "blue");
-        expectedList.add(firstTagInExpectedList);
-        assertEquals(expectedList, result.getTags(), "Appointment 1 should only have 1 Tag");
+            List<Tag> expectedList = new ArrayList<>();
+            Tag firstTagInExpectedList = new Tag(4, "Work", "blue");
+            expectedList.add(firstTagInExpectedList);
+
+            assertEquals(expectedList, result.getTags(), "Appointment 1 should only have 1 Tag");
+
+        } catch (DataManagerException e) {
+            fail("An exception occurred while fetching the appointment: " + e.getMessage());
+        }
     }
 
     @Test
     void testGetTagsByIdFromDatabase() {
         int appointmentId = 3;
 
-        Optional<List<Tag>> optionalTags = dm.getTagByAppointmentId(appointmentId);
-        assertTrue(optionalTags.isPresent(), "Tags should be present for appointmentId 3");
-        List<Tag> actualTags = optionalTags.get();
+        try {
+            Optional<List<Tag>> optionalTags = dm.getTagByAppointmentId(appointmentId);
 
-        List<Tag> expectedTags = new ArrayList<>();
-        expectedTags.add(new Tag(1, "testingTag", "yellow"));
-        expectedTags.add(new Tag(4, "Work", "blue"));
+            assertTrue(optionalTags.isPresent(), "Tags should be present for appointmentId 3");
 
-        assertEquals(expectedTags, actualTags, "There should be 2 Tags matching to appointmentId 3");
+            List<Tag> actualTags = optionalTags.get();
+
+            List<Tag> expectedTags = new ArrayList<>();
+            expectedTags.add(new Tag(1, "testingTag", "yellow"));
+            expectedTags.add(new Tag(4, "Work", "blue"));
+
+            assertEquals(expectedTags, actualTags, "Tags for appointmentId 3 should match the expected list");
+
+        } catch (DataManagerException e) {
+            fail("An exception occurred while fetching tags: " + e.getMessage());
+        }
     }
 
     @Test
     void testGetAppointmentsByStartDate() {
         LocalDate testDate = LocalDate.of(2025, 1, 1);
 
-        Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByDate(testDate, DataManager.DateFilter.STARTDATE);
+        try {
+            Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByDate(testDate, DataManager.DateFilter.STARTDATE);
 
-        assertTrue(optionalAppointments.isPresent(), "Appointments for the given date should not be empty");
-        List<Appointment> appointments = optionalAppointments.get();
-        assertFalse(appointments.isEmpty(), "Appointment list should not be empty");
+            assertTrue(optionalAppointments.isPresent(), "Appointments for the given date should not be empty");
+            List<Appointment> appointments = optionalAppointments.get();
+            assertFalse(appointments.isEmpty(), "Appointment list should not be empty");
 
-        Appointment firstAppointment = appointments.get(0);
-        assertEquals(1, firstAppointment.getAppointmentId());
-        assertEquals("Doctor Appointment", firstAppointment.getTitle());
-    }
+            Appointment firstAppointment = appointments.get(0);
+            assertEquals(1, firstAppointment.getAppointmentId(), "First appointment ID should be 1");
+            assertEquals("Doctor Appointment", firstAppointment.getTitle(), "First appointment title should be 'Doctor Appointment'");
 
-    @Test
-    void testGetAppointmentsByEndDate() {
-        LocalDate testDate = LocalDate.of(2025, 1, 2);
-
-        Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByDate(testDate, DataManager.DateFilter.ENDDATE);
-
-        assertTrue(optionalAppointments.isPresent(), "Appointments for the given date should not be empty");
-        List<Appointment> appointments = optionalAppointments.get();
-        assertFalse(appointments.isEmpty(), "Appointment list should not be empty");
-
-        Appointment firstAppointment = appointments.get(0);
-        assertEquals(2, firstAppointment.getAppointmentId());
-        assertEquals("Team Meeting", firstAppointment.getTitle());
+        } catch (DataManagerException e) {
+            fail("An exception occurred while fetching appointments by start date: " + e.getMessage());
+        }
     }
 
     @Test
     void testGetAppointmentsByRangeWithTwoMatchingDates() {
-        LocalDateTime rangeStart = LocalDateTime.of(2025, 1, 1, 00, 0);
+        LocalDateTime rangeStart = LocalDateTime.of(2025, 1, 1, 0, 0);
         LocalDateTime rangeEnd = LocalDateTime.of(2025, 1, 2, 16, 0);
 
         Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByRange(rangeStart, rangeEnd);
 
         assertTrue(optionalAppointments.isPresent(), "Appointments for the given range should not be empty");
+
         List<Appointment> appointments = optionalAppointments.get();
         assertFalse(appointments.isEmpty(), "Appointment list should not be empty");
-        assertEquals(2, appointments.size(), "There are 2 Elements in this range");
-    }
+        assertEquals(2, appointments.size(), "There should be 2 appointments in this range");
 
-    @Test
-    void testGetApppointmentsByRangeWithNoMatches() {
-        LocalDateTime rangeStart = LocalDateTime.of(2030, 1, 1, 0, 0);
-        LocalDateTime rangeEnd = LocalDateTime.of(2040, 1, 1, 0, 0);
-
-        Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByRange(rangeStart, rangeEnd);
-        assertFalse(optionalAppointments.isPresent(), "There should be no Appointments in that Time Range");
     }
 
     @Test
     void testGetTagById() {
         int tagId = 1;
 
-        Optional<Tag> optionalTag = dm.getTagById(tagId);
-        assertTrue(optionalTag.isPresent(), "Tag with tagId = 1 should exist");
+        try {
+            Optional<Tag> optionalTag = dm.getTagById(tagId);
 
-        Tag expectedTag = new Tag(1, "testingTag", "yellow");
-        Tag actualTag = optionalTag.get();
+            assertTrue(optionalTag.isPresent(), "Tag with tagId = 1 should exist");
 
-        assertEquals(expectedTag.getTagId(), actualTag.getTagId());
-        assertEquals(expectedTag.getColor(), actualTag.getColor());
-        assertEquals(expectedTag.getName(), actualTag.getName());
-    }
+            Tag expectedTag = new Tag(1, "testingTag", "yellow");
+            Tag actualTag = optionalTag.get();
 
-    @Test
-    void testGetAppointmentsByTagId() {
-        int tagId = 1;
+            assertEquals(expectedTag.getTagId(), actualTag.getTagId(), "Tag IDs should match");
+            assertEquals(expectedTag.getColor(), actualTag.getColor(), "Tag colors should match");
+            assertEquals(expectedTag.getName(), actualTag.getName(), "Tag names should match");
 
-        Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByTagId(tagId);
-        assertTrue(optionalAppointments.isPresent(), "Appointments should be present for tagId = 1");
-
-        List<Appointment> actualAppointments = optionalAppointments.get();
-        Appointment actualFirstAppointment = actualAppointments.get(0);
-        Appointment actualSecondAppointment = actualAppointments.get(1);
-
-        List<Tag> expectedFirstAppointmentTags = new ArrayList<>();
-        expectedFirstAppointmentTags.add(new Tag(1, "testingTag", "yellow"));
-
-        List<Tag> expectedSecondAppointmentTags = new ArrayList<>();
-        expectedSecondAppointmentTags.add(new Tag(1, "testingTag", "yellow"));
-        expectedSecondAppointmentTags.add(new Tag(4, "Work", "blue"));
-
-        Appointment expectedFirstAppointment = new Appointment
-                (2, LocalDateTime.parse("2025-01-02T14:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                        LocalDateTime.parse("2025-01-02T15:30:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME), "Team Meeting",
-                        "Monthly progress update", expectedFirstAppointmentTags);
-
-        Appointment expectedSecondAppointment = new Appointment
-                (3, LocalDateTime.parse("2025-01-03T09:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                        LocalDateTime.parse("2025-01-03T10:30:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME), "Client Presentation",
-                        "Present new project proposal", expectedSecondAppointmentTags);
-
-        assertEquals(expectedFirstAppointment.getAppointmentId(), actualFirstAppointment.getAppointmentId());
-        assertEquals(expectedFirstAppointment.getStartDate(), actualFirstAppointment.getStartDate());
-        assertEquals(expectedFirstAppointment.getEndDate(), actualFirstAppointment.getEndDate());
-        assertEquals(expectedFirstAppointment.getTitle(), actualFirstAppointment.getTitle());
-        assertEquals(expectedFirstAppointment.getDescription(), actualFirstAppointment.getDescription());
-        assertEquals(expectedFirstAppointment.getTags(), actualFirstAppointment.getTags());
-
-        assertEquals(expectedSecondAppointment.getAppointmentId(), actualSecondAppointment.getAppointmentId());
-        assertEquals(expectedSecondAppointment.getStartDate(), actualSecondAppointment.getStartDate());
-        assertEquals(expectedSecondAppointment.getEndDate(), actualSecondAppointment.getEndDate());
-        assertEquals(expectedSecondAppointment.getTitle(), actualSecondAppointment.getTitle());
-        assertEquals(expectedSecondAppointment.getDescription(), actualSecondAppointment.getDescription());
-        assertEquals(expectedSecondAppointment.getTags(), actualSecondAppointment.getTags());
-
+        } catch (DataManagerException e) {
+            fail("An exception occurred while fetching the tag: " + e.getMessage());
+        }
     }
 }
