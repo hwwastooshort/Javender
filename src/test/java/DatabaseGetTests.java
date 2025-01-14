@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class DatabaseGetTests {
 
-    private final DataManager dm = new DataManager("jdbc:sqlite:src/main/resources/javenderDatabase.db");
+    private final DataManager dm = new DataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
 
     @Test
     void testGetAppointmentFromDatabaseById() {

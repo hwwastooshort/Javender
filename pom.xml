@@ -55,7 +55,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
                 <configuration>
-                    <release>21</release> <!-- Verwendet hier eine gültige Version -->
+                    <release>21</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -72,7 +72,7 @@
                         <configuration>
                             <jdbc>
                                 <driver>org.sqlite.JDBC</driver>
-                                <url>jdbc:sqlite:${project.basedir}/src/main/resources/javenderDataBase.db</url>
+                                <url>jdbc:sqlite:${project.basedir}/src/test/resources/javenderDataBase.db</url>
                             </jdbc>
                             <generator>
                                 <database>
