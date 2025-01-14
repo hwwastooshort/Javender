@@ -1,4 +1,4 @@
-package Domain.Entities;
+package Model.Entities;
 
 import java.time.LocalDateTime;
 import java.util.List;

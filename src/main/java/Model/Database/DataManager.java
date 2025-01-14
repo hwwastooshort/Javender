@@ -1,15 +1,13 @@
-package Domain.Database;
+package Model.Database;
 
-import Domain.Entities.Appointment;
-import Domain.Entities.Tag;
+import Model.Entities.Appointment;
+import Model.Entities.Tag;
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.Result;
 import org.jooq.SQLDialect;
-import org.jooq.TableField;
 import org.jooq.impl.DSL;
 
-import javax.swing.text.html.Option;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

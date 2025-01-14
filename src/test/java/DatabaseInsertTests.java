@@ -1,8 +1,8 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import Domain.Database.DataManager;
-import Domain.Entities.Appointment;
-import Domain.Entities.Tag;
+import Model.Database.DataManager;
+import Model.Entities.Appointment;
+import Model.Entities.Tag;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
