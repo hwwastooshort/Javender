@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public class DatabaseInsertTests {
 
-    private final DataManager dm = new DataManager();
+    private final DataManager dm = new DataManager("jdbc:sqlite:src/main/resources/javenderDatabase.db");
 
     @AfterEach
     void cleanUp() {

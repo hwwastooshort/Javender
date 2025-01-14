@@ -23,16 +23,22 @@ import static org.jooq.generated.Tables.*;
 
 public class DataManager {
 
-    private static final String PATH_TO_DATABASE = "jdbc:sqlite:src/main/resources/javenderDatabase.db";
+    private final String PATH_TO_DATABASE;
+    private final Connection connection;
+    private final DSLContext create;
 
+    public DataManager(String path_to_database) {
+        this.PATH_TO_DATABASE = path_to_database;
+        try {
+            this.connection = DriverManager.getConnection(PATH_TO_DATABASE);
+            this.create = DSL.using(connection, SQLDialect.SQLITE);
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to connect to database: " + path_to_database, e);
+        }
+    }
     public enum DateFilter {
         STARTDATE,
         ENDDATE
-    }
-
-
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(PATH_TO_DATABASE);
     }
 
     /**
@@ -42,9 +48,7 @@ public class DataManager {
      * @return Optional of Appointment, returns empty Optional if the appointmentId doesn't exist
      */
     public Optional<Appointment> getAppointmentById(int appointmentId) {
-        try (Connection conn = getConnection()) {
-            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
-
+        try {
             Record record = create.select()
                     .from(APPOINTMENT)
                     .where(APPOINTMENT.APPOINTMENTID.eq(appointmentId))
@@ -71,8 +75,9 @@ public class DataManager {
 
             return Optional.of(appointment);
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            //TODO: Logging
         }
 
         return Optional.empty();
@@ -86,9 +91,7 @@ public class DataManager {
      */
 
     public Optional<List<Tag>> getTagByAppointmentId(int appointmentId) {
-        try (Connection conn = getConnection()) {
-            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
-
+        try {
             Result<?> result = create.select()
                     .from(APPOINTMENTTAG)
                     .join(TAG).on(APPOINTMENTTAG.TAGID.eq(TAG.TAGID))
@@ -109,7 +112,7 @@ public class DataManager {
 
             return Optional.of(tagList);
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -123,9 +126,7 @@ public class DataManager {
      */
 
     public Optional<List<Appointment>> getAppointmentsByDate(LocalDate date, DateFilter dateFilter) {
-        try (Connection conn = getConnection()) {
-            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
-
+        try {
             String datePrefix = date.toString() + "T"; // example: "2025-01-01T"
 
             Result<?> result;
@@ -173,8 +174,9 @@ public class DataManager {
 
             return Optional.of(appointmentList);
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
+            //TODO: Logging, individual Exception
         }
     }
 
@@ -187,9 +189,7 @@ public class DataManager {
      */
 
     public Optional<List<Appointment>> getAppointmentsByRange(LocalDateTime startDateTime, LocalDateTime endDateTime) {
-        try (Connection conn = getConnection()) {
-            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
-
+        try {
             Result<?> result = create.select()
                     .from(APPOINTMENT)
                     .where(APPOINTMENT.STARTDATE.between(
@@ -223,8 +223,9 @@ public class DataManager {
 
             return Optional.of(appointmentList);
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
+            //TODO: Logging, individual Exception
         }
     }
 
@@ -236,8 +237,7 @@ public class DataManager {
      */
 
     public Optional<Tag> getTagById(int tagId) {
-        try (Connection conn = getConnection()) {
-            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
+        try {
             Record record = create.select().from(TAG).where(TAG.TAGID.eq(tagId)).fetchOne();
 
             if (record == null) {
@@ -251,8 +251,9 @@ public class DataManager {
 
             return Optional.of(tag);
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            //TODO: logging, individual Exception
         }
         return Optional.empty();
     }
@@ -265,8 +266,7 @@ public class DataManager {
      */
 
     public Optional<List<Appointment>> getAppointmentsByTagId(int tagId) {
-        try (Connection conn = getConnection()) {
-            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
+        try {
             Result<?> result = create.select()
                     .from(APPOINTMENT)
                     .join(APPOINTMENTTAG).on(APPOINTMENT.APPOINTMENTID.eq(APPOINTMENTTAG.APPOINTMENTID))
@@ -289,16 +289,15 @@ public class DataManager {
 
             return Optional.of(appointmentList);
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            //TODO: logging, individual Exception
         }
         return Optional.empty();
     }
 
     public boolean addAppointment(Appointment appointment) {
-        try (Connection conn = getConnection()) {
-            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
-
+        try {
             int appointmentId = appointment.getAppointmentId();
             LocalDateTime startDate = appointment.getStartDate();
             LocalDateTime endDate = appointment.getEndDate();
@@ -322,16 +321,15 @@ public class DataManager {
         } catch (org.jooq.exception.IntegrityConstraintViolationException e) {
             System.err.println("Integrity constraint violated: " + e.getMessage());
             return false;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            //TODO: logging, individual Exception
             return false;
         }
     }
 
     public boolean removeAppointmentById(int appointmentId) {
-        try (Connection conn = getConnection()) {
-            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
-
+        try {
             create.deleteFrom(APPOINTMENTTAG)
                     .where(APPOINTMENTTAG.APPOINTMENTID.eq(appointmentId))
                     .execute();
@@ -340,8 +338,9 @@ public class DataManager {
                     .execute();
 
             return true;
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            //TODO: logging, individual Exception
             return false;
         }
     }
@@ -352,14 +351,13 @@ public class DataManager {
 
 
     public boolean removeTagByTagId(int tagId) {
-        try(Connection conn = getConnection()) {
-           DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
-
+        try {
            create.deleteFrom(TAG).where(TAG.TAGID.eq(tagId)).execute();
            return true;
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            //TODO: logging, individual Exception
             return false;
         }
     }
@@ -369,9 +367,7 @@ public class DataManager {
     }
 
     public boolean addTag(Tag tag) {
-        try (Connection conn = getConnection()) {
-            DSLContext create = DSL.using(conn, SQLDialect.SQLITE);
-
+        try {
             int tagId = tag.getTagId();
             String name = tag.getName();
             String color = tag.getColor();
@@ -379,11 +375,9 @@ public class DataManager {
             create.insertInto(TAG).values(tagId, name, color).execute();
             return true;
 
-        } catch(SQLException e) {
+        } catch(Exception e) {
             e.printStackTrace();
-            return false;
-        } catch (org.jooq.exception.IntegrityConstraintViolationException e) {
-            System.err.println("Integrity constraint violated: " + e.getMessage());
+            //TODO: logging, individual Exception
             return false;
         }
     }

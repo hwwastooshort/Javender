@@ -4,10 +4,6 @@ import Model.Database.DataManager;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
 import org.junit.jupiter.api.Test;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,20 +13,10 @@ import java.util.Optional;
 
 public class DatabaseGetTests {
 
-    @Test
-    public void testDatabaseConnection() {
-        String url = "jdbc:sqlite:src/main/resources/javenderDataBase.db";
-        try (Connection connection = DriverManager.getConnection(url)) {
-            assertNotNull(connection, "Connection to Database should not be null");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new AssertionError("Connection couldn't be established", e);
-        }
-    }
+    DataManager dm = new DataManager("jdbc:sqlite:src/main/resources/javenderDatabase.db");
 
     @Test
     void testGetAppointmentFromDatabaseById() {
-        DataManager dm = new DataManager();
         int appointmentId = 1;
 
         Optional<Appointment> optionalResult = dm.getAppointmentById(appointmentId);
@@ -59,7 +45,6 @@ public class DatabaseGetTests {
 
     @Test
     void testGetTagsByIdFromDatabase() {
-        DataManager dm = new DataManager();
         int appointmentId = 3;
 
         Optional<List<Tag>> optionalTags = dm.getTagByAppointmentId(appointmentId);
@@ -75,7 +60,6 @@ public class DatabaseGetTests {
 
     @Test
     void testGetAppointmentsByStartDate() {
-        DataManager dm = new DataManager();
         LocalDate testDate = LocalDate.of(2025, 1, 1);
 
         Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByDate(testDate, DataManager.DateFilter.STARTDATE);
@@ -91,7 +75,6 @@ public class DatabaseGetTests {
 
     @Test
     void testGetAppointmentsByEndDate() {
-        DataManager dm = new DataManager();
         LocalDate testDate = LocalDate.of(2025, 1, 2);
 
         Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByDate(testDate, DataManager.DateFilter.ENDDATE);
@@ -107,7 +90,6 @@ public class DatabaseGetTests {
 
     @Test
     void testGetAppointmentsByRangeWithTwoMatchingDates() {
-        DataManager dm = new DataManager();
         LocalDateTime rangeStart = LocalDateTime.of(2025, 1, 1, 00, 0);
         LocalDateTime rangeEnd = LocalDateTime.of(2025, 1, 2, 16, 0);
 
@@ -121,7 +103,6 @@ public class DatabaseGetTests {
 
     @Test
     void testGetApppointmentsByRangeWithNoMatches() {
-        DataManager dm = new DataManager();
         LocalDateTime rangeStart = LocalDateTime.of(2030, 1, 1, 0, 0);
         LocalDateTime rangeEnd = LocalDateTime.of(2040, 1, 1, 0, 0);
 
@@ -131,7 +112,6 @@ public class DatabaseGetTests {
 
     @Test
     void testGetTagById() {
-        DataManager dm = new DataManager();
         int tagId = 1;
 
         Optional<Tag> optionalTag = dm.getTagById(tagId);
@@ -147,7 +127,6 @@ public class DatabaseGetTests {
 
     @Test
     void testGetAppointmentsByTagId() {
-        DataManager dm = new DataManager();
         int tagId = 1;
 
         Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByTagId(tagId);
