@@ -21,6 +21,14 @@ public class Appointment {
         this.tags = tags;
     }
 
+    public Appointment(LocalDateTime startDate, LocalDateTime endDate, String title, String description, List<Tag> tags) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.title = title;
+        this.description = description;
+        this.tags = tags;
+    }
+
     public int getAppointmentId() {
         return appointmentId;
     }

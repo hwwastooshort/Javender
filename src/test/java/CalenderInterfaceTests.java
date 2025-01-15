@@ -8,6 +8,6 @@ public class CalenderInterfaceTests {
     @Test
     void testPrintMonth(){
         CalendarInterface cI = new CalendarInterface();
-        System.out.println(cI.printMonth(LocalDate.now()));
+        System.out.println(cI.getMonth(LocalDate.now().plusMonths(2)));
     }
 }
