@@ -13,6 +13,11 @@ public class Tag {
         this.color = color;
     }
 
+    public Tag(String name, String color) {
+        this.name = name;
+        this.color = color;
+    }
+
     public int getTagId() {
         return tagId;
     }
@@ -42,7 +47,7 @@ public class Tag {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tag tag = (Tag) o;
-        return tagId == tag.tagId && Objects.equals(name, tag.name) && Objects.equals(color, tag.color);
+        return Objects.equals(name, tag.name) && Objects.equals(color, tag.color);
     }
 
     @Override

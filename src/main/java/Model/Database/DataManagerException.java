@@ -1,7 +1,5 @@
 package Model.Database;
 
-import com.sun.source.doctree.ThrowsTree;
-
 public class DataManagerException extends Exception {
     public DataManagerException() {
 

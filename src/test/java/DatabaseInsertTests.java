@@ -7,6 +7,7 @@ import Model.Entities.Tag;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -34,82 +35,77 @@ public class DatabaseInsertTests {
     }
 
     @Test
-    void testSuccessfulAppointmentInsertion() {
-        Appointment appointment = new Appointment(
-                100,
-                LocalDateTime.parse("2026-01-01T10:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                LocalDateTime.parse("2027-01-01T10:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                "Handy spielen!",
-                "Brawl Stars mit Simon",
-                new ArrayList<>(Arrays.asList(new Tag(1, "testingTag", "yellow")))
+    void testAddAppointment() {
+        Appointment insertAppointment = new Appointment(
+                LocalDateTime.parse("2030-10-01T00:00:00"),
+                LocalDateTime.parse("2030-10-01T02:00:00"),
+                "BastiGHG gucken",
+                "Mit Mike, Lisa, Simon und hw nen BastiGHG Atzenstream anmachen",
+                Arrays.asList(
+                        new Tag(1,"testingTag", "yellow"),
+                        new Tag(6,"Health", "red")
+                )
         );
 
         try {
-            boolean result = dm.addAppointment(appointment);
+            int insertedId = dm.addAppointment(insertAppointment);
+            Optional<Appointment> insertedAppointment = dm.getAppointmentById(insertedId);
 
-            assertTrue(result, "Insertion of this Appointment should be possible");
+            if (insertedAppointment.isEmpty()) {
+                fail("The Appointment wasn't inserted into the database");
+            }
 
-            Optional<Appointment> checkAppointment = dm.getAppointmentById(100);
+            Appointment actualInsertedAppointment = insertedAppointment.get();
 
-            assertTrue(checkAppointment.isPresent(), "Appointment should now be in the database");
+            assertEquals(insertedId, actualInsertedAppointment.getAppointmentId());
+            assertEquals(insertAppointment.getTitle(), actualInsertedAppointment.getTitle());
+            assertEquals(insertAppointment.getStartDate(), actualInsertedAppointment.getStartDate());
+            assertEquals(insertAppointment.getEndDate(), actualInsertedAppointment.getEndDate());
+            assertEquals(insertAppointment.getDescription(), actualInsertedAppointment.getDescription());
+            assertEquals(insertAppointment.getTags(), actualInsertedAppointment.getTags());
 
-            Appointment appointmentFromDatabase = checkAppointment.get();
-            assertEquals(appointment.getAppointmentId(), appointmentFromDatabase.getAppointmentId(),
-                    "Appointment ID should match");
-            assertEquals(appointment.getStartDate(), appointmentFromDatabase.getStartDate(),
-                    "Start date should match");
-            assertEquals(appointment.getEndDate(), appointmentFromDatabase.getEndDate(),
-                    "End date should match");
-            assertEquals(appointment.getTitle(), appointmentFromDatabase.getTitle(),
-                    "Title should match");
-            assertEquals(appointment.getDescription(), appointmentFromDatabase.getDescription(),
-                    "Description should match");
-            assertEquals(appointment.getTags(), appointmentFromDatabase.getTags(),
-                    "Tags should match");
+            dm.removeAppointment(actualInsertedAppointment);
+
+            Optional<Appointment> fetchedAppointment = dm.getAppointmentById(insertedId);
+
+            if (fetchedAppointment.isPresent()) {
+                fail("Entry should not be in Database");
+            }
 
         } catch (DataManagerException e) {
-            fail("Exception should not be thrown during successful appointment insertion: " + e.getMessage());
+            e.printStackTrace();
+            fail("Something went wrong");
         }
     }
 
     @Test
-    void testUnsuccessfulAppointmentInsertion_IdAlreadyInDataBase() {
-        Appointment appointment = new Appointment(
-                1,
-                LocalDateTime.parse("2025-01-01T10:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                LocalDateTime.parse("2025-01-08T10:00:00", DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                "Taking the most important step",
-                "the next one",
-                new ArrayList<>(List.of(new Tag(1, "testingTag", "yellow")))
-        );
-
+    void testAddingAndRemovingTags() {
+        Tag insertTag = new Tag("Hardcore Bodybuilding", "Regenbogen");
         try {
-            boolean result = dm.addAppointment(appointment);
-            assertFalse(result, "Insertion should fail, Id is already in use");
-        } catch (DataManagerException e) {
-            assertTrue(e.getMessage().contains("UNIQUE constraint failed"),
-                    "Expected UNIQUE constraint violation, but got: " + e.getMessage());
-        }
-    }
+            int insertId = dm.addTag(insertTag);
+            Optional<Tag> insertedTag = dm.getTagById(insertId);
 
-    @Test
-    void testSuccessfulTagInsertion() {
-        Tag tag = new Tag(100, "Simon Says a lot", "käseweiß");
+            if (insertedTag.isEmpty()) {
+                fail("The Tag wasn't inserted into the Database");
+            }
 
-        try {
-            boolean result = dm.addTag(tag);
-            assertTrue(result, "Insertion should not fail, tagId is free");
+            Tag actualInsertedTag = insertedTag.get();
 
-            Optional<Tag> checkTag = dm.getTagById(100);
-            assertTrue(checkTag.isPresent(), "Tag should now be in the database");
+            assertEquals(insertId, actualInsertedTag.getTagId());
+            assertEquals(insertTag.getName(),actualInsertedTag.getName());
+            assertEquals(insertTag.getColor(), actualInsertedTag.getColor());
 
-            Tag tagFromDatabase = checkTag.get();
-            assertEquals(tag.getTagId(), tagFromDatabase.getTagId(), "Tag ID should match");
-            assertEquals(tag.getName(), tagFromDatabase.getName(), "Tag name should match");
-            assertEquals(tag.getColor(), tagFromDatabase.getColor(), "Tag color should match");
+            dm.removeTag(actualInsertedTag);
+            Optional<Tag> fetchedTag = dm.getTagById(insertId);
+
+            if (fetchedTag.isPresent()) {
+                fail("Entry should not be in Database");
+            }
+
 
         } catch (DataManagerException e) {
-            fail("Exception should not be thrown during successful tag insertion: " + e.getMessage());
+            e.printStackTrace();
+            fail("Something went wrong: " + e.getMessage());
         }
     }
 }

@@ -25,7 +25,7 @@ public class DatabaseGetTests {
             assertTrue(optionalResult.isPresent(),
                     "Result should not be empty, there is an element with that appointmentId in the database");
 
-            Appointment result = optionalResult.get(); // Zugriff auf den Wert, da wir sicher sind, dass er vorhanden ist
+            Appointment result = optionalResult.get();
 
             assertEquals(appointmentId, result.getAppointmentId(), "AppointmentId's should be equal");
 
@@ -55,7 +55,7 @@ public class DatabaseGetTests {
         int appointmentId = 3;
 
         try {
-            Optional<List<Tag>> optionalTags = dm.getTagByAppointmentId(appointmentId);
+            Optional<List<Tag>> optionalTags = dm.getTagsByAppointmentId(appointmentId);
 
             assertTrue(optionalTags.isPresent(), "Tags should be present for appointmentId 3");
 

@@ -70,7 +70,7 @@ public class DataManager {
                     endDate,
                     record.getValue(APPOINTMENT.TITLE),
                     record.getValue(APPOINTMENT.DESCRIPTION),
-                    getTagByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
+                    getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
             );
 
             return Optional.of(appointment);
@@ -88,7 +88,7 @@ public class DataManager {
      * @return the list of tags matching the appointmentId as an Optional, returns empty Optional if there are none
      */
 
-    public Optional<List<Tag>> getTagByAppointmentId(int appointmentId) throws DataManagerException {
+    public Optional<List<Tag>> getTagsByAppointmentId(int appointmentId) throws DataManagerException {
         try {
             Result<?> result = create.select()
                     .from(APPOINTMENTTAG)
@@ -166,7 +166,7 @@ public class DataManager {
                                     endDate,
                                     record.getValue(APPOINTMENT.TITLE),
                                     record.getValue(APPOINTMENT.DESCRIPTION),
-                                    getTagByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
+                                    getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
                             );
                         } catch (DataManagerException e) {
                             throw new RuntimeException(e);
@@ -218,7 +218,7 @@ public class DataManager {
                                     endDate,
                                     record.getValue(APPOINTMENT.TITLE),
                                     record.getValue(APPOINTMENT.DESCRIPTION),
-                                    getTagByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
+                                    getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
                             );
                         } catch (DataManagerException e) {
                             throw new RuntimeException(e);
@@ -290,7 +290,7 @@ public class DataManager {
                                     LocalDateTime.parse(record.getValue(APPOINTMENT.ENDDATE)),
                                     record.getValue(APPOINTMENT.TITLE),
                                     record.getValue(APPOINTMENT.DESCRIPTION),
-                                    getTagByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).get()
+                                    getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).get()
                             );
                         } catch (DataManagerException e) {
                             throw new RuntimeException(e);
@@ -306,37 +306,49 @@ public class DataManager {
         }
     }
 
-    public boolean addAppointment(Appointment appointment) throws DataManagerException {
+    public int addAppointment(Appointment appointment) throws DataManagerException {
         try {
-            int appointmentId = appointment.getAppointmentId();
             LocalDateTime startDate = appointment.getStartDate();
             LocalDateTime endDate = appointment.getEndDate();
             String title = appointment.getTitle();
             String description = appointment.getDescription();
             List<Tag> tags = appointment.getTags();
 
-            create.insertInto(APPOINTMENT, APPOINTMENT.APPOINTMENTID, APPOINTMENT.STARTDATE, APPOINTMENT.ENDDATE,
+            // Füge den Termin ein und erhalte die ID
+            int insertedId = create.insertInto(APPOINTMENT, APPOINTMENT.STARTDATE, APPOINTMENT.ENDDATE,
                             APPOINTMENT.TITLE, APPOINTMENT.DESCRIPTION)
-                    .values(appointmentId, startDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                            endDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), title, description).execute();
+                    .values(startDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                            endDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), title, description)
+                    .returning(APPOINTMENT.APPOINTMENTID)
+                    .fetchOne()
+                    .getValue(APPOINTMENT.APPOINTMENTID);
 
+            // Wenn Tags vorhanden sind, füge sie hinzu, aber prüfe auf Duplikate
             if (tags != null && !tags.isEmpty()) {
                 for (Tag tag : tags) {
-                    create.insertInto(APPOINTMENTTAG, APPOINTMENTTAG.APPOINTMENTID, APPOINTMENTTAG.TAGID)
-                            .values(appointmentId, tag.getTagId())
-                            .execute();
+                    boolean exists = create.fetchExists(
+                            create.selectOne()
+                                    .from(APPOINTMENTTAG)
+                                    .where(APPOINTMENTTAG.APPOINTMENTID.eq(insertedId)
+                                            .and(APPOINTMENTTAG.TAGID.eq(tag.getTagId())))
+                    );
+                    if (!exists) {
+                        create.insertInto(APPOINTMENTTAG, APPOINTMENTTAG.APPOINTMENTID, APPOINTMENTTAG.TAGID)
+                                .values(insertedId, tag.getTagId())
+                                .execute();
+                    }
                 }
             }
-            return true;
+
+            return insertedId;
         } catch (org.jooq.exception.IntegrityConstraintViolationException e) {
-            throw new DataManagerException(e.getMessage());
+            throw new DataManagerException("Integrity constraint violation: " + e.getMessage());
         } catch (Exception e) {
-            throw new DataManagerException(e.getMessage());
-            //TODO: logging, individual Exception
+            throw new DataManagerException("Error adding appointment: " + e.getMessage());
         }
     }
 
-    public boolean removeAppointmentById(int appointmentId) throws DataManagerException {
+    public void removeAppointmentById(int appointmentId) throws DataManagerException {
         try {
             create.deleteFrom(APPOINTMENTTAG)
                     .where(APPOINTMENTTAG.APPOINTMENTID.eq(appointmentId))
@@ -344,16 +356,14 @@ public class DataManager {
 
             create.delete(APPOINTMENT).where(APPOINTMENT.APPOINTMENTID.eq(appointmentId))
                     .execute();
-
-            return true;
         } catch (Exception e) {
             throw new DataManagerException(e.getMessage());
             //TODO: logging, individual Exception
         }
     }
 
-    public boolean removeAppointment(Appointment appointment) throws DataManagerException {
-        return removeAppointmentById(appointment.getAppointmentId());
+    public void removeAppointment(Appointment appointment) throws DataManagerException {
+        removeAppointmentById(appointment.getAppointmentId());
     }
 
 
@@ -372,14 +382,16 @@ public class DataManager {
         return removeTagByTagId(tag.getTagId());
     }
 
-    public boolean addTag(Tag tag) throws DataManagerException {
+    public int addTag(Tag tag) throws DataManagerException {
         try {
-            int tagId = tag.getTagId();
             String name = tag.getName();
             String color = tag.getColor();
 
-            create.insertInto(TAG).values(tagId, name, color).execute();
-            return true;
+            return create.insertInto(TAG, TAG.NAME, TAG.COLOR)
+                    .values(name, color)
+                    .returning(TAG.TAGID)
+                    .fetchOne()
+                    .getValue(TAG.TAGID);
 
         } catch(Exception e) {
             throw new DataManagerException(e.getMessage());
