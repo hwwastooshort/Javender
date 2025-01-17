@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 import static org.jooq.generated.Tables.*;
 
-public class JooqDataManager {
+public class JooqDataManager implements DataManager {
 
     private final String PATH_TO_DATABASE;
     private final Connection connection;

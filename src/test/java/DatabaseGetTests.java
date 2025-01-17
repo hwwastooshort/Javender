@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import Model.Database.DataManager;
 import Model.Database.JooqDataManager;
 import Model.Database.DataManagerException;
 import Model.Entities.Appointment;
