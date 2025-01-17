@@ -93,7 +93,7 @@ public class DatabaseGetTests {
     }
 
     @Test
-    void testGetAppointmentsByRangeWithTwoMatchingDates() {
+    void testGetAppointmentsByRangeWithTwoMatchingDates() throws DataManagerException {
         LocalDateTime rangeStart = LocalDateTime.of(2025, 1, 1, 0, 0);
         LocalDateTime rangeEnd = LocalDateTime.of(2025, 1, 2, 16, 0);
 
