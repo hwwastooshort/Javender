@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public class DatabaseGetTests {
 
-    private final JooqDataManager dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
+    private final DataManager dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
 
     @Test
     void testGetAppointmentFromDatabaseById() {

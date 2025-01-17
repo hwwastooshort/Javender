@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import Model.Database.DataManager;
 import Model.Database.JooqDataManager;
 import Model.Database.DataManagerException;
 import Model.Entities.Appointment;
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 public class DatabaseInsertTests {
 
-    private final JooqDataManager dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
+    private final DataManager dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
 
     @AfterEach
     void cleanUp() {

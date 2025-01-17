@@ -30,4 +30,8 @@ public interface DataManager {
 
     public int addTag(Tag tag) throws DataManagerException;
 
+    public void removeAppointment(Appointment appointment) throws DataManagerException;
+
+    public boolean removeTag(Tag tag) throws DataManagerException;
+
     }
