@@ -1,6 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import Model.Database.DataManager;
+import Model.Database.JooqDataManager;
 import Model.Database.DataManagerException;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class DatabaseGetTests {
 
-    private final DataManager dm = new DataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
+    private final JooqDataManager dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
 
     @Test
     void testGetAppointmentFromDatabaseById() {
@@ -77,7 +77,7 @@ public class DatabaseGetTests {
         LocalDate testDate = LocalDate.of(2025, 1, 1);
 
         try {
-            Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByDate(testDate, DataManager.DateFilter.STARTDATE);
+            Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByDate(testDate, JooqDataManager.DateFilter.STARTDATE);
 
             assertTrue(optionalAppointments.isPresent(), "Appointments for the given date should not be empty");
             List<Appointment> appointments = optionalAppointments.get();

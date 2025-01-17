@@ -1,23 +1,19 @@
 import static org.junit.jupiter.api.Assertions.*;
 
-import Model.Database.DataManager;
+import Model.Database.JooqDataManager;
 import Model.Database.DataManagerException;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.crypto.Data;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 public class DatabaseInsertTests {
 
-    private final DataManager dm = new DataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
+    private final JooqDataManager dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
 
     @AfterEach
     void cleanUp() {
