@@ -1,6 +1,7 @@
 package View;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
@@ -28,17 +29,10 @@ public class CalendarController {
         }
     }
 
-    public boolean validateDateOrder(LocalDate startDate, LocalDate endDate){
-        if(startDate.isAfter(endDate)){
-            uI.printError("The start date can't be after the end date.");
+    public boolean validateDateTimeOrder(LocalDateTime start, LocalDateTime end){
+        if(start.isAfter(end)){
+            uI.printError("Your appointment can not end before it starts.");
         }
-        return startDate.isAfter(endDate);
-    }
-
-    public boolean validateTimeOrder(LocalTime startTime, LocalTime endTime){
-        if(startTime.isAfter(endTime)){
-            uI.printError("The start time can't be after the end time.");
-        }
-        return startTime.isAfter(endTime);
+        return start.isAfter(end);
     }
 }
