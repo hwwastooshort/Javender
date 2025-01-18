@@ -60,36 +60,40 @@ public class CalendarInterface implements UserInterface{
 
     public String getTitle(){
         System.out.print("Title: ");
-        return scanner.next();
+        return scanner.nextLine();
     }
 
-    public LocalDate getStartDate(){
+    public String getStartDate(){
         System.out.print("Start Date (e.g: YYYY-MM-DD): ");
-        String startDateString = scanner.next();
-        return LocalDate.parse(startDateString);
+        String startDate = scanner.next();
+        scanner.nextLine(); //consumes \n from the input above, since scanner.next doesn't read \n characters
+        return startDate;
     }
 
-    public LocalDate getEndDate(){
-            System.out.print("End Date (e.g: YYYY-MM-DD): ");
-            String endDateString = scanner.next();
-            return LocalDate.parse(endDateString);
+    public String getEndDate(){
+        System.out.print("End Date (e.g: YYYY-MM-DD): ");
+        String endDate = scanner.next();
+        scanner.nextLine(); //consumes \n from the input above, since scanner.next doesn't read \n characters
+        return endDate;
     }
 
-    public LocalTime getStartTime(){
+    public String getStartTime(){
         System.out.print("Start Time (e.g hh:mm): ");
-        String startTimeString = scanner.next();
-        return LocalTime.parse(startTimeString);
+        String startTime = scanner.next();
+        scanner.nextLine(); //consumes \n from the input above, since scanner.next doesn't read \n characters
+        return startTime;
     }
 
-    public LocalTime getEndTime(){
+    public String getEndTime(){
         System.out.print("End Time (e.g hh:mm): ");
-        String endTimeString = scanner.next();
-        return LocalTime.parse(endTimeString);
+        String endTime = scanner.next();
+        scanner.nextLine(); //consumes \n from the input above, since scanner.next doesn't read \n characters
+        return endTime;
     }
 
     public String getDescription(){
         System.out.println("Description: ");
-        return scanner.nextLine(); //TODO nextLine Problem lösen
+        return scanner.nextLine();
     }
 
     public List<Tag> getTags(){

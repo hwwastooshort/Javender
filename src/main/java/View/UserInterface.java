@@ -20,13 +20,13 @@ public interface UserInterface {
 
     String getTitle();
 
-    LocalDate getStartDate();
+    String getStartDate();
 
-    LocalDate getEndDate();
+    String getEndDate();
 
-    LocalTime getStartTime();
+    String getStartTime();
 
-    LocalTime getEndTime();
+    String getEndTime();
 
     String getDescription();
 
