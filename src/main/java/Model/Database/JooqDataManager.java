@@ -18,43 +18,46 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.jooq.generated.Tables.*;
 
 public class JooqDataManager implements DataManager {
 
+    private static final Logger logger = LoggerFactory.getLogger(JooqDataManager.class);
     private final String PATH_TO_DATABASE;
     private final Connection connection;
     private final DSLContext create;
 
-    public JooqDataManager(String path_to_database) {
+    public JooqDataManager(String path_to_database) throws DataManagerException {
+        logger.info("Initializing new JooqDataManager to: {}", path_to_database);
         this.PATH_TO_DATABASE = path_to_database;
         try {
             this.connection = DriverManager.getConnection(PATH_TO_DATABASE);
             this.create = DSL.using(connection, SQLDialect.SQLITE);
+            logger.info("Successfully connected to database: {}", path_to_database);
         } catch (SQLException e) {
-            throw new RuntimeException("Failed to connect to database: " + path_to_database, e);
+            logger.error("Connection to Database failed: {}", e.getMessage());
+            throw new DataManagerException("Failed to connect to database: " + path_to_database, e);
         }
     }
+
     public enum DateFilter {
         STARTDATE,
         ENDDATE
     }
 
-    /**
-     * Method for fetching data of an Appointment based on the appointmentId
-     *
-     * @param appointmentId the Appointment we want to look up
-     * @return Optional of Appointment, returns empty Optional if the appointmentId doesn't exist
-     */
     public Optional<Appointment> getAppointmentById(int appointmentId) throws DataManagerException {
         try {
+            logger.info("Fetching appointment with ID: {}", appointmentId);
             Record record = create.select()
                     .from(APPOINTMENT)
                     .where(APPOINTMENT.APPOINTMENTID.eq(appointmentId))
                     .fetchOne();
 
             if (record == null) {
+                logger.warn("No appointment found with ID: {}", appointmentId);
                 return Optional.empty();
             }
 
@@ -73,23 +76,18 @@ public class JooqDataManager implements DataManager {
                     getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
             );
 
+            logger.debug("Successfully fetched appointment: {}", appointment);
             return Optional.of(appointment);
 
         } catch (Exception e) {
+            logger.error("Error occurred while fetching appointment by ID: {}", appointmentId, e);
             throw new DataManagerException(e.getMessage());
-            //TODO: Logging
         }
     }
 
-    /**
-     * Method for fetching Data of Tags, which belong to a unique appointmentId
-     *
-     * @param appointmentId the appointmentId of the Appointment which is used for Joining
-     * @return the list of tags matching the appointmentId as an Optional, returns empty Optional if there are none
-     */
-
     public Optional<List<Tag>> getTagsByAppointmentId(int appointmentId) throws DataManagerException {
         try {
+            logger.info("Fetching Tags assigned to Appointment: {}", appointmentId);
             Result<?> result = create.select()
                     .from(APPOINTMENTTAG)
                     .join(TAG).on(APPOINTMENTTAG.TAGID.eq(TAG.TAGID))
@@ -97,6 +95,7 @@ public class JooqDataManager implements DataManager {
                     .fetch();
 
             if (result.isEmpty()) {
+                logger.warn("No Tags found for Appointment: {}", appointmentId);
                 return Optional.empty();
             }
 
@@ -108,35 +107,32 @@ public class JooqDataManager implements DataManager {
                     ))
                     .collect(Collectors.toList());
 
+            logger.debug("Successfully fetched tags: {}", tagList);
             return Optional.of(tagList);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            logger.error("Error occurred while fetching tags for appointment: {}", appointmentId, e);
+            throw new DataManagerException(e);
         }
     }
 
-    /**
-     * Method for fetching a list of appointments, which starts or ends at a specific date
-     *
-     * @param date       the date to be searched for
-     * @param dateFilter the filter option to decide if the given date should match the start- or the end date of an appointment
-     * @return the list of appointments matching the date, returns null, if no appointments were found
-     */
-
     public Optional<List<Appointment>> getAppointmentsByDate(LocalDate date, DateFilter dateFilter) throws DataManagerException {
         try {
-            String datePrefix = date.toString() + "T"; // example: "2025-01-01T"
+            logger.info("Fetching appointments on date: {} with filter: {}", date, dateFilter);
+            String datePrefix = date.toString() + "T";
 
             Result<?> result;
 
             switch (dateFilter) {
                 case STARTDATE:
+                    logger.info("Fetching Appointments with StartDate: {}", date);
                     result = create.select()
                             .from(APPOINTMENT)
                             .where(APPOINTMENT.STARTDATE.like(datePrefix + "%"))
                             .fetch();
                     break;
                 case ENDDATE:
+                    logger.info("Fetching Appointments with EndDate: {}", date);
                     result = create.select()
                             .from(APPOINTMENT)
                             .where(APPOINTMENT.ENDDATE.like(datePrefix + "%"))
@@ -148,6 +144,7 @@ public class JooqDataManager implements DataManager {
             }
 
             if (result.isEmpty()) {
+                logger.warn("No appointments found matching the date: {} with filter: {}", date, dateFilter);
                 return Optional.empty();
             }
 
@@ -169,29 +166,25 @@ public class JooqDataManager implements DataManager {
                                     getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
                             );
                         } catch (DataManagerException e) {
+                            logger.error("Error occurred while creating appointment object for ID: {}", record.getValue(APPOINTMENT.APPOINTMENTID), e);
                             throw new RuntimeException(e);
                         }
                     })
                     .collect(Collectors.toList());
 
+            logger.debug("Successfully fetched {} appointments for date: {}", appointmentList.size(), date);
             return Optional.of(appointmentList);
 
         } catch (Exception e) {
+            logger.error("Error occurred while fetching appointments by date: {}", date, e);
             throw new DataManagerException(e.getMessage());
-            //TODO: Logging, individual Exception
         }
     }
 
-    /**
-     * Method for fetching Appointments in a given Time Intervall
-     *
-     * @param startDateTime start of the Intervall
-     * @param endDateTime   end of the Intervall
-     * @return Optional of a List of Appointments, returns an empty Optional if Query has no matches
-     */
-
     public Optional<List<Appointment>> getAppointmentsByRange(LocalDateTime startDateTime, LocalDateTime endDateTime) throws DataManagerException {
         try {
+            logger.info("Fetching appointments between {} and {}", startDateTime, endDateTime);
+
             Result<?> result = create.select()
                     .from(APPOINTMENT)
                     .where(APPOINTMENT.STARTDATE.between(
@@ -200,6 +193,7 @@ public class JooqDataManager implements DataManager {
                     .fetch();
 
             if (result.isEmpty()) {
+                logger.warn("No appointments found between {} and {}", startDateTime, endDateTime);
                 return Optional.empty();
             }
 
@@ -221,32 +215,28 @@ public class JooqDataManager implements DataManager {
                                     getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
                             );
                         } catch (DataManagerException e) {
+                            logger.error("Error occurred while fetching tags for appointment ID: {}", record.getValue(APPOINTMENT.APPOINTMENTID), e);
                             throw new RuntimeException(e);
                         }
-
                     })
                     .collect(Collectors.toList());
 
+            logger.debug("Successfully fetched {} appointments between {} and {}", appointmentList.size(), startDateTime, endDateTime);
             return Optional.of(appointmentList);
 
         } catch (Exception e) {
-            throw new DataManagerException(e);
-            //TODO: Logging, individual Exception
+            logger.error("Error occurred while fetching appointments between {} and {}", startDateTime, endDateTime, e);
+            throw new DataManagerException("Failed to fetch appointments in the given range.", e);
         }
     }
 
-    /**
-     * Method for fetching a Tag based on its tagId
-     *
-     * @param tagId the given tagId
-     * @return Optional of Tag, returns an empty Optional if Query has no matches
-     */
-
     public Optional<Tag> getTagById(int tagId) throws DataManagerException {
         try {
+            logger.info("Fetching Tag with ID: {}", tagId);
             Record record = create.select().from(TAG).where(TAG.TAGID.eq(tagId)).fetchOne();
 
             if (record == null) {
+                logger.warn("No Tag found with ID: {}", tagId);
                 return Optional.empty();
             }
 
@@ -255,29 +245,26 @@ public class JooqDataManager implements DataManager {
                     record.getValue(TAG.COLOR)
             );
 
+            logger.debug("Successfully fetched Tag with ID: {}", tagId);
             return Optional.of(tag);
 
         } catch (Exception e) {
+            logger.error("Error occurred while fetching Tag with ID: {}", tagId, e);
             throw new DataManagerException(e.getMessage());
-            //TODO: logging, individual Exception
         }
     }
 
-    /**
-     * Method for fetching Appointments based on a given tagId
-     *
-     * @param tagId the given tagId
-     * @return Optional of List of Appointment, returns an empty Optional if Query has no matches
-     */
-
     public Optional<List<Appointment>> getAppointmentsByTagId(int tagId) throws DataManagerException {
         try {
+            logger.info("Fetching appointments for Tag ID: {}", tagId);
             Result<?> result = create.select()
                     .from(APPOINTMENT)
                     .join(APPOINTMENTTAG).on(APPOINTMENT.APPOINTMENTID.eq(APPOINTMENTTAG.APPOINTMENTID))
                     .where(APPOINTMENTTAG.TAGID.eq(tagId))
                     .fetch();
+
             if (result.isEmpty()) {
+                logger.warn("No appointments found for Tag ID: {}", tagId);
                 return Optional.empty();
             }
 
@@ -293,28 +280,30 @@ public class JooqDataManager implements DataManager {
                                     getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).get()
                             );
                         } catch (DataManagerException e) {
+                            logger.error("Error occurred while creating appointment object for Tag ID: {}", tagId, e);
                             throw new RuntimeException(e);
                         }
                     })
                     .collect(Collectors.toList());
 
+            logger.debug("Successfully fetched {} appointments for Tag ID: {}", appointmentList.size(), tagId);
             return Optional.of(appointmentList);
 
         } catch (Exception e) {
+            logger.error("Error occurred while fetching appointments for Tag ID: {}", tagId, e);
             throw new DataManagerException(e.getMessage());
-            //TODO: logging, individual Exception
         }
     }
 
     public int addAppointment(Appointment appointment) throws DataManagerException {
         try {
+            logger.info("Adding new appointment: {}", appointment);
             LocalDateTime startDate = appointment.getStartDate();
             LocalDateTime endDate = appointment.getEndDate();
             String title = appointment.getTitle();
             String description = appointment.getDescription();
             List<Tag> tags = appointment.getTags();
 
-            // Füge den Termin ein und erhalte die ID
             int insertedId = create.insertInto(APPOINTMENT, APPOINTMENT.STARTDATE, APPOINTMENT.ENDDATE,
                             APPOINTMENT.TITLE, APPOINTMENT.DESCRIPTION)
                     .values(startDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
@@ -323,7 +312,6 @@ public class JooqDataManager implements DataManager {
                     .fetchOne()
                     .getValue(APPOINTMENT.APPOINTMENTID);
 
-            // Wenn Tags vorhanden sind, füge sie hinzu, aber prüfe auf Duplikate
             if (tags != null && !tags.isEmpty()) {
                 for (Tag tag : tags) {
                     boolean exists = create.fetchExists(
@@ -333,6 +321,7 @@ public class JooqDataManager implements DataManager {
                                             .and(APPOINTMENTTAG.TAGID.eq(tag.getTagId())))
                     );
                     if (!exists) {
+                        logger.info("Adding Tag {} to Appointment ID: {}", tag, insertedId);
                         create.insertInto(APPOINTMENTTAG, APPOINTMENTTAG.APPOINTMENTID, APPOINTMENTTAG.TAGID)
                                 .values(insertedId, tag.getTagId())
                                 .execute();
@@ -340,62 +329,75 @@ public class JooqDataManager implements DataManager {
                 }
             }
 
+            logger.info("Successfully added appointment with ID: {}", insertedId);
             return insertedId;
         } catch (org.jooq.exception.IntegrityConstraintViolationException e) {
+            logger.error("Integrity constraint violation while adding appointment: {}", e.getMessage());
             throw new DataManagerException("Integrity constraint violation: " + e.getMessage());
         } catch (Exception e) {
+            logger.error("Error occurred while adding appointment: {}", e.getMessage());
             throw new DataManagerException("Error adding appointment: " + e.getMessage());
         }
     }
 
     public void removeAppointmentById(int appointmentId) throws DataManagerException {
         try {
+            logger.info("Removing appointment with ID: {}", appointmentId);
             create.deleteFrom(APPOINTMENTTAG)
                     .where(APPOINTMENTTAG.APPOINTMENTID.eq(appointmentId))
                     .execute();
 
             create.delete(APPOINTMENT).where(APPOINTMENT.APPOINTMENTID.eq(appointmentId))
                     .execute();
+
+            logger.info("Successfully removed appointment with ID: {}", appointmentId);
         } catch (Exception e) {
+            logger.error("Error occurred while removing appointment with ID: {}", appointmentId, e);
             throw new DataManagerException(e.getMessage());
-            //TODO: logging, individual Exception
         }
     }
 
     public void removeAppointment(Appointment appointment) throws DataManagerException {
+        logger.info("Removing appointment: {}", appointment);
         removeAppointmentById(appointment.getAppointmentId());
     }
 
-
     public boolean removeTagByTagId(int tagId) throws DataManagerException {
         try {
-           create.deleteFrom(TAG).where(TAG.TAGID.eq(tagId)).execute();
-           return true;
+            logger.info("Removing tag with ID: {}", tagId);
+            create.deleteFrom(TAG).where(TAG.TAGID.eq(tagId)).execute();
+            logger.info("Successfully removed tag with ID: {}", tagId);
+            return true;
 
         } catch (Exception e) {
+            logger.error("Error occurred while removing tag with ID: {}", tagId, e);
             throw new DataManagerException(e.getMessage());
-            //TODO: logging, individual Exception
         }
     }
 
     public boolean removeTag(Tag tag) throws DataManagerException {
+        logger.info("Removing tag: {}", tag);
         return removeTagByTagId(tag.getTagId());
     }
 
     public int addTag(Tag tag) throws DataManagerException {
         try {
+            logger.info("Adding new tag: {}", tag);
             String name = tag.getName();
             String color = tag.getColor();
 
-            return create.insertInto(TAG, TAG.NAME, TAG.COLOR)
+            int insertedId = create.insertInto(TAG, TAG.NAME, TAG.COLOR)
                     .values(name, color)
                     .returning(TAG.TAGID)
                     .fetchOne()
                     .getValue(TAG.TAGID);
 
-        } catch(Exception e) {
+            logger.info("Successfully added tag with ID: {}", insertedId);
+            return insertedId;
+
+        } catch (Exception e) {
+            logger.error("Error occurred while adding tag: {}", tag, e);
             throw new DataManagerException(e.getMessage());
-            //TODO: logging, individual Exception
         }
     }
 }

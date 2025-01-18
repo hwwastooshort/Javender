@@ -14,7 +14,15 @@ import java.util.Optional;
 
 public class DatabaseGetTests {
 
-    private final DataManager dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
+    private final DataManager dm;
+
+    {
+        try {
+            dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
+        } catch (DataManagerException e) {
+            throw new RuntimeException("Couldn't connect to Database");
+        }
+    }
 
     @Test
     void testGetAppointmentFromDatabaseById() {

@@ -16,7 +16,15 @@ public class CalendarController {
 
     private final String PATH_TO_DATABASE = "jdbc:sqlite:src/test/resources/javenderDatabase.db";
     UserInterface uI = new CalendarInterface();
-    DataManager dM = new JooqDataManager(PATH_TO_DATABASE);
+    DataManager dM;
+
+    {
+        try {
+            dM = new JooqDataManager(PATH_TO_DATABASE);
+        } catch (DataManagerException e) {
+            throw new RuntimeException("Couldn't connect to database");
+        }
+    }
 
     /**
      * gets the data of the appointment that the user wants to add
