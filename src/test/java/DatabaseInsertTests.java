@@ -10,26 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 public class DatabaseInsertTests {
 
     private final DataManager dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
-
-    @AfterEach
-    void cleanUp() {
-        try {
-            dm.removeAppointmentById(100);
-        } catch (DataManagerException ignored) {
-            // ignore Exception
-        }
-
-        try {
-            dm.removeTagByTagId(100);
-        } catch (DataManagerException ignored) {
-            // Ignore Exception
-        }
-    }
 
     @Test
     void testAddAppointment() {
@@ -46,6 +32,7 @@ public class DatabaseInsertTests {
 
         try {
             int insertedId = dm.addAppointment(insertAppointment);
+            // fetching the appointment right after inserting it to see if everything worked correctly
             Optional<Appointment> insertedAppointment = dm.getAppointmentById(insertedId);
 
             if (insertedAppointment.isEmpty()) {
@@ -61,12 +48,27 @@ public class DatabaseInsertTests {
             assertEquals(insertAppointment.getDescription(), actualInsertedAppointment.getDescription());
             assertEquals(insertAppointment.getTags(), actualInsertedAppointment.getTags());
 
+            Optional<List<Tag>> tagListOfAppointment = dm.getTagsByAppointmentId(insertedId);
+            assertTrue(tagListOfAppointment.isPresent(), "There should be 2 tags matching the appointmentId");
+            List<Tag> actualTagListOfAppointment = tagListOfAppointment.get();
+            assertEquals(2, actualTagListOfAppointment.size(), "the appointment should have 2 tags associated with it");
+            assertEquals(actualTagListOfAppointment, Arrays.asList(
+                    new Tag(1,"testingTag", "yellow"),
+                    new Tag(6,"Health", "red")
+            ));
+
             dm.removeAppointment(actualInsertedAppointment);
+            // removes inserted appointment to keep the database clean
 
             Optional<Appointment> fetchedAppointment = dm.getAppointmentById(insertedId);
 
             if (fetchedAppointment.isPresent()) {
                 fail("Entry should not be in Database");
+            }
+
+            Optional<List<Tag>> listOfTagsAfterDeletion = dm.getTagsByAppointmentId(insertedId);
+            if (listOfTagsAfterDeletion.isPresent()) {
+                fail("There should be no Tags associated with the deleted Appointment");
             }
 
         } catch (DataManagerException e) {
@@ -80,6 +82,7 @@ public class DatabaseInsertTests {
         Tag insertTag = new Tag("Hardcore Bodybuilding", "Regenbogen");
         try {
             int insertId = dm.addTag(insertTag);
+            // fetching the Tag right after inserting it to see if everything worked correctly
             Optional<Tag> insertedTag = dm.getTagById(insertId);
 
             if (insertedTag.isEmpty()) {
@@ -92,6 +95,7 @@ public class DatabaseInsertTests {
             assertEquals(insertTag.getName(),actualInsertedTag.getName());
             assertEquals(insertTag.getColor(), actualInsertedTag.getColor());
 
+            // removes inserted Tag to keep the database clean
             dm.removeTag(actualInsertedTag);
             Optional<Tag> fetchedTag = dm.getTagById(insertId);
 

@@ -111,7 +111,6 @@ public class DatabaseGetTests {
     @Test
     void testGetTagById() {
         int tagId = 1;
-
         try {
             Optional<Tag> optionalTag = dm.getTagById(tagId);
 
@@ -126,6 +125,18 @@ public class DatabaseGetTests {
 
         } catch (DataManagerException e) {
             fail("An exception occurred while fetching the tag: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testGetTagByIdFail() {
+        int wrongTagId = 200;
+        try {
+            Optional<Tag> actualTag = dm.getTagById(wrongTagId);
+            assertTrue(actualTag.isEmpty(), "There should be no Tag in the Database that matches the TagId 1200");
+
+        } catch (DataManagerException e) {
+            fail("An Error occurred while fetching the tag: " + e.getMessage());
         }
     }
 }
