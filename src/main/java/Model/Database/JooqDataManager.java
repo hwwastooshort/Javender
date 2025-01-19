@@ -48,6 +48,20 @@ public class JooqDataManager implements DataManager {
         ENDDATE
     }
 
+    private Appointment mapToAppointment(Record record) throws DataManagerException {
+        LocalDateTime startDate = LocalDateTime.parse(record.getValue(APPOINTMENT.STARTDATE), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        LocalDateTime endDate = LocalDateTime.parse(record.getValue(APPOINTMENT.ENDDATE), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        List<Tag> tags = getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new);
+        return new Appointment(
+                record.getValue(APPOINTMENT.APPOINTMENTID),
+                startDate,
+                endDate,
+                record.getValue(APPOINTMENT.TITLE),
+                record.getValue(APPOINTMENT.DESCRIPTION),
+                tags
+        );
+    }
+
     public Optional<Appointment> getAppointmentById(int appointmentId) throws DataManagerException {
         try {
             logger.info("Fetching appointment with ID: {}", appointmentId);
@@ -61,21 +75,7 @@ public class JooqDataManager implements DataManager {
                 return Optional.empty();
             }
 
-            String startDateString = record.getValue(APPOINTMENT.STARTDATE);
-            String endDateString = record.getValue(APPOINTMENT.ENDDATE);
-
-            LocalDateTime startDate = LocalDateTime.parse(startDateString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-            LocalDateTime endDate = LocalDateTime.parse(endDateString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-
-            Appointment appointment = new Appointment(
-                    record.getValue(APPOINTMENT.APPOINTMENTID),
-                    startDate,
-                    endDate,
-                    record.getValue(APPOINTMENT.TITLE),
-                    record.getValue(APPOINTMENT.DESCRIPTION),
-                    getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
-            );
-
+            Appointment appointment = mapToAppointment(record);
             logger.debug("Successfully fetched appointment: {}", appointment);
             return Optional.of(appointment);
 
@@ -150,23 +150,10 @@ public class JooqDataManager implements DataManager {
 
             List<Appointment> appointmentList = result.stream()
                     .map(record -> {
-                        String startDateString = record.getValue(APPOINTMENT.STARTDATE);
-                        String endDateString = record.getValue(APPOINTMENT.ENDDATE);
-
-                        LocalDateTime startDate = LocalDateTime.parse(startDateString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                        LocalDateTime endDate = LocalDateTime.parse(endDateString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-
                         try {
-                            return new Appointment(
-                                    record.getValue(APPOINTMENT.APPOINTMENTID),
-                                    startDate,
-                                    endDate,
-                                    record.getValue(APPOINTMENT.TITLE),
-                                    record.getValue(APPOINTMENT.DESCRIPTION),
-                                    getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
-                            );
+                            return mapToAppointment(record);
                         } catch (DataManagerException e) {
-                            logger.error("Error occurred while creating appointment object for ID: {}", record.getValue(APPOINTMENT.APPOINTMENTID), e);
+                            logger.error("Error mapping record to appointment: {}", record, e);
                             throw new RuntimeException(e);
                         }
                     })
@@ -199,23 +186,10 @@ public class JooqDataManager implements DataManager {
 
             List<Appointment> appointmentList = result.stream()
                     .map(record -> {
-                        String startDateString = record.getValue(APPOINTMENT.STARTDATE);
-                        String endDateString = record.getValue(APPOINTMENT.ENDDATE);
-
-                        LocalDateTime startDate = LocalDateTime.parse(startDateString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                        LocalDateTime endDate = LocalDateTime.parse(endDateString, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-
                         try {
-                            return new Appointment(
-                                    record.getValue(APPOINTMENT.APPOINTMENTID),
-                                    startDate,
-                                    endDate,
-                                    record.getValue(APPOINTMENT.TITLE),
-                                    record.getValue(APPOINTMENT.DESCRIPTION),
-                                    getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new)
-                            );
+                            return mapToAppointment(record);
                         } catch (DataManagerException e) {
-                            logger.error("Error occurred while fetching tags for appointment ID: {}", record.getValue(APPOINTMENT.APPOINTMENTID), e);
+                            logger.error("Error mapping record to appointment: {}", record, e);
                             throw new RuntimeException(e);
                         }
                     })
@@ -240,7 +214,8 @@ public class JooqDataManager implements DataManager {
                 return Optional.empty();
             }
 
-            Tag tag = new Tag(record.getValue(TAG.TAGID),
+            Tag tag = new Tag(
+                    record.getValue(TAG.TAGID),
                     record.getValue(TAG.NAME),
                     record.getValue(TAG.COLOR)
             );
@@ -271,16 +246,9 @@ public class JooqDataManager implements DataManager {
             List<Appointment> appointmentList = result.stream()
                     .map(record -> {
                         try {
-                            return new Appointment(
-                                    record.getValue(APPOINTMENT.APPOINTMENTID),
-                                    LocalDateTime.parse(record.getValue(APPOINTMENT.STARTDATE)),
-                                    LocalDateTime.parse(record.getValue(APPOINTMENT.ENDDATE)),
-                                    record.getValue(APPOINTMENT.TITLE),
-                                    record.getValue(APPOINTMENT.DESCRIPTION),
-                                    getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).get()
-                            );
+                            return mapToAppointment(record);
                         } catch (DataManagerException e) {
-                            logger.error("Error occurred while creating appointment object for Tag ID: {}", tagId, e);
+                            logger.error("Error mapping record to appointment for Tag ID: {}", tagId, e);
                             throw new RuntimeException(e);
                         }
                     })
