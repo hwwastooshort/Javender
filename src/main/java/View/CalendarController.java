@@ -124,4 +124,17 @@ public class CalendarController {
         }
         return addedTags;
     }
+
+    public void addTag(){
+        uI.startTagCreation();
+        String title = uI.getTagTitle();
+        String color = uI.getTagColor();
+        Tag newTag = new Tag(title,color);
+        try{
+            dM.addTag(newTag);
+        }catch (DataManagerException e){
+            uI.printError("There was a problem with adding the created tag to the database in addTag.");
+        }
+
+    }
 }

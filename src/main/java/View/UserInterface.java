@@ -33,5 +33,10 @@ public interface UserInterface {
 
     Optional<Tag> getTag(List<Tag> tags);
 
+    void startTagCreation();
+
+    String getTagTitle();
+    String getTagColor();
+
     void printError(String prompt);
 }
