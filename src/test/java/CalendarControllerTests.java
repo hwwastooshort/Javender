@@ -1,7 +1,9 @@
 import View.CalendarController;
+import Model.Entities.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -33,4 +35,16 @@ public class CalendarControllerTests {
         assertTrue(cc.validateDateTimeOrder(now, tomorrow));
         assertFalse(cc.validateDateTimeOrder(tomorrow, now));
     }
+
+    @Test
+    void testValidateDateEdgeCases() {
+        CalendarController cc = new CalendarController();
+
+        String emptyDate = "";
+        String nullDate = null;
+
+        assertTrue(cc.validateDate(emptyDate));
+        assertThrows(NullPointerException.class, () -> cc.validateDate(nullDate));
+    }
 }
+
