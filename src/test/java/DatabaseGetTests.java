@@ -64,17 +64,16 @@ public class DatabaseGetTests {
         int appointmentId = 3;
 
         try {
-            Optional<List<Tag>> optionalTags = dm.getTagsByAppointmentId(appointmentId);
+            List<Tag> fetchedTags = dm.getTagsByAppointmentId(appointmentId);
 
-            assertTrue(optionalTags.isPresent(), "Tags should be present for appointmentId 3");
+            assertFalse(fetchedTags.isEmpty(), "Tags should be present for appointmentId 3");
 
-            List<Tag> actualTags = optionalTags.get();
 
             List<Tag> expectedTags = new ArrayList<>();
             expectedTags.add(new Tag(1, "testingTag", "yellow"));
             expectedTags.add(new Tag(4, "Work", "blue"));
 
-            assertEquals(expectedTags, actualTags, "Tags for appointmentId 3 should match the expected list");
+            assertEquals(expectedTags, fetchedTags, "Tags for appointmentId 3 should match the expected list");
 
         } catch (DataManagerException e) {
             fail("An exception occurred while fetching tags: " + e.getMessage());
@@ -86,13 +85,11 @@ public class DatabaseGetTests {
         LocalDate testDate = LocalDate.of(2025, 1, 1);
 
         try {
-            Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByDate(testDate, JooqDataManager.DateFilter.STARTDATE);
+            List<Appointment> fetchedAppointments = dm.getAppointmentsByDate(testDate, JooqDataManager.DateFilter.STARTDATE);
 
-            assertTrue(optionalAppointments.isPresent(), "Appointments for the given date should not be empty");
-            List<Appointment> appointments = optionalAppointments.get();
-            assertFalse(appointments.isEmpty(), "Appointment list should not be empty");
+            assertFalse(fetchedAppointments.isEmpty(), "Appointments for the given date should not be empty");
 
-            Appointment firstAppointment = appointments.get(0);
+            Appointment firstAppointment = fetchedAppointments.get(0);
             assertEquals(1, firstAppointment.getAppointmentId(), "First appointment ID should be 1");
             assertEquals("Doctor Appointment", firstAppointment.getTitle(), "First appointment title should be 'Doctor Appointment'");
 
@@ -106,13 +103,10 @@ public class DatabaseGetTests {
         LocalDateTime rangeStart = LocalDateTime.of(2025, 1, 1, 0, 0);
         LocalDateTime rangeEnd = LocalDateTime.of(2025, 1, 2, 16, 0);
 
-        Optional<List<Appointment>> optionalAppointments = dm.getAppointmentsByRange(rangeStart, rangeEnd);
+        List<Appointment> fetchedAppointments = dm.getAppointmentsByRange(rangeStart, rangeEnd);
 
-        assertTrue(optionalAppointments.isPresent(), "Appointments for the given range should not be empty");
-
-        List<Appointment> appointments = optionalAppointments.get();
-        assertFalse(appointments.isEmpty(), "Appointment list should not be empty");
-        assertEquals(2, appointments.size(), "There should be 2 appointments in this range");
+        assertFalse(fetchedAppointments.isEmpty(), "Appointment fot the given range should not be empty");
+        assertEquals(2, fetchedAppointments.size(), "There should be 2 appointments in this range");
 
     }
 

@@ -12,15 +12,15 @@ public interface DataManager {
 
     public Optional<Appointment> getAppointmentById(int appointmentId) throws DataManagerException;
 
-    public Optional<List<Tag>> getTagsByAppointmentId(int appointmentId) throws DataManagerException;
+    public List<Tag> getTagsByAppointmentId(int appointmentId) throws DataManagerException;
 
-    public Optional<List<Appointment>> getAppointmentsByDate(LocalDate date, JooqDataManager.DateFilter dateFilter) throws DataManagerException;
+    public List<Appointment> getAppointmentsByDate(LocalDate date, JooqDataManager.DateFilter dateFilter) throws DataManagerException;
 
-    public Optional<List<Appointment>> getAppointmentsByRange(LocalDateTime startDateTime, LocalDateTime endDateTime) throws DataManagerException;
+    public List<Appointment> getAppointmentsByRange(LocalDateTime startDateTime, LocalDateTime endDateTime) throws DataManagerException;
 
     public Optional<Tag> getTagById(int tagId) throws DataManagerException;
 
-    public Optional<List<Appointment>> getAppointmentsByTagId(int tagId) throws DataManagerException;
+    public List<Appointment> getAppointmentsByTagId(int tagId) throws DataManagerException;
 
     public int addAppointment(Appointment appointment) throws DataManagerException;
 

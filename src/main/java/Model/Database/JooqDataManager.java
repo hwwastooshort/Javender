@@ -51,7 +51,7 @@ public class JooqDataManager implements DataManager {
     private Appointment mapToAppointment(Record record) throws DataManagerException {
         LocalDateTime startDate = LocalDateTime.parse(record.getValue(APPOINTMENT.STARTDATE), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         LocalDateTime endDate = LocalDateTime.parse(record.getValue(APPOINTMENT.ENDDATE), DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-        List<Tag> tags = getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID)).orElseGet(ArrayList::new);
+        List<Tag> tags = getTagsByAppointmentId(record.getValue(APPOINTMENT.APPOINTMENTID));
         return new Appointment(
                 record.getValue(APPOINTMENT.APPOINTMENTID),
                 startDate,
@@ -85,7 +85,7 @@ public class JooqDataManager implements DataManager {
         }
     }
 
-    public Optional<List<Tag>> getTagsByAppointmentId(int appointmentId) throws DataManagerException {
+    public List<Tag> getTagsByAppointmentId(int appointmentId) throws DataManagerException {
         try {
             logger.info("Fetching Tags assigned to Appointment: {}", appointmentId);
             Result<?> result = create.select()
@@ -96,7 +96,7 @@ public class JooqDataManager implements DataManager {
 
             if (result.isEmpty()) {
                 logger.warn("No Tags found for Appointment: {}", appointmentId);
-                return Optional.empty();
+                return new ArrayList<>();
             }
 
             List<Tag> tagList = result.stream()
@@ -108,7 +108,7 @@ public class JooqDataManager implements DataManager {
                     .collect(Collectors.toList());
 
             logger.debug("Successfully fetched tags: {}", tagList);
-            return Optional.of(tagList);
+            return tagList;
 
         } catch (Exception e) {
             logger.error("Error occurred while fetching tags for appointment: {}", appointmentId, e);
@@ -116,7 +116,7 @@ public class JooqDataManager implements DataManager {
         }
     }
 
-    public Optional<List<Appointment>> getAppointmentsByDate(LocalDate date, DateFilter dateFilter) throws DataManagerException {
+    public List<Appointment> getAppointmentsByDate(LocalDate date, DateFilter dateFilter) throws DataManagerException {
         try {
             logger.info("Fetching appointments on date: {} with filter: {}", date, dateFilter);
             String datePrefix = date.toString() + "T";
@@ -145,7 +145,7 @@ public class JooqDataManager implements DataManager {
 
             if (result.isEmpty()) {
                 logger.warn("No appointments found matching the date: {} with filter: {}", date, dateFilter);
-                return Optional.empty();
+                return new ArrayList<>();
             }
 
             List<Appointment> appointmentList = result.stream()
@@ -160,7 +160,7 @@ public class JooqDataManager implements DataManager {
                     .collect(Collectors.toList());
 
             logger.debug("Successfully fetched {} appointments for date: {}", appointmentList.size(), date);
-            return Optional.of(appointmentList);
+            return appointmentList;
 
         } catch (Exception e) {
             logger.error("Error occurred while fetching appointments by date: {}", date, e);
@@ -168,7 +168,7 @@ public class JooqDataManager implements DataManager {
         }
     }
 
-    public Optional<List<Appointment>> getAppointmentsByRange(LocalDateTime startDateTime, LocalDateTime endDateTime) throws DataManagerException {
+    public List<Appointment> getAppointmentsByRange(LocalDateTime startDateTime, LocalDateTime endDateTime) throws DataManagerException {
         try {
             logger.info("Fetching appointments between {} and {}", startDateTime, endDateTime);
 
@@ -181,7 +181,7 @@ public class JooqDataManager implements DataManager {
 
             if (result.isEmpty()) {
                 logger.warn("No appointments found between {} and {}", startDateTime, endDateTime);
-                return Optional.empty();
+                return new ArrayList<>();
             }
 
             List<Appointment> appointmentList = result.stream()
@@ -196,7 +196,7 @@ public class JooqDataManager implements DataManager {
                     .collect(Collectors.toList());
 
             logger.debug("Successfully fetched {} appointments between {} and {}", appointmentList.size(), startDateTime, endDateTime);
-            return Optional.of(appointmentList);
+            return appointmentList;
 
         } catch (Exception e) {
             logger.error("Error occurred while fetching appointments between {} and {}", startDateTime, endDateTime, e);
@@ -229,7 +229,7 @@ public class JooqDataManager implements DataManager {
         }
     }
 
-    public Optional<List<Appointment>> getAppointmentsByTagId(int tagId) throws DataManagerException {
+    public List<Appointment> getAppointmentsByTagId(int tagId) throws DataManagerException {
         try {
             logger.info("Fetching appointments for Tag ID: {}", tagId);
             Result<?> result = create.select()
@@ -240,7 +240,7 @@ public class JooqDataManager implements DataManager {
 
             if (result.isEmpty()) {
                 logger.warn("No appointments found for Tag ID: {}", tagId);
-                return Optional.empty();
+                return new ArrayList<>();
             }
 
             List<Appointment> appointmentList = result.stream()
@@ -255,7 +255,7 @@ public class JooqDataManager implements DataManager {
                     .collect(Collectors.toList());
 
             logger.debug("Successfully fetched {} appointments for Tag ID: {}", appointmentList.size(), tagId);
-            return Optional.of(appointmentList);
+            return appointmentList;
 
         } catch (Exception e) {
             logger.error("Error occurred while fetching appointments for Tag ID: {}", tagId, e);

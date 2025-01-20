@@ -56,11 +56,9 @@ public class DatabaseInsertTests {
             assertEquals(insertAppointment.getDescription(), actualInsertedAppointment.getDescription());
             assertEquals(insertAppointment.getTags(), actualInsertedAppointment.getTags());
 
-            Optional<List<Tag>> tagListOfAppointment = dm.getTagsByAppointmentId(insertedId);
-            assertTrue(tagListOfAppointment.isPresent(), "There should be 2 tags matching the appointmentId");
-            List<Tag> actualTagListOfAppointment = tagListOfAppointment.get();
-            assertEquals(2, actualTagListOfAppointment.size(), "the appointment should have 2 tags associated with it");
-            assertEquals(actualTagListOfAppointment, Arrays.asList(
+            List<Tag> tagListOfAppointment = dm.getTagsByAppointmentId(insertedId);
+            assertEquals(2, tagListOfAppointment.size(), "the appointment should have 2 tags associated with it");
+            assertEquals(tagListOfAppointment, Arrays.asList(
                     new Tag(1,"testingTag", "yellow"),
                     new Tag(6,"Health", "red")
             ));
@@ -74,8 +72,8 @@ public class DatabaseInsertTests {
                 fail("Entry should not be in Database");
             }
 
-            Optional<List<Tag>> listOfTagsAfterDeletion = dm.getTagsByAppointmentId(insertedId);
-            if (listOfTagsAfterDeletion.isPresent()) {
+            List<Tag> listOfTagsAfterDeletion = dm.getTagsByAppointmentId(insertedId);
+            if (!listOfTagsAfterDeletion.isEmpty()) {
                 fail("There should be no Tags associated with the deleted Appointment");
             }
 
