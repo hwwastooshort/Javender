@@ -157,7 +157,7 @@ public class DatabaseGetTests {
 
     @Test
     void testGetTagByIdFail() throws DataManagerException {
-        int nonExistentTagId = 1200;
+        int nonExistentTagId = testTagIds.stream().max(Integer::compare).orElse(1000) + 1;
 
         Optional<Tag> actualTag = dm.getTagById(nonExistentTagId);
 
