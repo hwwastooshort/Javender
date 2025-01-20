@@ -6,6 +6,7 @@ import Model.Database.DataManagerException;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -15,104 +16,85 @@ import java.util.Optional;
 
 public class DatabaseInsertTests {
 
-    private final DataManager dm;
+    private DataManager dm;
 
-    {
-        try {
-            dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
-        } catch (DataManagerException e) {
-            throw new RuntimeException("Couldn't connect to database");
+    @BeforeEach
+    void setupDatabase() throws DataManagerException {
+        dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
+    }
+
+    @AfterEach
+    void cleanupDatabase() throws DataManagerException {
+        for (Appointment appointment : dm.getAppointmentsByRange(
+                LocalDateTime.now().minusYears(50),
+                LocalDateTime.now().plusYears(50))) {
+            dm.removeAppointmentById(appointment.getAppointmentId());
         }
     }
 
     @Test
-    void testAddAppointment() {
+    void testAddAppointment() throws DataManagerException {
+        List<Tag> testTags = Arrays.asList(
+                new Tag(1, "testingTag", "yellow"),
+                new Tag(2, "Uni", "purple")
+        );
+
         Appointment insertAppointment = new Appointment(
                 LocalDateTime.parse("2030-10-01T00:00:00"),
                 LocalDateTime.parse("2030-10-01T02:00:00"),
-                "BastiGHG gucken",
-                "Mit Mike, Lisa, Simon und hw nen BastiGHG Atzenstream anmachen",
-                Arrays.asList(
-                        new Tag(1,"testingTag", "yellow"),
-                        new Tag(6,"Health", "red")
-                )
+                "Meeting",
+                "Presenting results",
+                testTags
         );
 
-        try {
-            int insertedId = dm.addAppointment(insertAppointment);
-            // fetching the appointment right after inserting it to see if everything worked correctly
-            Optional<Appointment> insertedAppointment = dm.getAppointmentById(insertedId);
+        int insertedId = dm.addAppointment(insertAppointment);
+        // fetching the appointment right after inserting it to see if everything worked correctly
+        Optional<Appointment> optionalInsertedAppointment = dm.getAppointmentById(insertedId);
 
-            if (insertedAppointment.isEmpty()) {
-                fail("The Appointment wasn't inserted into the database");
-            }
+        assertTrue(optionalInsertedAppointment.isPresent(), "The appointment should exist in the database");
 
-            Appointment actualInsertedAppointment = insertedAppointment.get();
+        Appointment actualInsertedAppointment = optionalInsertedAppointment.get();
 
-            assertEquals(insertedId, actualInsertedAppointment.getAppointmentId());
-            assertEquals(insertAppointment.getTitle(), actualInsertedAppointment.getTitle());
-            assertEquals(insertAppointment.getStartDate(), actualInsertedAppointment.getStartDate());
-            assertEquals(insertAppointment.getEndDate(), actualInsertedAppointment.getEndDate());
-            assertEquals(insertAppointment.getDescription(), actualInsertedAppointment.getDescription());
-            assertEquals(insertAppointment.getTags(), actualInsertedAppointment.getTags());
+        assertEquals(insertedId, actualInsertedAppointment.getAppointmentId(), "Appointment IDs should match");
+        assertEquals(insertAppointment.getTitle(), actualInsertedAppointment.getTitle(), "Titles should match");
+        assertEquals(insertAppointment.getDescription(), actualInsertedAppointment.getDescription(), "Descriptions should match");
+        assertEquals(insertAppointment.getStartDate(), actualInsertedAppointment.getStartDate(), "Start dates should match");
+        assertEquals(insertAppointment.getEndDate(), actualInsertedAppointment.getEndDate(), "End dates should match");
+        assertEquals(insertAppointment.getTags(), actualInsertedAppointment.getTags(), "Tags should match");
 
-            List<Tag> tagListOfAppointment = dm.getTagsByAppointmentId(insertedId);
-            assertEquals(2, tagListOfAppointment.size(), "the appointment should have 2 tags associated with it");
-            assertEquals(tagListOfAppointment, Arrays.asList(
-                    new Tag(1,"testingTag", "yellow"),
-                    new Tag(6,"Health", "red")
-            ));
+        List<Tag> tagListOfAppointment = dm.getTagsByAppointmentId(insertedId);
+        assertEquals(2, tagListOfAppointment.size(), "The appointment should have 2 tags associated with it");
+        assertEquals(testTags, tagListOfAppointment, "The tags should match the expected values");
 
-            dm.removeAppointment(actualInsertedAppointment);
-            // removes inserted appointment to keep the database clean
+        dm.removeAppointment(actualInsertedAppointment);
 
-            Optional<Appointment> fetchedAppointment = dm.getAppointmentById(insertedId);
+        Optional<Appointment> fetchedAfterRemoval = dm.getAppointmentById(insertedId);
+        assertFalse(fetchedAfterRemoval.isPresent(), "The appointment should be removed from the database");
 
-            if (fetchedAppointment.isPresent()) {
-                fail("Entry should not be in Database");
-            }
-
-            List<Tag> listOfTagsAfterDeletion = dm.getTagsByAppointmentId(insertedId);
-            if (!listOfTagsAfterDeletion.isEmpty()) {
-                fail("There should be no Tags associated with the deleted Appointment");
-            }
-
-        } catch (DataManagerException e) {
-            e.printStackTrace();
-            fail("Something went wrong");
-        }
+        List<Tag> tagsAfterRemoval = dm.getTagsByAppointmentId(insertedId);
+        assertTrue(tagsAfterRemoval.isEmpty(), "Tags associated with the removed appointment should also be removed");
     }
 
     @Test
-    void testAddingAndRemovingTags() {
+    void testAddingAndRemovingTags() throws DataManagerException {
+
         Tag insertTag = new Tag("Hardcore Bodybuilding", "Regenbogen");
-        try {
-            int insertId = dm.addTag(insertTag);
-            // fetching the Tag right after inserting it to see if everything worked correctly
-            Optional<Tag> insertedTag = dm.getTagById(insertId);
 
-            if (insertedTag.isEmpty()) {
-                fail("The Tag wasn't inserted into the Database");
-            }
+        int insertId = dm.addTag(insertTag);
+        // fetching the Tag right after inserting it to see if everything worked correctly
+        Optional<Tag> insertedTag = dm.getTagById(insertId);
 
-            Tag actualInsertedTag = insertedTag.get();
+        assertTrue(insertedTag.isPresent(), "The tag should exist in the database");
 
-            assertEquals(insertId, actualInsertedTag.getTagId());
-            assertEquals(insertTag.getName(),actualInsertedTag.getName());
-            assertEquals(insertTag.getColor(), actualInsertedTag.getColor());
+        Tag actualTag = insertedTag.get();
 
-            // removes inserted Tag to keep the database clean
-            dm.removeTag(actualInsertedTag);
-            Optional<Tag> fetchedTag = dm.getTagById(insertId);
+        assertEquals(insertId, actualTag.getTagId(), "Tag IDs should match");
+        assertEquals(insertTag.getName(), actualTag.getName(), "Tag names should match");
+        assertEquals(insertTag.getColor(), actualTag.getColor(), "Tag colors should match");
 
-            if (fetchedTag.isPresent()) {
-                fail("Entry should not be in Database");
-            }
+        dm.removeTag(actualTag);
 
-
-        } catch (DataManagerException e) {
-            e.printStackTrace();
-            fail("Something went wrong: " + e.getMessage());
-        }
+        Optional<Tag> fetchedTagAfterRemoval = dm.getTagById(insertId);
+        assertFalse(fetchedTagAfterRemoval.isPresent(), "The tag should be removed from the database");
     }
 }
