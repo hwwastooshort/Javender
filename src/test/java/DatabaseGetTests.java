@@ -141,4 +141,18 @@ public class DatabaseGetTests {
             fail("An Error occurred while fetching the tag: " + e.getMessage());
         }
     }
+
+    @Test
+    void testGetAllTags() {
+        int[] knownIds = {1, 2, 3, 4, 5, 6};
+        List<Tag> individuallyFetchedTags = new ArrayList<>();
+        try {
+            for (int id : knownIds) {
+                individuallyFetchedTags.add(dm.getTagById(id).get());
+            }
+            assertEquals(individuallyFetchedTags, dm.getAllTags(), "Fetching every Tag individually results in a different List than fetching all at once");
+        } catch (DataManagerException e) {
+            //Lisa wird das hier noch ändern heute
+        }
+    }
 }

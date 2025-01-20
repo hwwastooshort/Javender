@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.crypto.Data;
+
 import static org.jooq.generated.Tables.*;
 
 public class JooqDataManager implements DataManager {
@@ -366,6 +368,21 @@ public class JooqDataManager implements DataManager {
         } catch (Exception e) {
             logger.error("Error occurred while adding tag: {}", tag, e);
             throw new DataManagerException(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Tag> getAllTags() throws DataManagerException {
+        try {
+            logger.info("Fetching all tags from the database");
+
+            return create.select()
+                    .from(TAG)
+                    .fetchInto(Tag.class);
+
+        } catch (Exception e) {
+            logger.error("Error fetching tags from the database", e);
+            throw new DataManagerException("Failed to fetch tags: " + e.getMessage());
         }
     }
 }

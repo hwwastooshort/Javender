@@ -34,4 +34,6 @@ public interface DataManager {
 
     public boolean removeTag(Tag tag) throws DataManagerException;
 
+    public List<Tag> getAllTags() throws DataManagerException;
+
     }

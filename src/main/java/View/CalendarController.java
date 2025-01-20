@@ -109,16 +109,16 @@ public class CalendarController {
         return start.isAfter(end);
     }
 
-    public List<Tag> getAddedTagsList(List<Tag> tags){
+    public List<Tag> getAddedTagsList(List<Tag> tags) {
         List<Tag> addedTags = new ArrayList<Tag>();
         boolean exit = false;
 
-        while(!exit){
+        while(!exit) {
             Optional<Tag> tag = uI.getTag(tags);
 
-            if(tag.isEmpty()){
+            if(tag.isEmpty()) {
                 exit = true;
-            }else{
+            } else {
                 addedTags.add(tag.get());
             }
         }
