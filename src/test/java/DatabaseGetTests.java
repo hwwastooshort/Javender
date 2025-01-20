@@ -5,7 +5,11 @@ import Model.Database.JooqDataManager;
 import Model.Database.DataManagerException;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,88 +18,116 @@ import java.util.Optional;
 
 public class DatabaseGetTests {
 
-    private final DataManager dm;
+    private DataManager dm;
+    private final List<Integer> testTagIds = new ArrayList<>();
+    private final List<Integer> testAppointmentIds = new ArrayList<>();
 
-    {
-        try {
-            dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
-        } catch (DataManagerException e) {
-            throw new RuntimeException("Couldn't connect to Database");
+    @BeforeEach
+    void setupDatabase() throws DataManagerException {
+        dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
+
+        assertNotNull(dm, "Database connection must be established before running tests.");
+
+        Tag personalTag = new Tag("Personal", "red");
+        Tag workTag = new Tag("Work", "blue");
+        int personalTagId = dm.addTag(personalTag);
+        int workTagId = dm.addTag(workTag);
+        testTagIds.add(personalTagId);
+        testTagIds.add(workTagId);
+
+        List<Tag> personalTags = List.of(new Tag(personalTagId, "Personal", "red"));
+        List<Tag> workTags = List.of(new Tag(workTagId, "Work", "blue"));
+
+        Appointment annualCheckup = new Appointment(
+                LocalDateTime.parse("2025-01-01T09:00:00"),
+                LocalDateTime.parse("2025-01-01T10:00:00"),
+                "Doctor Appointment",
+                "Annual checkup",
+                personalTags
+        );
+        testAppointmentIds.add(dm.addAppointment(annualCheckup));
+
+        Appointment monthlyProgressUpdate = new Appointment(
+                LocalDateTime.parse("2025-01-01T11:00:00"),
+                LocalDateTime.parse("2025-01-01T12:00:00"),
+                "Team Meeting",
+                "Monthly progress update",
+                workTags
+        );
+        testAppointmentIds.add(dm.addAppointment(monthlyProgressUpdate));
+
+        Appointment newProjectProposal = new Appointment(
+                LocalDateTime.parse("2025-01-02T14:00:00"),
+                LocalDateTime.parse("2025-01-02T15:00:00"),
+                "Client Presentation",
+                "Present new project proposal",
+                workTags
+        );
+        testAppointmentIds.add(dm.addAppointment(newProjectProposal));
+    }
+
+    @AfterEach
+    void cleanupDatabase() throws DataManagerException {
+        for (int tagId : testTagIds) {
+            dm.removeTagByTagId(tagId);
         }
+        for (int appointmentId : testAppointmentIds) {
+            dm.removeAppointmentById(appointmentId);
+        }
+        testTagIds.clear();
+        testAppointmentIds.clear();
+    }
+
+
+    @Test
+    void testGetAppointmentFromDatabaseById() throws DataManagerException {
+        int appointmentId = testAppointmentIds.get(0);
+
+        Optional<Appointment> optionalResult = dm.getAppointmentById(appointmentId);
+
+        assertTrue(optionalResult.isPresent(), "Result should not be empty; appointment must exist in the database");
+
+        Appointment result = optionalResult.get();
+        assertEquals(appointmentId, result.getAppointmentId(), "AppointmentId should match the expected value");
+
+        LocalDateTime expectedStartDateTime = LocalDateTime.parse("2025-01-01T09:00:00");
+        LocalDateTime expectedEndDateTime = LocalDateTime.parse("2025-01-01T10:00:00");
+        assertEquals(expectedStartDateTime, result.getStartDate(), "Start Date should match");
+        assertEquals(expectedEndDateTime, result.getEndDate(), "End Date should match");
+
+        assertEquals("Doctor Appointment", result.getTitle(), "The title should match the expected value");
+        assertEquals("Annual checkup", result.getDescription(), "The description should match the expected value");
+
+        List<Tag> expectedTags = List.of(new Tag(testTagIds.get(0), "Personal", "red"));
+        assertEquals(expectedTags, result.getTags(), "Tags should match the expected tags");
     }
 
     @Test
-    void testGetAppointmentFromDatabaseById() {
-        int appointmentId = 1;
+    void testGetTagsByIdFromDatabase() throws DataManagerException {
+        int appointmentId = testAppointmentIds.get(0);
 
-        try {
-            Optional<Appointment> optionalResult = dm.getAppointmentById(appointmentId);
+        List<Tag> fetchedTags = dm.getTagsByAppointmentId(appointmentId);
 
-            assertTrue(optionalResult.isPresent(),
-                    "Result should not be empty, there is an element with that appointmentId in the database");
+        assertFalse(fetchedTags.isEmpty(), "Tags should be present for the test appointment");
 
-            Appointment result = optionalResult.get();
-
-            assertEquals(appointmentId, result.getAppointmentId(), "AppointmentId's should be equal");
-
-            String expectedStartDateTimeString = "2025-01-01T10:00:00";
-            String expectedEndDateTimeString = "2025-01-01T11:00:00";
-            LocalDateTime expectedStartDateTime = LocalDateTime.parse(expectedStartDateTimeString);
-            LocalDateTime expectedEndDateTime = LocalDateTime.parse(expectedEndDateTimeString);
-
-            assertEquals(expectedStartDateTime, result.getStartDate(), "Start Dates should be equal");
-            assertEquals(expectedEndDateTime, result.getEndDate(), "End Dates should be equal");
-            assertEquals("Doctor Appointment", result.getTitle(), "Titles should be equal");
-            assertEquals("Annual checkup", result.getDescription(), "Descriptions should be equal");
-
-            List<Tag> expectedList = new ArrayList<>();
-            Tag firstTagInExpectedList = new Tag(4, "Work", "blue");
-            expectedList.add(firstTagInExpectedList);
-
-            assertEquals(expectedList, result.getTags(), "Appointment 1 should only have 1 Tag");
-
-        } catch (DataManagerException e) {
-            fail("An exception occurred while fetching the appointment: " + e.getMessage());
-        }
+        List<Tag> expectedTags = List.of(new Tag(testTagIds.get(0), "Personal", "red"));
+        assertEquals(expectedTags, fetchedTags, "Fetched tags should match the expected tags");
     }
 
     @Test
-    void testGetTagsByIdFromDatabase() {
-        int appointmentId = 3;
-
-        try {
-            List<Tag> fetchedTags = dm.getTagsByAppointmentId(appointmentId);
-
-            assertFalse(fetchedTags.isEmpty(), "Tags should be present for appointmentId 3");
-
-
-            List<Tag> expectedTags = new ArrayList<>();
-            expectedTags.add(new Tag(1, "testingTag", "yellow"));
-            expectedTags.add(new Tag(4, "Work", "blue"));
-
-            assertEquals(expectedTags, fetchedTags, "Tags for appointmentId 3 should match the expected list");
-
-        } catch (DataManagerException e) {
-            fail("An exception occurred while fetching tags: " + e.getMessage());
-        }
-    }
-
-    @Test
-    void testGetAppointmentsByStartDate() {
+    void testGetAppointmentsByStartDate() throws DataManagerException {
         LocalDate testDate = LocalDate.of(2025, 1, 1);
 
-        try {
-            List<Appointment> fetchedAppointments = dm.getAppointmentsByDate(testDate, JooqDataManager.DateFilter.STARTDATE);
+        List<Appointment> fetchedAppointments = dm.getAppointmentsByDate(testDate, JooqDataManager.DateFilter.STARTDATE);
 
-            assertFalse(fetchedAppointments.isEmpty(), "Appointments for the given date should not be empty");
+        assertFalse(fetchedAppointments.isEmpty(), "Appointments for the given date should not be empty");
 
-            Appointment firstAppointment = fetchedAppointments.get(0);
-            assertEquals(1, firstAppointment.getAppointmentId(), "First appointment ID should be 1");
-            assertEquals("Doctor Appointment", firstAppointment.getTitle(), "First appointment title should be 'Doctor Appointment'");
+        Appointment firstAppointment = fetchedAppointments.get(0);
+        assertEquals(testAppointmentIds.get(0), firstAppointment.getAppointmentId(), "The appointment ID should match the expected value");
 
-        } catch (DataManagerException e) {
-            fail("An exception occurred while fetching appointments by start date: " + e.getMessage());
-        }
+        List<String> expectedTitles = List.of("Doctor Appointment", "Team Meeting");
+        assertTrue(fetchedAppointments.stream().map(Appointment::getTitle).toList().containsAll(expectedTitles),
+                "All expected appointments should be present.");
     }
 
     @Test
@@ -105,54 +137,41 @@ public class DatabaseGetTests {
 
         List<Appointment> fetchedAppointments = dm.getAppointmentsByRange(rangeStart, rangeEnd);
 
-        assertFalse(fetchedAppointments.isEmpty(), "Appointment fot the given range should not be empty");
-        assertEquals(2, fetchedAppointments.size(), "There should be 2 appointments in this range");
+        assertFalse(fetchedAppointments.isEmpty(), "Appointments for the given range should not be empty");
+        assertEquals(3, fetchedAppointments.size(), "There should be 3 appointments in this range");
 
     }
 
     @Test
-    void testGetTagById() {
-        int tagId = 1;
-        try {
-            Optional<Tag> optionalTag = dm.getTagById(tagId);
+    void testGetTagById() throws DataManagerException {
+        int tagId = testTagIds.get(0);
 
-            assertTrue(optionalTag.isPresent(), "Tag with tagId = 1 should exist");
+        Optional<Tag> optionalTag = dm.getTagById(tagId);
 
-            Tag expectedTag = new Tag(1, "testingTag", "yellow");
-            Tag actualTag = optionalTag.get();
+        assertTrue(optionalTag.isPresent(), "Tag should exist in the database");
 
-            assertEquals(expectedTag.getTagId(), actualTag.getTagId(), "Tag IDs should match");
-            assertEquals(expectedTag.getColor(), actualTag.getColor(), "Tag colors should match");
-            assertEquals(expectedTag.getName(), actualTag.getName(), "Tag names should match");
-
-        } catch (DataManagerException e) {
-            fail("An exception occurred while fetching the tag: " + e.getMessage());
-        }
+        Tag actualTag = optionalTag.get();
+        assertEquals("Personal", actualTag.getName(), "Tag name should match");
+        assertEquals("red", actualTag.getColor(), "Tag color should match");
     }
 
     @Test
-    void testGetTagByIdFail() {
-        int wrongTagId = 200;
-        try {
-            Optional<Tag> actualTag = dm.getTagById(wrongTagId);
-            assertTrue(actualTag.isEmpty(), "There should be no Tag in the Database that matches the TagId 1200");
+    void testGetTagByIdFail() throws DataManagerException {
+        int nonExistentTagId = 1200;
 
-        } catch (DataManagerException e) {
-            fail("An Error occurred while fetching the tag: " + e.getMessage());
-        }
+        Optional<Tag> actualTag = dm.getTagById(nonExistentTagId);
+
+        assertTrue(actualTag.isEmpty(), "There should be no tag with the given ID: " + nonExistentTagId);
     }
 
     @Test
-    void testGetAllTags() {
-        int[] knownIds = {1, 2, 3, 4, 5, 6};
-        List<Tag> individuallyFetchedTags = new ArrayList<>();
-        try {
-            for (int id : knownIds) {
-                individuallyFetchedTags.add(dm.getTagById(id).get());
-            }
-            assertEquals(individuallyFetchedTags, dm.getAllTags(), "Fetching every Tag individually results in a different List than fetching all at once");
-        } catch (DataManagerException e) {
-            //Lisa wird das hier noch ändern heute
-        }
+    void testGetAllTags() throws DataManagerException {
+        List<Tag> allTags = dm.getAllTags();
+
+        List<Tag> expectedTags = List.of(
+                new Tag(testTagIds.get(0), "Personal", "red"),
+                new Tag(testTagIds.get(1), "Work", "blue")
+        );
+        assertTrue(allTags.containsAll(expectedTags), "All test tags should be present in the fetched tags");
     }
 }
