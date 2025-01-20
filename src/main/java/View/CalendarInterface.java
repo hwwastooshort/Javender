@@ -5,7 +5,9 @@ import Model.Entities.Tag;
 
 import java.time.*;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 
@@ -96,9 +98,19 @@ public class CalendarInterface implements UserInterface{
         return scanner.nextLine();
     }
 
-    public List<Tag> getTags(){
-        //TODO implement getTags() functionality
-        return null;
+    public Optional<Tag> getTag(List<Tag> tags){
+        System.out.println("Select the tag you want to add to your appointment:");
+        int index = 0;
+        for (int i = 0; i < tags.size(); i++) {
+            System.out.println(i + 1 + ". " + tags.get(i).getName());
+            index = i;
+        }
+        System.out.println(tags.size() + 1 +". Exit\n");
+        int input = scanner.nextInt();
+        if(input >= tags.size() +1){
+            return Optional.empty();
+        }
+        return Optional.of(tags.get(input - 1));
     }
 
     public void printError(String prompt){

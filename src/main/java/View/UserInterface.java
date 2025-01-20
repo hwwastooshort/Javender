@@ -5,6 +5,7 @@ import Model.Entities.Tag;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserInterface {
 
@@ -30,7 +31,7 @@ public interface UserInterface {
 
     String getDescription();
 
-    List<Tag> getTags();
+    Optional<Tag> getTag(List<Tag> tags);
 
     void printError(String prompt);
 }

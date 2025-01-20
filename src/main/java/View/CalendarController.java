@@ -10,7 +10,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CalendarController {
 
@@ -68,7 +70,7 @@ public class CalendarController {
 
         String description = uI.getDescription();
 
-        List<Tag> tags = uI.getTags();
+        List<Tag> tags = getAddedTagsList(new ArrayList<Tag>()); // TODO Hier muss noch eine Methode im DataManager eingefügt werden, um alle Tags zu bekommen
 
         appointment = new Appointment(startDateTime, endDateTime, title, description, tags);
 
@@ -105,5 +107,21 @@ public class CalendarController {
             uI.printError("Your appointment can not end before it starts.");
         }
         return start.isAfter(end);
+    }
+
+    public List<Tag> getAddedTagsList(List<Tag> tags){
+        List<Tag> addedTags = new ArrayList<Tag>();
+        boolean exit = false;
+
+        while(!exit){
+            Optional<Tag> tag = uI.getTag(tags);
+
+            if(tag.isEmpty()){
+                exit = true;
+            }else{
+                addedTags.add(tag.get());
+            }
+        }
+        return addedTags;
     }
 }
