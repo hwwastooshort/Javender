@@ -25,14 +25,15 @@
         </encoder>
     </appender>
 
+    <!-- Logger für JOOQ konfigurieren -->
+    <logger name="org.jooq" level="WARN" additivity="false">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE" />
+    </logger>
+
     <!-- Root-Logger-Konfiguration -->
     <root level="info">
-        <!-- Logs werden standardmäßig in die Datei geschrieben -->
         <appender-ref ref="FILE" />
-        <!-- Fehler (ERROR) werden zusätzlich im Terminal ausgegeben -->
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>ERROR</level>
-        </filter>
         <appender-ref ref="CONSOLE" />
     </root>
 
