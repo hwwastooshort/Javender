@@ -420,4 +420,39 @@ public class JooqDataManager implements DataManager {
             throw new DataManagerException("Failed to update appointment: " + e.getMessage());
         }
     }
+
+    @Override
+    public List<Appointment> getAppointmentsByTitle(String title) throws DataManagerException {
+        try {
+            logger.info("Fetching appointments with title: {}", title);
+
+            Result<?> result = create.select()
+                    .from(APPOINTMENT)
+                    .where(APPOINTMENT.TITLE.eq(title))
+                    .fetch();
+
+            if (result.isEmpty()) {
+                logger.warn("No appointments found with title: {}", title);
+                return new ArrayList<>();
+            }
+
+            List<Appointment> appointmentList = result.stream()
+                    .map(record -> {
+                        try {
+                            return mapToAppointment(record);
+                        } catch (DataManagerException e) {
+                            logger.error("Error mapping record to appointment: {}", record, e);
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .collect(Collectors.toList());
+
+            logger.debug("Successfully fetched {} appointments with title: {}", appointmentList.size(), title);
+            return appointmentList;
+
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching appointments by title: {}", title, e);
+            throw new DataManagerException(e.getMessage());
+        }
+    }
 }

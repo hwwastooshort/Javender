@@ -38,4 +38,6 @@ public interface DataManager {
 
     public void updateAppointment(Appointment appointment) throws DataManagerException;
 
+    public List<Appointment> getAppointmentsByTitle(String title) throws DataManagerException;
+
     }

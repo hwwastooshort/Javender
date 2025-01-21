@@ -1580,3 +1580,291 @@ jOOQ tip of the day: To version control jOOQ generated code or not? There are pr
 2025-01-21 12:46:11 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 443
 2025-01-21 12:46:11 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 1975-01-21T12:46:11.390328 and 2075-01-21T12:46:11.390335
 2025-01-21 12:46:11 [main] WARN  Model.Database.JooqDataManager - No appointments found between 1975-01-21T12:46:11.390328 and 2075-01-21T12:46:11.390335
+2025-01-21 13:13:47 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:47 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:47 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Personal', color=red}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 444
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Work', color=blue}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 445
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Doctor Appointment', description='Annual checkup', tags=[Tag{tagId=444, name='Personal', color=red}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=444, name='Personal', color=red} to Appointment ID: 495
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 495
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T11:00, endDate=2025-01-01T12:00, title='Team Meeting', description='Monthly progress update', tags=[Tag{tagId=445, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=445, name='Work', color=blue} to Appointment ID: 496
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 496
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-02T14:00, endDate=2025-01-02T15:00, title='Client Presentation', description='Present new project proposal', tags=[Tag{tagId=445, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=445, name='Work', color=blue} to Appointment ID: 497
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 497
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching appointments on date: 2025-01-01 with filter: STARTDATE
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Appointments with StartDate: 2025-01-01
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 495
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 496
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 444
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 444
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 445
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 445
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 495
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 495
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 496
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 496
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 497
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 497
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Personal', color=red}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 446
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Work', color=blue}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 447
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Doctor Appointment', description='Annual checkup', tags=[Tag{tagId=446, name='Personal', color=red}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=446, name='Personal', color=red} to Appointment ID: 498
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 498
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T11:00, endDate=2025-01-01T12:00, title='Team Meeting', description='Monthly progress update', tags=[Tag{tagId=447, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=447, name='Work', color=blue} to Appointment ID: 499
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 499
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-02T14:00, endDate=2025-01-02T15:00, title='Client Presentation', description='Present new project proposal', tags=[Tag{tagId=447, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=447, name='Work', color=blue} to Appointment ID: 500
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 500
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 448
+2025-01-21 13:13:48 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 448
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 446
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 446
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 447
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 447
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 498
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 498
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 499
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 499
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 500
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 500
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Personal', color=red}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 448
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Work', color=blue}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 449
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Doctor Appointment', description='Annual checkup', tags=[Tag{tagId=448, name='Personal', color=red}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=448, name='Personal', color=red} to Appointment ID: 501
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 501
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T11:00, endDate=2025-01-01T12:00, title='Team Meeting', description='Monthly progress update', tags=[Tag{tagId=449, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=449, name='Work', color=blue} to Appointment ID: 502
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 502
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-02T14:00, endDate=2025-01-02T15:00, title='Client Presentation', description='Present new project proposal', tags=[Tag{tagId=449, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=449, name='Work', color=blue} to Appointment ID: 503
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 503
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 448
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 448
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 448
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 449
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 449
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 501
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 501
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 502
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 502
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 503
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 503
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Personal', color=red}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 450
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Work', color=blue}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 451
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Doctor Appointment', description='Annual checkup', tags=[Tag{tagId=450, name='Personal', color=red}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=450, name='Personal', color=red} to Appointment ID: 504
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 504
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T11:00, endDate=2025-01-01T12:00, title='Team Meeting', description='Monthly progress update', tags=[Tag{tagId=451, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=451, name='Work', color=blue} to Appointment ID: 505
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 505
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-02T14:00, endDate=2025-01-02T15:00, title='Client Presentation', description='Present new project proposal', tags=[Tag{tagId=451, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=451, name='Work', color=blue} to Appointment ID: 506
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 506
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 504
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 504
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=504, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Updated Title', description='Updated Description', tags=[Tag{tagId=450, name='Personal', color=red}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully updated basic appointment data for ID: 504
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Deleted existing tags for appointment ID: 504
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully updated tags for appointment ID: 504
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 504
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 504
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 450
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 450
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 451
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 451
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 504
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 504
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 505
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 505
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 506
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 506
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Personal', color=red}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 452
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Work', color=blue}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 453
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Doctor Appointment', description='Annual checkup', tags=[Tag{tagId=452, name='Personal', color=red}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=452, name='Personal', color=red} to Appointment ID: 507
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 507
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T11:00, endDate=2025-01-01T12:00, title='Team Meeting', description='Monthly progress update', tags=[Tag{tagId=453, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=453, name='Work', color=blue} to Appointment ID: 508
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 508
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-02T14:00, endDate=2025-01-02T15:00, title='Client Presentation', description='Present new project proposal', tags=[Tag{tagId=453, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=453, name='Work', color=blue} to Appointment ID: 509
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 509
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching all tags from the database
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 452
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 452
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 453
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 453
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 507
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 507
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 508
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 508
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 509
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 509
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Personal', color=red}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 454
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Work', color=blue}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 455
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Doctor Appointment', description='Annual checkup', tags=[Tag{tagId=454, name='Personal', color=red}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=454, name='Personal', color=red} to Appointment ID: 510
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 510
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T11:00, endDate=2025-01-01T12:00, title='Team Meeting', description='Monthly progress update', tags=[Tag{tagId=455, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=455, name='Work', color=blue} to Appointment ID: 511
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 511
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-02T14:00, endDate=2025-01-02T15:00, title='Client Presentation', description='Present new project proposal', tags=[Tag{tagId=455, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=455, name='Work', color=blue} to Appointment ID: 512
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 512
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 510
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 510
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 454
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 454
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 455
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 455
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 510
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 510
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 511
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 511
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 512
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 512
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Personal', color=red}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 456
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Work', color=blue}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 457
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Doctor Appointment', description='Annual checkup', tags=[Tag{tagId=456, name='Personal', color=red}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=456, name='Personal', color=red} to Appointment ID: 513
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 513
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T11:00, endDate=2025-01-01T12:00, title='Team Meeting', description='Monthly progress update', tags=[Tag{tagId=457, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=457, name='Work', color=blue} to Appointment ID: 514
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 514
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-02T14:00, endDate=2025-01-02T15:00, title='Client Presentation', description='Present new project proposal', tags=[Tag{tagId=457, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=457, name='Work', color=blue} to Appointment ID: 515
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 515
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-01-02T16:00
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 513
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 514
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 515
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 456
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 456
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 457
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 457
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 513
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 513
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 514
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 514
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 515
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 515
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Personal', color=red}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 458
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Work', color=blue}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 459
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Doctor Appointment', description='Annual checkup', tags=[Tag{tagId=458, name='Personal', color=red}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=458, name='Personal', color=red} to Appointment ID: 516
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 516
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T11:00, endDate=2025-01-01T12:00, title='Team Meeting', description='Monthly progress update', tags=[Tag{tagId=459, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=459, name='Work', color=blue} to Appointment ID: 517
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 517
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-02T14:00, endDate=2025-01-02T15:00, title='Client Presentation', description='Present new project proposal', tags=[Tag{tagId=459, name='Work', color=blue}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=459, name='Work', color=blue} to Appointment ID: 518
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 518
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 516
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 458
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 458
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 459
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 459
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 516
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 516
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 517
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 517
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 518
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 518
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=1, name='testingTag', color=yellow}, Tag{tagId=2, name='Uni', color=purple}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=1, name='testingTag', color=yellow} to Appointment ID: 519
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=2, name='Uni', color=purple} to Appointment ID: 519
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 519
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 519
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 519
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 519
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment: Appointment{appointmentId=519, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=1, name='testingTag', color=yellow}, Tag{tagId=2, name='Uni', color=purple}]}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 519
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 519
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 519
+2025-01-21 13:13:48 [main] WARN  Model.Database.JooqDataManager - No appointment found with ID: 519
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 519
+2025-01-21 13:13:48 [main] WARN  Model.Database.JooqDataManager - No Tags found for Appointment: 519
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 1975-01-21T13:13:48.292940 and 2075-01-21T13:13:48.292954
+2025-01-21 13:13:48 [main] WARN  Model.Database.JooqDataManager - No appointments found between 1975-01-21T13:13:48.292940 and 2075-01-21T13:13:48.292954
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Hardcore Bodybuilding', color=Regenbogen}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 460
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 460
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag: Tag{tagId=460, name='Hardcore Bodybuilding', color=Regenbogen}
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 460
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 460
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 460
+2025-01-21 13:13:48 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 460
+2025-01-21 13:13:48 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 1975-01-21T13:13:48.297933 and 2075-01-21T13:13:48.297940
+2025-01-21 13:13:48 [main] WARN  Model.Database.JooqDataManager - No appointments found between 1975-01-21T13:13:48.297933 and 2075-01-21T13:13:48.297940
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Personal', color=red}
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 461
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Work', color=blue}
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 462
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Doctor Appointment', description='Annual checkup', tags=[Tag{tagId=461, name='Personal', color=red}]}
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=461, name='Personal', color=red} to Appointment ID: 520
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 520
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-01T11:00, endDate=2025-01-01T12:00, title='Team Meeting', description='Monthly progress update', tags=[Tag{tagId=462, name='Work', color=blue}]}
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=462, name='Work', color=blue} to Appointment ID: 521
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 521
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2025-01-02T14:00, endDate=2025-01-02T15:00, title='Client Presentation', description='Present new project proposal', tags=[Tag{tagId=462, name='Work', color=blue}]}
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=462, name='Work', color=blue} to Appointment ID: 522
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 522
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: Doctor Appointment
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 520
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 461
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 461
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 462
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 462
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 520
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 520
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 521
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 521
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 522
+2025-01-21 13:22:01 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 522
