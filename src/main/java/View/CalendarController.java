@@ -6,6 +6,7 @@ import Model.Database.JooqDataManager;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -77,6 +78,8 @@ public class CalendarController {
         try {
             dM.addAppointment(appointment);
         }catch(DataManagerException e){
+            Color c = new Color(15, 15, 15);
+
             uI.printError("There was a problem with adding the created appointment to the database in addAppointment.");
             e.printStackTrace();
         }
@@ -125,6 +128,7 @@ public class CalendarController {
         return addedTags;
     }
 
+    //TODO Ask to replace tag if already existing
     public void addTag(){
         uI.startTagCreation();
         String title = uI.getTagTitle();

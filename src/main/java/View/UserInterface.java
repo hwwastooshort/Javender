@@ -38,5 +38,7 @@ public interface UserInterface {
     String getTagTitle();
     String getTagColor();
 
+    String formatPrompt(String prompt);
+    String getMonthWithText(LocalDate date, String prompt);
     void printError(String prompt);
 }
