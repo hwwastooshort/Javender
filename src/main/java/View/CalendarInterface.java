@@ -2,20 +2,23 @@ package View;
 
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
-
 import java.time.*;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
-
+import java.util.*;
 
 
 public class CalendarInterface implements UserInterface{
 
     private Scanner scanner = new Scanner(System.in);
+    private final int COMMENT_LENGTH = 20;
+    private final int SPACING = 10;
 
+    /**
+     * Generates a formatted calendar for the specified month and year.
+     *
+     * @param date A LocalDate object representing the date, used to determine the month and year.
+     * @return A formatted string that visually represents the calendar for the given month,
+     *         including the month/year header, days of the week, and the days of the month.
+     */
     public String getMonth(LocalDate date) {
         StringBuilder monthString = new StringBuilder();
 
@@ -44,6 +47,73 @@ public class CalendarInterface implements UserInterface{
         return monthString.toString();
     }
 
+    /**
+     * Combines calendar and a text prompt into a single formatted string.
+     *
+     * @param date   The LocalDate object representing the date, used to generate the calendar.
+     * @param prompt A string prompt that will be formatted into multiple lines and aligned with the month data.
+     * @return A formatted string where each line contains a part of the month data (left-aligned)
+     *         and a corresponding part of the prompt (right-aligned), with proper spacing.
+     */
+    public String getMonthWithText(LocalDate date, String prompt){
+        String monthString = getMonth(date);
+        String promptString = formatPrompt(prompt);
+
+        List<String> monthLines = new ArrayList<>(Arrays.stream(monthString.split("\n")).toList());
+        String[] promptLines = promptString.split("\n");
+
+        StringBuilder resultString = new StringBuilder();
+
+        int maxLineLength = getMaxLineLength(monthLines);
+        int padding = maxLineLength + SPACING;
+
+        resultString.append(monthLines.removeFirst()).append("\n");
+
+        int maxLineAmount = Math.max(monthLines.size(), promptLines.length);
+
+        for(int i = 0; i < maxLineAmount; i++){
+            String monthPart = i < monthLines.size() ? monthLines.get(i): "";
+            String promptPart = i < promptLines.length ? promptLines[i]: "";
+
+            resultString.append(String.format("%-" + padding + "s %s", monthPart, promptPart)).append("\n");
+        }
+
+        return resultString.toString();
+    }
+
+    /**
+     * Formats a given prompt string into multiple lines, ensuring that each line does not exceed a specified length.
+     *
+     * @param prompt The input string to be formatted.
+     * @return A formatted string where words are split into lines such that the total length of each line
+     *         (including spaces) does not exceed the specified `commentLength`.
+     */
+    public String formatPrompt(String prompt){
+        String[] promptSplit = prompt.split(" ");
+        StringBuilder formattedString = new StringBuilder();
+        int currLineLength = 0;
+
+        for (String string : promptSplit) {
+            if (currLineLength + string.length() <= COMMENT_LENGTH) {
+                currLineLength += string.length();
+                formattedString.append(string).append(" ");
+            } else {
+                currLineLength = string.length();
+                formattedString.append("\n").append(string).append(" ");
+            }
+        }
+        return formattedString.toString();
+    }
+
+    private int getMaxLineLength(List<String> prompt){
+        int maxLineLength = 0;
+        for (String string : prompt) {
+            if (maxLineLength < string.length()) {
+                maxLineLength = string.length();
+            }
+        }
+        return maxLineLength;
+    }
     /**
      * @param date any day in the month that is supposed to be displayed
      * @return amount of days that need to be skipped in order for the first day
@@ -105,6 +175,7 @@ public class CalendarInterface implements UserInterface{
         }
         System.out.println(tags.size() + 1 +". Exit\n");
         int input = scanner.nextInt();
+        scanner.nextLine();
         if(input >= tags.size() +1){
             return Optional.empty();
         }
@@ -116,12 +187,12 @@ public class CalendarInterface implements UserInterface{
     }
     public String getTagTitle(){
         System.out.println("Tag title:");
-        return scanner.next();
+        return scanner.nextLine();
     }
 
     public String getTagColor(){
         System.out.println("Tag color:");
-        return scanner.next();
+        return scanner.nextLine();
     }
 
     public String startEditingAppointment(){
@@ -132,7 +203,10 @@ public class CalendarInterface implements UserInterface{
     public int chooseAppointment(List<Appointment> appointments){
         System.out.println("Choose one of the following appointments: ");
         for(int i = 0; i < appointments.size(); i++){
-            System.out.println(i + ": " + appointments.get(i).getTitle() + "Start Date: " + appointments.get(i).getStartDate());
+            System.out.println(i + ": " + appointments.get(i).getTitle()
+                    + " Start Date: " + appointments.get(i).getStartDate()
+                    + " End Date: " + appointments.get(i).getEndDate()
+                    + " Description: " + appointments.get(i).getDescription());
         }
         int appointmentIndex = scanner.nextInt();
         scanner.nextLine();

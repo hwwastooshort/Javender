@@ -6,6 +6,7 @@ import Model.Database.JooqDataManager;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
 
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -49,13 +50,11 @@ public class CalendarController {
         }
 
         String description = uI.getDescription();
-
-        List<Tag> tags = getAddedTagsList(new ArrayList<Tag>()); // TODO Hier muss noch eine Methode im DataManager eingefügt werden, um alle Tags zu bekommen
-
-        appointment = new Appointment(startDateTime, endDateTime, title, description, tags);
-
         try {
+            List<Tag> tags = getAddedTagsList(dM.getAllTags());
+            appointment = new Appointment(startDateTime, endDateTime, title, description, tags);
             dM.addAppointment(appointment);
+
         }catch(DataManagerException e){
             uI.displayError("There was a problem with adding the created appointment to the database in addAppointment.");
             e.printStackTrace();
@@ -133,6 +132,7 @@ public class CalendarController {
         return addedTags;
     }
 
+    //TODO Ask to replace tag if already existing
     public void addTag(){
         uI.startTagCreation();
         String title = uI.getTagTitle();
@@ -148,28 +148,27 @@ public class CalendarController {
     public void editAppointment() {
 
         String appointmentTitle = uI.startEditingAppointment();
-        List<Appointment> appointments = dM.getAppointmentsByTitle(appointmentTitle);
-        int appointmentIndex = 0;
+        try {
+            List<Appointment> appointments = dM.getAppointmentsByTitle(appointmentTitle);
 
-        if (appointments.isEmpty()) {
-            uI.displayError("There are no appointments with the name \"" + appointmentTitle + "\"");
-            return;
-        }
+            int appointmentIndex = 0;
 
-        if (appointments.size() > 1) {
-            appointmentIndex = uI.chooseAppointment(appointments);
-            while (appointmentIndex >= appointments.size()) {
-                uI.displayError("Invalid input.");
-                appointmentIndex = uI.chooseAppointment(appointments);
+            if (appointments.isEmpty()) {
+                uI.displayError("There are no appointments with the name \"" + appointmentTitle + "\"");
+                return;
             }
-        }
 
-        Appointment newAppointment = createNewAppointment(appointments.get(appointmentIndex));
-
-        try{
+            if (appointments.size() > 1) {
+                appointmentIndex = uI.chooseAppointment(appointments);
+                while (appointmentIndex >= appointments.size()) {
+                    uI.displayError("Invalid input.");
+                    appointmentIndex = uI.chooseAppointment(appointments);
+                }
+            }
+            Appointment newAppointment = createNewAppointment(appointments.get(appointmentIndex));
             dM.updateAppointment(newAppointment);
         }catch (DataManagerException e){
-            uI.displayError("The appointment couldn't be updated.");
+            uI.displayError(e.getMessage());
         }
     }
 
@@ -178,11 +177,12 @@ public class CalendarController {
         int input = uI.appointmentEditMenu();
 
         while (input != 5) {
+            input = uI.appointmentEditMenu();
+
             switch (input) {
                 case 1:
                     appointment.setTitle(uI.getTitle());
                     break;
-
                 case 2:
                     LocalDateTime newStartDateTime = getStartDateTime();
                     LocalDateTime newEndDateTime = getEndDateTime();

@@ -189,4 +189,19 @@ public class DatabaseGetTests {
         assertEquals(fetchedAppointment, newlyfetchedAppointment, "The updated appointment should match the changed appointment");
 
     }
+
+
+    @Test
+    void testGetAppointmentsByTitle() throws DataManagerException {
+        List<Appointment> fetchedAppointments = dm.getAppointmentsByTitle("Doctor Appointment");
+
+        assertFalse(fetchedAppointments.isEmpty(), "Appointments for the given title should not be empty");
+
+        Appointment firstAppointment = fetchedAppointments.get(0);
+        assertEquals(testAppointmentIds.get(0), firstAppointment.getAppointmentId(), "The appointment ID should match the expected value");
+
+        List<String> expectedTitles = List.of("Doctor Appointment");
+        assertTrue(fetchedAppointments.stream().map(Appointment::getTitle).toList().containsAll(expectedTitles),
+                "All expected appointments should be present.");
+    }
 }

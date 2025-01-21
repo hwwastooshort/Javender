@@ -45,6 +45,8 @@ public interface UserInterface {
 
     int appointmentEditMenu();
 
-
     void displayError(String prompt);
+    String formatPrompt(String prompt);
+    String getMonthWithText(LocalDate date, String prompt);
+
 }
