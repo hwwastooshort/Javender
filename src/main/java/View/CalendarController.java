@@ -39,29 +39,9 @@ public class CalendarController {
 
         String title = uI.getTitle();
 
-        String startDate = uI.getStartDate();
-        while(validateDate(startDate)){
-            startDate = uI.getStartDate();
-        }
+        LocalDateTime startDateTime = getStartDateTime();
 
-        String startTime = uI.getStartTime();
-        while(validateTime(startTime)){
-            startTime = uI.getStartTime();
-        }
-
-        LocalDateTime startDateTime = LocalDateTime.of(LocalDate.parse(startDate), LocalTime.parse(startTime));
-
-
-        String endDate = uI.getEndDate();
-        while(validateDate(endDate)){
-            endDate = uI.getEndDate();
-        }
-        String endTime = uI.getEndTime();
-        while(validateTime(endTime)){ //TODO manchmal wird hier trotz richtiger Eingabe die Zeit nicht akzeptiert
-            endTime = uI.getEndTime();
-        }
-
-        LocalDateTime endDateTime = LocalDateTime.of(LocalDate.parse(endDate), LocalTime.parse(endTime));
+        LocalDateTime endDateTime = getEndDateTime();
 
         if(validateDateTimeOrder(startDateTime, endDateTime)){
             addAppointment();
@@ -77,17 +57,45 @@ public class CalendarController {
         try {
             dM.addAppointment(appointment);
         }catch(DataManagerException e){
-            uI.printError("There was a problem with adding the created appointment to the database in addAppointment.");
+            uI.displayError("There was a problem with adding the created appointment to the database in addAppointment.");
             e.printStackTrace();
         }
 
     }
+
+    private LocalDateTime getStartDateTime(){
+        String startDate = uI.getStartDate();
+        while(validateDate(startDate)){
+            startDate = uI.getStartDate();
+        }
+
+        String startTime = uI.getStartTime();
+        while(validateTime(startTime)){
+            startTime = uI.getStartTime();
+        }
+
+        return LocalDateTime.of(LocalDate.parse(startDate), LocalTime.parse(startTime));
+    }
+
+    private LocalDateTime getEndDateTime(){
+        String endDate = uI.getEndDate();
+        while(validateDate(endDate)){
+            endDate = uI.getEndDate();
+        }
+        String endTime = uI.getEndTime();
+        while(validateTime(endTime)){ //TODO manchmal wird hier trotz richtiger Eingabe die Zeit nicht akzeptiert
+            endTime = uI.getEndTime();
+        }
+
+        return LocalDateTime.of(LocalDate.parse(endDate), LocalTime.parse(endTime));
+    }
+
     public boolean validateDate(String dateString){
         try {
             LocalDate.parse(dateString);
             return false;
         }catch (DateTimeParseException e){
-            uI.printError("Your input is not formatted correctly.");
+            uI.displayError("Your input is not formatted correctly.");
             return true;
         }
     }
@@ -97,14 +105,14 @@ public class CalendarController {
             LocalTime.parse(timeString);
             return false;
         }catch (DateTimeParseException e){
-            uI.printError("Your input is not formatted correctly.");
+            uI.displayError("Your input is not formatted correctly.");
             return true;
         }
     }
 
     public boolean validateDateTimeOrder(LocalDateTime start, LocalDateTime end){
         if(start.isAfter(end)){
-            uI.printError("Your appointment can not end before it starts.");
+            uI.displayError("Your appointment can not end before it starts.");
         }
         return start.isAfter(end);
     }
@@ -133,8 +141,78 @@ public class CalendarController {
         try{
             dM.addTag(newTag);
         }catch (DataManagerException e){
-            uI.printError("There was a problem with adding the created tag to the database in addTag.");
+            uI.displayError("There was a problem with adding the created tag to the database in addTag.");
+        }
+    }
+
+    public void editAppointment() {
+
+        String appointmentTitle = uI.startEditingAppointment();
+        List<Appointment> appointments = dM.getAppointmentsByTitle(appointmentTitle);
+        int appointmentIndex = 0;
+
+        if (appointments.isEmpty()) {
+            uI.displayError("There are no appointments with the name \"" + appointmentTitle + "\"");
+            return;
         }
 
+        if (appointments.size() > 1) {
+            appointmentIndex = uI.chooseAppointment(appointments);
+            while (appointmentIndex >= appointments.size()) {
+                uI.displayError("Invalid input.");
+                appointmentIndex = uI.chooseAppointment(appointments);
+            }
+        }
+
+        Appointment newAppointment = createNewAppointment(appointments.get(appointmentIndex));
+
+        try{
+            dM.updateAppointment(newAppointment);
+        }catch (DataManagerException e){
+            uI.displayError("The appointment couldn't be updated.");
+        }
+    }
+
+    private Appointment createNewAppointment(Appointment appointment) {
+
+        int input = uI.appointmentEditMenu();
+
+        while (input != 5) {
+            switch (input) {
+                case 1:
+                    appointment.setTitle(uI.getTitle());
+                    break;
+
+                case 2:
+                    LocalDateTime newStartDateTime = getStartDateTime();
+                    LocalDateTime newEndDateTime = getEndDateTime();
+                    if (validateDateTimeOrder(newStartDateTime, newEndDateTime)) {
+                        uI.displayError("Your appointment can not start before it ends.");
+                        break;
+                    }
+                    appointment.setStartDate(newStartDateTime);
+                    appointment.setEndDate(newEndDateTime);
+                    break;
+
+                case 3:
+                    appointment.setDescription(uI.getDescription());
+                    break;
+
+                case 4:
+                    List<Tag> newTags = new ArrayList<>();
+                    try {
+                        newTags = getAddedTagsList(dM.getAllTags());
+                    }catch(DataManagerException e){
+                        uI.displayError(e.getMessage());
+                    }
+                    appointment.setTags(newTags);
+                    break;
+
+                default:
+                    uI.displayError("Invalid input");
+                    break;
+            }
+        }
+        return appointment;
     }
 }

@@ -124,7 +124,34 @@ public class CalendarInterface implements UserInterface{
         return scanner.next();
     }
 
-    public void printError(String prompt){
+    public String startEditingAppointment(){
+        System.out.println("Enter the name of the appointment you want to edit:");
+        return scanner.nextLine();
+    }
+
+    public int chooseAppointment(List<Appointment> appointments){
+        System.out.println("Choose one of the following appointments: ");
+        for(int i = 0; i < appointments.size(); i++){
+            System.out.println(i + ": " + appointments.get(i).getTitle() + "Start Date: " + appointments.get(i).getStartDate());
+        }
+        int appointmentIndex = scanner.nextInt();
+        scanner.nextLine();
+        return appointmentIndex;
+    }
+
+    public int appointmentEditMenu(){
+        System.out.println("What do you want to edit?");
+        System.out.println("1.Title");
+        System.out.println("2.Start and End Date");
+        System.out.println("3.Description");
+        System.out.println("4.Tags");
+        System.out.println("5.Exit");
+        int input = scanner.nextInt();
+        scanner.nextLine();
+        return input;
+    }
+
+    public void displayError(String prompt){
         System.out.println(prompt);
     }
 

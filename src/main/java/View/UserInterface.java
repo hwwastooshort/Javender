@@ -1,9 +1,9 @@
 package View;
 
+import Model.Entities.Appointment;
 import Model.Entities.Tag;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +36,15 @@ public interface UserInterface {
     void startTagCreation();
 
     String getTagTitle();
+
     String getTagColor();
 
-    void printError(String prompt);
+    String startEditingAppointment();
+
+    int chooseAppointment(List<Appointment> appointments);
+
+    int appointmentEditMenu();
+
+
+    void displayError(String prompt);
 }
