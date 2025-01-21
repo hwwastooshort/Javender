@@ -7,6 +7,7 @@ import Model.Entities.Appointment;
 import Model.Entities.Tag;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -173,5 +174,19 @@ public class DatabaseGetTests {
                 new Tag(testTagIds.get(1), "Work", "blue")
         );
         assertTrue(allTags.containsAll(expectedTags), "All test tags should be present in the fetched tags");
+    }
+
+    @Test
+    void testUpdateAppointment() throws DataManagerException {
+        Appointment fetchedAppointment = dm.getAppointmentById(testAppointmentIds.get(0)).orElseThrow();
+        assertEquals(fetchedAppointment.getTitle(), "Doctor Appointment","The fetched appointment should have the correct title");
+
+        fetchedAppointment.setTitle("Updated Title");
+        fetchedAppointment.setDescription("Updated Description");
+        dm.updateAppointment(fetchedAppointment);
+
+        Appointment newlyfetchedAppointment = dm.getAppointmentById(testAppointmentIds.get(0)).orElseThrow();
+        assertEquals(fetchedAppointment, newlyfetchedAppointment, "The updated appointment should match the changed appointment");
+
     }
 }

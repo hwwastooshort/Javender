@@ -36,4 +36,6 @@ public interface DataManager {
 
     public List<Tag> getAllTags() throws DataManagerException;
 
+    public void updateAppointment(Appointment appointment) throws DataManagerException;
+
     }

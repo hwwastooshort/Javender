@@ -385,4 +385,39 @@ public class JooqDataManager implements DataManager {
             throw new DataManagerException("Failed to fetch tags: " + e.getMessage());
         }
     }
+
+    @Override
+    public void updateAppointment(Appointment appointment) throws DataManagerException {
+        try {
+            logger.info("Updating appointment: {}", appointment);
+
+            create.update(APPOINTMENT)
+                    .set(APPOINTMENT.STARTDATE, appointment.getStartDate().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
+                    .set(APPOINTMENT.ENDDATE, appointment.getEndDate().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
+                    .set(APPOINTMENT.TITLE, appointment.getTitle())
+                    .set(APPOINTMENT.DESCRIPTION, appointment.getDescription())
+                    .where(APPOINTMENT.APPOINTMENTID.eq(appointment.getAppointmentId()))
+                    .execute();
+
+            logger.info("Successfully updated basic appointment data for ID: {}", appointment.getAppointmentId());
+
+            create.deleteFrom(APPOINTMENTTAG)
+                    .where(APPOINTMENTTAG.APPOINTMENTID.eq(appointment.getAppointmentId()))
+                    .execute();
+
+            logger.info("Deleted existing tags for appointment ID: {}", appointment.getAppointmentId());
+
+            for (Tag tag : appointment.getTags()) {
+                create.insertInto(APPOINTMENTTAG, APPOINTMENTTAG.APPOINTMENTID, APPOINTMENTTAG.TAGID)
+                        .values(appointment.getAppointmentId(), tag.getTagId())
+                        .execute();
+            }
+
+            logger.info("Successfully updated tags for appointment ID: {}", appointment.getAppointmentId());
+
+        } catch (Exception e) {
+            logger.error("Error updating appointment: {}", e.getMessage());
+            throw new DataManagerException("Failed to update appointment: " + e.getMessage());
+        }
+    }
 }
