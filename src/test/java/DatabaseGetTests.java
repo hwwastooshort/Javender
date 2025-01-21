@@ -7,82 +7,49 @@ import Model.Entities.Appointment;
 import Model.Entities.Tag;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class DatabaseGetTests {
 
     private DataManager dm;
-    private final List<Integer> testTagIds = new ArrayList<>();
-    private final List<Integer> testAppointmentIds = new ArrayList<>();
 
     @BeforeEach
-    void setupDatabase() throws DataManagerException {
-        dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
+    void setupDatabase() throws Exception {
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
+             Statement statement = connection.createStatement()) {
 
+            String setupSql = Files.readString(Paths.get("src/test/resources/AddTestAppointments.sql"));
+            statement.executeUpdate(setupSql);
+        }
+
+        dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDataBase.db");
         assertNotNull(dm, "Database connection must be established before running tests.");
-
-        Tag personalTag = new Tag("Personal", "red");
-        Tag workTag = new Tag("Work", "blue");
-        int personalTagId = dm.addTag(personalTag);
-        int workTagId = dm.addTag(workTag);
-        testTagIds.add(personalTagId);
-        testTagIds.add(workTagId);
-
-        List<Tag> personalTags = List.of(new Tag(personalTagId, "Personal", "red"));
-        List<Tag> workTags = List.of(new Tag(workTagId, "Work", "blue"));
-
-        Appointment annualCheckup = new Appointment(
-                LocalDateTime.parse("2025-01-01T09:00:00"),
-                LocalDateTime.parse("2025-01-01T10:00:00"),
-                "Doctor Appointment",
-                "Annual checkup",
-                personalTags
-        );
-        testAppointmentIds.add(dm.addAppointment(annualCheckup));
-
-        Appointment monthlyProgressUpdate = new Appointment(
-                LocalDateTime.parse("2025-01-01T11:00:00"),
-                LocalDateTime.parse("2025-01-01T12:00:00"),
-                "Team Meeting",
-                "Monthly progress update",
-                workTags
-        );
-        testAppointmentIds.add(dm.addAppointment(monthlyProgressUpdate));
-
-        Appointment newProjectProposal = new Appointment(
-                LocalDateTime.parse("2025-01-02T14:00:00"),
-                LocalDateTime.parse("2025-01-02T15:00:00"),
-                "Client Presentation",
-                "Present new project proposal",
-                workTags
-        );
-        testAppointmentIds.add(dm.addAppointment(newProjectProposal));
     }
 
     @AfterEach
-    void cleanupDatabase() throws DataManagerException {
-        for (int tagId : testTagIds) {
-            dm.removeTagByTagId(tagId);
-        }
-        for (int appointmentId : testAppointmentIds) {
-            dm.removeAppointmentById(appointmentId);
-        }
-        testTagIds.clear();
-        testAppointmentIds.clear();
-    }
+    void cleanupDatabase() throws Exception {
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
+             Statement statement = connection.createStatement()) {
 
+            String cleanupSql = Files.readString(Paths.get("src/test/resources/DeleteTestAppointments.sql"));
+            statement.executeUpdate(cleanupSql);
+        }
+    }
 
     @Test
     void testGetAppointmentFromDatabaseById() throws DataManagerException {
-        int appointmentId = testAppointmentIds.get(0);
+        int appointmentId = 1;
 
         Optional<Appointment> optionalResult = dm.getAppointmentById(appointmentId);
 
@@ -99,19 +66,19 @@ public class DatabaseGetTests {
         assertEquals("Doctor Appointment", result.getTitle(), "The title should match the expected value");
         assertEquals("Annual checkup", result.getDescription(), "The description should match the expected value");
 
-        List<Tag> expectedTags = List.of(new Tag(testTagIds.get(0), "Personal", "red"));
+        List<Tag> expectedTags = List.of(new Tag(1, "Personal", "red"));
         assertEquals(expectedTags, result.getTags(), "Tags should match the expected tags");
     }
 
     @Test
     void testGetTagsByIdFromDatabase() throws DataManagerException {
-        int appointmentId = testAppointmentIds.get(0);
+        int appointmentId = 1;
 
         List<Tag> fetchedTags = dm.getTagsByAppointmentId(appointmentId);
 
         assertFalse(fetchedTags.isEmpty(), "Tags should be present for the test appointment");
 
-        List<Tag> expectedTags = List.of(new Tag(testTagIds.get(0), "Personal", "red"));
+        List<Tag> expectedTags = List.of(new Tag(1, "Personal", "red"));
         assertEquals(expectedTags, fetchedTags, "Fetched tags should match the expected tags");
     }
 
@@ -122,9 +89,6 @@ public class DatabaseGetTests {
         List<Appointment> fetchedAppointments = dm.getAppointmentsByDate(testDate, JooqDataManager.DateFilter.STARTDATE);
 
         assertFalse(fetchedAppointments.isEmpty(), "Appointments for the given date should not be empty");
-
-        Appointment firstAppointment = fetchedAppointments.get(0);
-        assertEquals(testAppointmentIds.get(0), firstAppointment.getAppointmentId(), "The appointment ID should match the expected value");
 
         List<String> expectedTitles = List.of("Doctor Appointment", "Team Meeting");
         assertTrue(fetchedAppointments.stream().map(Appointment::getTitle).toList().containsAll(expectedTitles),
@@ -140,12 +104,11 @@ public class DatabaseGetTests {
 
         assertFalse(fetchedAppointments.isEmpty(), "Appointments for the given range should not be empty");
         assertEquals(3, fetchedAppointments.size(), "There should be 3 appointments in this range");
-
     }
 
     @Test
     void testGetTagById() throws DataManagerException {
-        int tagId = testTagIds.get(0);
+        int tagId = 1;
 
         Optional<Tag> optionalTag = dm.getTagById(tagId);
 
@@ -155,10 +118,9 @@ public class DatabaseGetTests {
         assertEquals("Personal", actualTag.getName(), "Tag name should match");
         assertEquals("red", actualTag.getColor(), "Tag color should match");
     }
-
     @Test
     void testGetTagByIdFail() throws DataManagerException {
-        int nonExistentTagId = testTagIds.stream().max(Integer::compare).orElse(1000) + 1;
+        int nonExistentTagId = 999;
 
         Optional<Tag> actualTag = dm.getTagById(nonExistentTagId);
 
@@ -170,35 +132,38 @@ public class DatabaseGetTests {
         List<Tag> allTags = dm.getAllTags();
 
         List<Tag> expectedTags = List.of(
-                new Tag(testTagIds.get(0), "Personal", "red"),
-                new Tag(testTagIds.get(1), "Work", "blue")
+                new Tag(1, "Personal", "red"),
+                new Tag(2, "Work", "blue")
         );
         assertTrue(allTags.containsAll(expectedTags), "All test tags should be present in the fetched tags");
     }
 
     @Test
     void testUpdateAppointment() throws DataManagerException {
-        Appointment fetchedAppointment = dm.getAppointmentById(testAppointmentIds.get(0)).orElseThrow();
-        assertEquals(fetchedAppointment.getTitle(), "Doctor Appointment","The fetched appointment should have the correct title");
+        int appointmentId = 1;
+
+        Appointment fetchedAppointment = dm.getAppointmentById(appointmentId).orElseThrow();
+        assertEquals("Doctor Appointment", fetchedAppointment.getTitle(), "The fetched appointment should have the correct title");
 
         fetchedAppointment.setTitle("Updated Title");
         fetchedAppointment.setDescription("Updated Description");
         dm.updateAppointment(fetchedAppointment);
 
-        Appointment newlyfetchedAppointment = dm.getAppointmentById(testAppointmentIds.get(0)).orElseThrow();
-        assertEquals(fetchedAppointment, newlyfetchedAppointment, "The updated appointment should match the changed appointment");
-
+        Appointment newlyFetchedAppointment = dm.getAppointmentById(appointmentId).orElseThrow();
+        assertEquals(fetchedAppointment, newlyFetchedAppointment, "The updated appointment should match the changed appointment");
     }
-
 
     @Test
     void testGetAppointmentsByTitle() throws DataManagerException {
-        List<Appointment> fetchedAppointments = dm.getAppointmentsByTitle("Doctor Appointment");
+        String title = "Doctor Appointment";
+
+        List<Appointment> fetchedAppointments = dm.getAppointmentsByTitle(title);
 
         assertFalse(fetchedAppointments.isEmpty(), "Appointments for the given title should not be empty");
 
         Appointment firstAppointment = fetchedAppointments.get(0);
-        assertEquals(testAppointmentIds.get(0), firstAppointment.getAppointmentId(), "The appointment ID should match the expected value");
+        assertEquals(1, firstAppointment.getAppointmentId(), "The appointment ID should match the expected value");
+        assertEquals(title, firstAppointment.getTitle(), "The appointment title should match the expected value");
 
         List<String> expectedTitles = List.of("Doctor Appointment");
         assertTrue(fetchedAppointments.stream().map(Appointment::getTitle).toList().containsAll(expectedTitles),

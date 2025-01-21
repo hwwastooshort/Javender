@@ -1,0 +1,2 @@
+DELETE FROM Appointment;
+DELETE FROM Tag;
