@@ -2894,3 +2894,9 @@ jOOQ tip of the day: To version control jOOQ generated code or not? There are pr
 2025-01-22 15:21:35 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 522
 2025-01-22 15:21:35 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 1975-01-22T15:21:35.701509900 and 2075-01-22T15:21:35.701509900
 2025-01-22 15:21:35 [main] WARN  Model.Database.JooqDataManager - No appointments found between 1975-01-22T15:21:35.701509900 and 2075-01-22T15:21:35.701509900
+2025-01-22 16:25:29 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-22 16:25:29 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-22 16:26:14 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-22 16:26:15 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-22 16:26:50 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-22 16:26:51 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db

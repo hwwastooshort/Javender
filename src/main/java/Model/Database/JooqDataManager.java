@@ -455,4 +455,12 @@ public class JooqDataManager implements DataManager {
             throw new DataManagerException(e.getMessage());
         }
     }
+
+    public Optional<Tag> getTagByTitle(String title) throws DataManagerException {
+        return Optional.empty();
+    }
+
+    public void saveTag(Tag tag) throws DataManagerException {
+
+    }
 }

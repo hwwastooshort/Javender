@@ -145,6 +145,25 @@ public class CalendarController {
         }
     }
 
+    public void editTag(){
+        String title = uI.startTagEditing();
+        try {
+            Optional<Tag> optionalTag = dM.getTagByTitle(title);
+            if(optionalTag.isEmpty()){
+                uI.displayError("There was no tag with the title \"" + title + "\".");
+                return;
+            }
+            Tag tag = optionalTag.get();
+            uI.tagEditingMenu();
+            tag.setName(uI.getTagTitle());
+            tag.setColor(uI.getTagColor());
+            dM.saveTag(tag);
+        }catch (DataManagerException e){
+            e.printStackTrace();
+        }
+
+    }
+
     public void editAppointment() {
 
         String appointmentTitle = uI.startEditingAppointment();

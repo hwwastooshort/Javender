@@ -225,6 +225,15 @@ public class CalendarInterface implements UserInterface{
         return input;
     }
 
+    public String startTagEditing(){
+        System.out.println("Enter the title of the tag that you want to edit.");
+        return scanner.nextLine();
+    }
+
+    public void tagEditingMenu(){
+        System.out.println("Enter the new details of the tag.");
+    }
+
     public void displayError(String prompt){
         System.out.println(prompt);
     }
