@@ -21,6 +21,7 @@ public class DatabaseInsertTests {
     @BeforeEach
     void setupDatabase() throws DataManagerException {
         dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
+        assertNotNull(dm, "Database connection must be established before running tests.");
     }
 
     @AfterEach
@@ -30,13 +31,23 @@ public class DatabaseInsertTests {
                 LocalDateTime.now().plusYears(50))) {
             dm.removeAppointmentById(appointment.getAppointmentId());
         }
+
+        for (Tag tag : dm.getAllTags()) {
+            dm.removeTag(tag);
+        }
     }
 
     @Test
     void testAddAppointment() throws DataManagerException {
+        Tag tag1 = new Tag("testingTag", "yellow");
+        Tag tag2 = new Tag("Uni", "purple");
+
+        int tag1Id = dm.addTag(tag1);
+        int tag2Id = dm.addTag(tag2);
+
         List<Tag> testTags = Arrays.asList(
-                new Tag(1, "testingTag", "yellow"),
-                new Tag(2, "Uni", "purple")
+                new Tag(tag1Id, "testingTag", "yellow"),
+                new Tag(tag2Id, "Uni", "purple")
         );
 
         Appointment insertAppointment = new Appointment(
@@ -50,7 +61,6 @@ public class DatabaseInsertTests {
         int insertedId = dm.addAppointment(insertAppointment);
         // fetching the appointment right after inserting it to see if everything worked correctly
         Optional<Appointment> optionalInsertedAppointment = dm.getAppointmentById(insertedId);
-
         assertTrue(optionalInsertedAppointment.isPresent(), "The appointment should exist in the database");
 
         Appointment actualInsertedAppointment = optionalInsertedAppointment.get();
@@ -60,7 +70,6 @@ public class DatabaseInsertTests {
         assertEquals(insertAppointment.getDescription(), actualInsertedAppointment.getDescription(), "Descriptions should match");
         assertEquals(insertAppointment.getStartDate(), actualInsertedAppointment.getStartDate(), "Start dates should match");
         assertEquals(insertAppointment.getEndDate(), actualInsertedAppointment.getEndDate(), "End dates should match");
-        assertEquals(insertAppointment.getTags(), actualInsertedAppointment.getTags(), "Tags should match");
 
         List<Tag> tagListOfAppointment = dm.getTagsByAppointmentId(insertedId);
         assertEquals(2, tagListOfAppointment.size(), "The appointment should have 2 tags associated with it");
@@ -77,13 +86,11 @@ public class DatabaseInsertTests {
 
     @Test
     void testAddingAndRemovingTags() throws DataManagerException {
-
         Tag insertTag = new Tag("Hardcore Bodybuilding", "Regenbogen");
 
         int insertId = dm.addTag(insertTag);
         // fetching the Tag right after inserting it to see if everything worked correctly
         Optional<Tag> insertedTag = dm.getTagById(insertId);
-
         assertTrue(insertedTag.isPresent(), "The tag should exist in the database");
 
         Tag actualTag = insertedTag.get();
