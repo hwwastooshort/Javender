@@ -174,7 +174,7 @@ public class CalendarController {
 
     private Appointment createNewAppointment(Appointment appointment) {
 
-        int input = uI.appointmentEditMenu();
+        int input = 0;
 
         while (input != 5) {
             input = uI.appointmentEditMenu();
@@ -207,7 +207,8 @@ public class CalendarController {
                     }
                     appointment.setTags(newTags);
                     break;
-
+                case 5:
+                    break;
                 default:
                     uI.displayError("Invalid input");
                     break;
