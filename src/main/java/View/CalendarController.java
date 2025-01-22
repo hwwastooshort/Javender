@@ -136,12 +136,26 @@ public class CalendarController {
     public void addTag(){
         uI.startTagCreation();
         String title = uI.getTagTitle();
-        String color = uI.getTagColor();
-        Tag newTag = new Tag(title,color);
         try{
-            dM.addTag(newTag);
+            Optional<Tag> optionalTag = dM.getTagByTitle(title);
+            if(optionalTag.isEmpty()){
+                String color = uI.getTagColor();
+                Tag newTag = new Tag(title,color);
+                dM.addTag(newTag);
+                return;
+            }
+            Tag tag = optionalTag.get();
+            int choice = uI.tagAlreadyExists(optionalTag.get());
+            if(choice == 1){
+                String color = uI.getTagColor();
+                Tag overwritingTag = new Tag(tag.getTagId(), title, color);
+                dM.updateTag(overwritingTag);
+                uI.successfullyOverwriteTag(overwritingTag);
+                return;
+            }
+            uI.cancleOverwriteTag();
         }catch (DataManagerException e){
-            uI.displayError("There was a problem with adding the created tag to the database in addTag.");
+            uI.displayError(e.getMessage());
         }
     }
 

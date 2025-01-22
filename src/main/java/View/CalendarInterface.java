@@ -186,13 +186,37 @@ public class CalendarInterface implements UserInterface{
         System.out.println("Enter the details of the new Tag");
     }
     public String getTagTitle(){
-        System.out.println("Tag title:");
+        System.out.print("Tag title: ");
         return scanner.nextLine();
     }
 
     public String getTagColor(){
-        System.out.println("Tag color:");
+        System.out.print("Tag color: ");
         return scanner.nextLine();
+    }
+
+    public int tagAlreadyExists(Tag existingTag){
+        System.out.println("The tag with the name \"" + existingTag.getName() + "\" already exists.\n"
+                            + "Would you like to overwrite it?\n"
+                            + "1. Yes\n"
+                            + "2. No");
+        int userInput = 0;
+        while(userInput < 1 || userInput > 2){
+            userInput = scanner.nextInt();
+            scanner.nextLine();
+            if(userInput < 1 || userInput > 2){
+                System.out.println("Invalid input! Please choose from the selection above!\n");
+            }
+        }
+        return userInput;
+    }
+
+    public void successfullyOverwriteTag(Tag newTag){
+        System.out.println("You have successfully overwritten the tag. New tag: \"" + newTag.getName() + "\"");
+    }
+
+    public void cancleOverwriteTag(){
+        System.out.println("Canceled! You have not overwritten the tag.");
     }
 
     public String startEditingAppointment(){

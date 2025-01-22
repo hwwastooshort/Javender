@@ -51,6 +51,9 @@ public interface UserInterface {
 
     void displayError(String prompt);
     String formatPrompt(String prompt);
+    int tagAlreadyExists(Tag existingTag);
+    void successfullyOverwriteTag(Tag newTag);
+    void cancleOverwriteTag();
     String getMonthWithText(LocalDate date, String prompt);
 
 }
