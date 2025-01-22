@@ -457,10 +457,39 @@ public class JooqDataManager implements DataManager {
     }
 
     public Optional<Tag> getTagByTitle(String title) throws DataManagerException {
-        return Optional.empty();
+        //get tag by title
+        try {
+            logger.info("Fetching tag by title: {}", title);
+            return create.select()
+                    .from(TAG)
+                    .where(TAG.NAME.eq(title))
+                    .fetchOptionalInto(Tag.class);
+        } catch (Exception e) {
+            logger.error("Error occurred while fetching tag by title: {}", title, e);
+            throw new DataManagerException(e.getMessage());
+        }
     }
 
-    public void saveTag(Tag tag) throws DataManagerException {
-
+    @Override
+    public void updateTag(Tag tag) throws DataManagerException {
+        try {
+            logger.info("Updating tag: {}", tag);
+            getTagByTitle(tag.getName()).ifPresentOrElse(
+                    existingTag -> {
+                        create.update(TAG)
+                                .set(TAG.NAME, tag.getName())
+                                .set(TAG.COLOR, tag.getColor())
+                                .where(TAG.TAGID.eq(existingTag.getTagId()))
+                                .execute();
+                        logger.info("Successfully updated tag with ID: {}", existingTag.getTagId());
+                    },
+                    () -> {
+                        logger.warn("No tag found with title: {}", tag.getName());
+                    }
+            );
+        } catch (Exception e) {
+            logger.error("Error occurred while updating tag: {}", tag, e);
+            throw new DataManagerException(e.getMessage());
+        }
     }
 }

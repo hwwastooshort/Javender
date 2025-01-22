@@ -169,4 +169,15 @@ public class DatabaseGetTests {
         assertTrue(fetchedAppointments.stream().map(Appointment::getTitle).toList().containsAll(expectedTitles),
                 "All expected appointments should be present.");
     }
+
+    @Test
+    void testGetTagByTitle() throws DataManagerException {
+        String givenTitle = "Personal";
+        assertEquals(new Tag(1, "Personal", "red"), dm.getTagByTitle(givenTitle).orElseThrow(),
+                "The fetched tag should match the expected tag");
+
+        String givenTitleThatsDoesNotExist = "NonExistent";
+        assertTrue(dm.getTagByTitle(givenTitleThatsDoesNotExist).isEmpty(),
+                "The tag should not exist in the database");
+    }
 }

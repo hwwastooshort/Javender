@@ -9,6 +9,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -19,22 +24,27 @@ public class DatabaseInsertTests {
     private DataManager dm;
 
     @BeforeEach
-    void setupDatabase() throws DataManagerException {
-        dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDatabase.db");
+    void setupDatabase() throws Exception {
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
+             Statement statement = connection.createStatement()) {
+
+            String setupSql = Files.readString(Paths.get("src/test/resources/DeleteTestAppointments.sql"));
+            statement.executeUpdate(setupSql);
+        }
+
+        dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDataBase.db");
         assertNotNull(dm, "Database connection must be established before running tests.");
     }
 
     @AfterEach
-    void cleanupDatabase() throws DataManagerException {
-        for (Appointment appointment : dm.getAppointmentsByRange(
-                LocalDateTime.now().minusYears(50),
-                LocalDateTime.now().plusYears(50))) {
-            dm.removeAppointmentById(appointment.getAppointmentId());
+    void cleanupDatabase() throws Exception {
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
+             Statement statement = connection.createStatement()) {
+
+            String cleanupSql = Files.readString(Paths.get("src/test/resources/DeleteTestAppointments.sql"));
+            statement.executeUpdate(cleanupSql);
         }
 
-        for (Tag tag : dm.getAllTags()) {
-            dm.removeTag(tag);
-        }
     }
 
     @Test
@@ -103,5 +113,15 @@ public class DatabaseInsertTests {
 
         Optional<Tag> fetchedTagAfterRemoval = dm.getTagById(insertId);
         assertFalse(fetchedTagAfterRemoval.isPresent(), "The tag should be removed from the database");
+    }
+
+    @Test
+    void testUpdateTag() throws DataManagerException {
+        Tag startTag = new Tag("Start", "blue");
+        dm.addTag(startTag);
+        assertEquals(startTag, dm.getTagByTitle("Start").orElseThrow(), "The tag should be present in the database");
+        dm.updateTag(new Tag("Start", "yellow"));
+        assertEquals("yellow", dm.getTagByTitle("Start").orElseThrow().getColor(), "The tag should have been updated");
+
     }
 }

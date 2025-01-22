@@ -157,7 +157,7 @@ public class CalendarController {
             uI.tagEditingMenu();
             tag.setName(uI.getTagTitle());
             tag.setColor(uI.getTagColor());
-            dM.saveTag(tag);
+            //dM.saveTag(tag);
         }catch (DataManagerException e){
             e.printStackTrace();
         }
