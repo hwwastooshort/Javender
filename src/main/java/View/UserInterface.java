@@ -39,12 +39,20 @@ public interface UserInterface {
 
     String getTagColor();
 
+    /**
+     * asks the user to enter the title of the appointment they want to edit
+     * @return name of the appointment
+     * **/
     String startEditingAppointment();
 
     int chooseAppointment(List<Appointment> appointments);
 
     int appointmentEditMenu();
 
+    /**
+     * asks the user to enter the title of the tag they want to edit
+     * @return name of the tag
+     * **/
     String startTagEditing();
 
     void tagEditingMenu();
@@ -55,5 +63,11 @@ public interface UserInterface {
     void successfullyOverwriteTag(Tag newTag);
     void cancleOverwriteTag();
     String getMonthWithText(LocalDate date, String prompt);
+
+    /**
+     * asks the user to enter the title of the appointment they want to delete
+     * @return name of the appointment
+     * **/
+    String startDeletingAppointment();
 
 }

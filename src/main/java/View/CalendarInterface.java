@@ -264,6 +264,11 @@ public class CalendarInterface implements UserInterface{
         System.out.println("Enter the new details of the tag.");
     }
 
+
+    public String startDeletingAppointment(){
+        System.out.println("Enter the title of the appointment you want to delete.");
+        return scanner.nextLine();
+    }
     public void displayError(String prompt){
         System.out.println(prompt);
     }
