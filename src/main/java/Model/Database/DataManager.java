@@ -43,4 +43,8 @@ public interface DataManager {
     Optional<Tag> getTagByTitle(String title) throws DataManagerException;
 
     void updateTag(Tag tag) throws DataManagerException;
+
+    void removeAllAppointments() throws DataManagerException;
+
+    void removeAllTags() throws DataManagerException;
 }

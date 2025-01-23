@@ -124,4 +124,71 @@ public class DatabaseInsertTests {
         assertEquals("yellow", dm.getTagByTitle("Start").orElseThrow().getColor(), "The tag should have been updated");
 
     }
+
+    @Test
+    void testRemoveAllAppointments() throws DataManagerException {
+        Tag tag1 = new Tag("testingTag", "yellow");
+        Tag tag2 = new Tag("Uni", "purple");
+
+        int tag1Id = dm.addTag(tag1);
+        int tag2Id = dm.addTag(tag2);
+
+        List<Tag> testTags = Arrays.asList(
+                new Tag(tag1Id, "testingTag", "yellow"),
+                new Tag(tag2Id, "Uni", "purple")
+        );
+
+        Appointment insertAppointment = new Appointment(
+                LocalDateTime.parse("2030-10-01T00:00:00"),
+                LocalDateTime.parse("2030-10-01T02:00:00"),
+                "Meeting",
+                "Presenting results",
+                testTags
+        );
+
+        int insertedId = dm.addAppointment(insertAppointment);
+        // fetching the appointment right after inserting it to see if everything worked correctly
+        Optional<Appointment> optionalInsertedAppointment = dm.getAppointmentById(insertedId);
+        assertTrue(optionalInsertedAppointment.isPresent(), "The appointment should exist in the database");
+
+        dm.removeAllAppointments();
+
+        Optional<Appointment> fetchedAfterRemoval = dm.getAppointmentById(insertedId);
+        assertFalse(fetchedAfterRemoval.isPresent(), "The appointment should be removed from the database");
+
+        List<Tag> tagsAfterRemoval = dm.getTagsByAppointmentId(insertedId);
+        assertTrue(tagsAfterRemoval.isEmpty(), "Tags associated with the removed appointment should also be removed");
+    }
+
+    @Test
+    void testDeleteAllTags() throws DataManagerException {
+        Tag tag1 = new Tag("testingTag", "yellow");
+        Tag tag2 = new Tag("Uni", "purple");
+
+        int tag1Id = dm.addTag(tag1);
+        int tag2Id = dm.addTag(tag2);
+
+        List<Tag> testTags = Arrays.asList(
+                new Tag(tag1Id, "testingTag", "yellow"),
+                new Tag(tag2Id, "Uni", "purple")
+        );
+
+        Appointment insertAppointment = new Appointment(
+                LocalDateTime.parse("2030-10-01T00:00:00"),
+                LocalDateTime.parse("2030-10-01T02:00:00"),
+                "Meeting",
+                "Presenting results",
+                testTags
+        );
+
+        int insertedId = dm.addAppointment(insertAppointment);
+        // fetching the appointment right after inserting it to see if everything worked correctly
+        Optional<Appointment> optionalInsertedAppointment = dm.getAppointmentById(insertedId);
+        assertTrue(optionalInsertedAppointment.isPresent(), "The appointment should exist in the database");
+
+        dm.removeAllTags();
+
+        List<Tag> tagsAfterRemoval = dm.getTagsByAppointmentId(insertedId);
+        assertTrue(tagsAfterRemoval.isEmpty(), "Tags associated with the removed appointment should also be removed");
+    }
 }

@@ -492,4 +492,34 @@ public class JooqDataManager implements DataManager {
             throw new DataManagerException(e.getMessage());
         }
     }
+
+    @Override
+    public void removeAllAppointments() throws DataManagerException {
+        try {
+            logger.info("Removing all appointments from the database");
+            create.delete(APPOINTMENT).execute();
+            logger.debug("Successfully removed all appointments");
+            create.delete(APPOINTMENTTAG).execute();
+            logger.debug("Successfully removed all appointment tags");
+
+        } catch(Exception e) {
+            logger.error("Error occurred while removing all appointments: {}", e.getMessage());
+            throw new DataManagerException(e.getMessage());
+        }
+    }
+
+    @Override
+    public void removeAllTags() throws DataManagerException {
+        try {
+            logger.info("Removing all tags from the database");
+            create.delete(TAG).execute();
+            logger.debug("Successfully removed all tags");
+            create.delete(APPOINTMENTTAG).execute();
+            logger.debug("Successfully removed all appointment tags");
+
+        } catch(Exception e) {
+            logger.error("Error occurred while removing all tags: {}", e.getMessage());
+            throw new DataManagerException(e.getMessage());
+        }
+    }
 }
