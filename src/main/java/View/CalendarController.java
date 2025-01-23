@@ -62,6 +62,9 @@ public class CalendarController {
 
     }
 
+    /**
+     * gets and validates a StartDateTime
+     * **/
     private LocalDateTime getStartDateTime(){
         String startDate = uI.getStartDate();
         while(validateDate(startDate)){
@@ -76,19 +79,26 @@ public class CalendarController {
         return LocalDateTime.of(LocalDate.parse(startDate), LocalTime.parse(startTime));
     }
 
+    /**
+     * gets and validates EndDateTime
+     * **/
     private LocalDateTime getEndDateTime(){
         String endDate = uI.getEndDate();
         while(validateDate(endDate)){
             endDate = uI.getEndDate();
         }
         String endTime = uI.getEndTime();
-        while(validateTime(endTime)){ //TODO manchmal wird hier trotz richtiger Eingabe die Zeit nicht akzeptiert
+        while(validateTime(endTime)){
             endTime = uI.getEndTime();
         }
 
         return LocalDateTime.of(LocalDate.parse(endDate), LocalTime.parse(endTime));
     }
 
+    /**
+     * checks if the entered String is formatted correctly to be parsed to
+     * a LocalDate object
+     * **/
     public boolean validateDate(String dateString){
         try {
             LocalDate.parse(dateString);
@@ -99,6 +109,10 @@ public class CalendarController {
         }
     }
 
+    /**
+     * checks of the entered String is formatted correctly to be parsed to
+     * a LocalTime object
+     * **/
     public boolean validateTime(String timeString){
         try {
             LocalTime.parse(timeString);
@@ -109,6 +123,9 @@ public class CalendarController {
         }
     }
 
+    /**
+     * checks if the startTime is chronologically after the endTime
+     * **/
     public boolean validateDateTimeOrder(LocalDateTime start, LocalDateTime end){
         if(start.isAfter(end)){
             uI.displayError("Your appointment can not end before it starts.");
@@ -159,6 +176,9 @@ public class CalendarController {
         }
     }
 
+    /**
+     * logic to edit the tags assigned to an appointment the is chosen by the user
+     * **/
     public void editTag(){
         String title = uI.startTagEditing();
         try {
@@ -171,13 +191,16 @@ public class CalendarController {
             uI.tagEditingMenu();
             tag.setName(uI.getTagTitle());
             tag.setColor(uI.getTagColor());
-            //dM.saveTag(tag);
+            dM.updateTag(tag);
         }catch (DataManagerException e){
             e.printStackTrace();
         }
 
     }
 
+    /**
+     * edit an appointment that the user chooses via the ui
+     * **/
     public void editAppointment() {
 
         String appointmentTitle = uI.startEditingAppointment();
@@ -205,6 +228,12 @@ public class CalendarController {
         }
     }
 
+    /**
+     * create new appointment object based on user inputs
+     * @param appointment appointment that the user wants to edit
+     * @return Appointment that contains the new information entered by the user
+     * variables that the user does not update contain the data of the parameter
+     * **/
     private Appointment createNewAppointment(Appointment appointment) {
 
         int input = 0;
