@@ -233,12 +233,12 @@ public class CalendarInterface implements UserInterface{
     public int chooseAppointment(List<Appointment> appointments){
         System.out.println("Choose one of the following appointments: ");
         for(int i = 0; i < appointments.size(); i++){
-            System.out.println(i + ": " + appointments.get(i).getTitle()
+            System.out.println((i+1) + ": " + appointments.get(i).getTitle()
                     + " Start Date: " + appointments.get(i).getStartDate()
                     + " End Date: " + appointments.get(i).getEndDate()
                     + " Description: " + appointments.get(i).getDescription());
         }
-        int appointmentIndex = scanner.nextInt();
+        int appointmentIndex = scanner.nextInt() - 1;
         scanner.nextLine();
         return appointmentIndex;
     }

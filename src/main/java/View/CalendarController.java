@@ -193,7 +193,7 @@ public class CalendarController {
 
             if (appointments.size() > 1) {
                 appointmentIndex = uI.chooseAppointment(appointments);
-                while (appointmentIndex >= appointments.size()) {
+                while (appointmentIndex >= appointments.size() || appointmentIndex < 0) {
                     uI.displayError("Invalid input.");
                     appointmentIndex = uI.chooseAppointment(appointments);
                 }
