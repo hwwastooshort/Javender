@@ -201,18 +201,24 @@ public class CalendarInterface implements UserInterface{
                             + "1. Yes\n"
                             + "2. No");
         int userInput = 0;
-        while(userInput < 1 || userInput > 2){
+        boolean loop = true;
+        while(loop){
             userInput = scanner.nextInt();
             scanner.nextLine();
-            if(userInput < 1 || userInput > 2){
-                System.out.println("Invalid input! Please choose from the selection above!\n");
+            switch(userInput){
+                case 1, 2:
+                    loop = false;
+                    break;
+                default:
+                    System.out.println("Invalid input! Please choose from the selection above!");
+                    break;
             }
         }
         return userInput;
     }
 
     public void successfullyOverwriteTag(Tag newTag){
-        System.out.println("You have successfully overwritten the tag. New tag: \"" + newTag.getName() + "\"");
+        System.out.println("You have successfully overwritten the tag. Updated tag: \"" + newTag.getName() + "\"");
     }
 
     public void cancleOverwriteTag(){
