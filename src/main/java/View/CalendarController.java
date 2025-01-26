@@ -202,30 +202,40 @@ public class CalendarController {
      * edit an appointment that the user chooses via the ui
      * **/
     public void editAppointment() {
-
         String appointmentTitle = uI.startEditingAppointment();
         try {
             List<Appointment> appointments = dM.getAppointmentsByTitle(appointmentTitle);
 
-            int appointmentIndex = 0;
+            int appointmentIndex = chooseAppointmentLogic(appointments);
 
-            if (appointments.isEmpty()) {
-                uI.displayError("There are no appointments with the name \"" + appointmentTitle + "\"");
-                return;
-            }
+            Appointment updatedAppointment = createNewAppointment(appointments.get(appointmentIndex));
 
-            if (appointments.size() > 1) {
-                appointmentIndex = uI.chooseAppointment(appointments);
-                while (appointmentIndex >= appointments.size() || appointmentIndex < 0) {
-                    uI.displayError("Invalid input.");
-                    appointmentIndex = uI.chooseAppointment(appointments);
-                }
-            }
-            Appointment newAppointment = createNewAppointment(appointments.get(appointmentIndex));
-            dM.updateAppointment(newAppointment);
+            dM.updateAppointment(updatedAppointment);
         }catch (DataManagerException e){
             uI.displayError(e.getMessage());
         }
+    }
+
+    /**
+     * @param appointments All appointments the user gets to chose from
+     * @return Index of the appointment chosen by the user
+     * **/
+    private int chooseAppointmentLogic(List<Appointment> appointments){
+        int appointmentIndex = 0;
+
+        if (appointments.isEmpty()) {
+            uI.displayError("There are no appointments with the name you entered.");
+            return chooseAppointmentLogic(appointments);
+        }
+
+        if (appointments.size() > 1) {
+            appointmentIndex = uI.chooseAppointment(appointments);
+            while (appointmentIndex >= appointments.size() || appointmentIndex < 0) {
+                uI.displayError("Invalid input.");
+                appointmentIndex = uI.chooseAppointment(appointments);
+            }
+        }
+        return appointmentIndex;
     }
 
     /**
@@ -278,4 +288,6 @@ public class CalendarController {
         }
         return appointment;
     }
+
+
 }

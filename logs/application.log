@@ -6154,3 +6154,12 @@ jOOQ tip of the day: To version control jOOQ generated code or not? There are pr
 2025-01-23 21:59:25 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
 2025-01-23 21:59:25 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 651
 2025-01-23 21:59:25 [main] WARN  Model.Database.JooqDataManager - No Tags found for Appointment: 651
+2025-01-26 15:44:23 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 15:44:24 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 15:44:26 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: aaa
+2025-01-26 15:44:26 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 652
+2025-01-26 15:44:26 [main] WARN  Model.Database.JooqDataManager - No Tags found for Appointment: 652
+2025-01-26 15:44:34 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=652, startDate=2030-10-01T00:00, endDate=2030-10-01T00:01, title='bbb', description='bbb', tags=[]}
+2025-01-26 15:44:34 [main] INFO  Model.Database.JooqDataManager - Successfully updated basic appointment data for ID: 652
+2025-01-26 15:44:34 [main] INFO  Model.Database.JooqDataManager - Deleted existing tags for appointment ID: 652
+2025-01-26 15:44:34 [main] INFO  Model.Database.JooqDataManager - Successfully updated tags for appointment ID: 652
