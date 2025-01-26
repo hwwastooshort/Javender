@@ -208,9 +208,11 @@ public class CalendarController {
 
             int appointmentIndex = chooseAppointmentLogic(appointments);
 
-            Appointment updatedAppointment = createNewAppointment(appointments.get(appointmentIndex));
+            if(appointmentIndex >= 0){
+                Appointment updatedAppointment = createNewAppointment(appointments.get(appointmentIndex));
 
-            dM.updateAppointment(updatedAppointment);
+                dM.updateAppointment(updatedAppointment);
+            }
         }catch (DataManagerException e){
             uI.displayError(e.getMessage());
         }
@@ -218,14 +220,15 @@ public class CalendarController {
 
     /**
      * @param appointments All appointments the user gets to chose from
-     * @return Index of the appointment chosen by the user
+     * @return Index of the appointment chosen by the user,
+     * returns -1 if appointments is empty
      * **/
     private int chooseAppointmentLogic(List<Appointment> appointments){
         int appointmentIndex = 0;
 
         if (appointments.isEmpty()) {
             uI.displayError("There are no appointments with the name you entered.");
-            return chooseAppointmentLogic(appointments);
+            return -1;
         }
 
         if (appointments.size() > 1) {
@@ -289,5 +292,18 @@ public class CalendarController {
         return appointment;
     }
 
-
+    public void removeAppointment(){
+        String title = uI.startDeletingAppointment();
+        try {
+            List<Appointment> appointments = dM.getAppointmentsByTitle(title);
+            int appointmentIndex = chooseAppointmentLogic(appointments);
+            if(appointmentIndex >= 0) {
+                Appointment appointmentToBeRemoved = appointments.get(appointmentIndex);
+                dM.removeAppointment(appointmentToBeRemoved);
+            }
+        }catch(DataManagerException e){
+            uI.displayError("There was a problem with removing the appointment.");
+            uI.displayError(e.getMessage());
+        }
+    }
 }

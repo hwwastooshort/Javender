@@ -6163,3 +6163,36 @@ jOOQ tip of the day: To version control jOOQ generated code or not? There are pr
 2025-01-26 15:44:34 [main] INFO  Model.Database.JooqDataManager - Successfully updated basic appointment data for ID: 652
 2025-01-26 15:44:34 [main] INFO  Model.Database.JooqDataManager - Deleted existing tags for appointment ID: 652
 2025-01-26 15:44:34 [main] INFO  Model.Database.JooqDataManager - Successfully updated tags for appointment ID: 652
+2025-01-26 16:22:32 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:22:33 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:22:35 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: aaa
+2025-01-26 16:22:36 [main] WARN  Model.Database.JooqDataManager - No appointments found with title: aaa
+2025-01-26 16:28:56 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:28:57 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:29:01 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: aaa
+2025-01-26 16:29:01 [main] WARN  Model.Database.JooqDataManager - No appointments found with title: aaa
+2025-01-26 16:29:59 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:29:59 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:30:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: aaa
+2025-01-26 16:30:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 653
+2025-01-26 16:30:02 [main] WARN  Model.Database.JooqDataManager - No Tags found for Appointment: 653
+2025-01-26 16:30:10 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=653, startDate=2025-01-01T09:00, endDate=2025-01-01T09:00:01, title='bbb', description='bbb', tags=[]}
+2025-01-26 16:30:10 [main] INFO  Model.Database.JooqDataManager - Successfully updated basic appointment data for ID: 653
+2025-01-26 16:30:10 [main] INFO  Model.Database.JooqDataManager - Deleted existing tags for appointment ID: 653
+2025-01-26 16:30:10 [main] INFO  Model.Database.JooqDataManager - Successfully updated tags for appointment ID: 653
+2025-01-26 16:30:34 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:30:35 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:30:42 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: bb
+2025-01-26 16:30:42 [main] WARN  Model.Database.JooqDataManager - No appointments found with title: bb
+2025-01-26 16:35:36 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:35:37 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:35:39 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: bb
+2025-01-26 16:35:39 [main] WARN  Model.Database.JooqDataManager - No appointments found with title: bb
+2025-01-26 16:35:43 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:35:44 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-26 16:35:45 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: bbb
+2025-01-26 16:35:46 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 653
+2025-01-26 16:35:46 [main] WARN  Model.Database.JooqDataManager - No Tags found for Appointment: 653
+2025-01-26 16:35:46 [main] INFO  Model.Database.JooqDataManager - Removing appointment: Appointment{appointmentId=653, startDate=2025-01-01T09:00, endDate=2025-01-01T09:00:01, title='bbb', description='bbb', tags=[]}
+2025-01-26 16:35:46 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 653
+2025-01-26 16:35:46 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 653
