@@ -19,6 +19,7 @@ public class CalendarController {
 
     private final String PATH_TO_DATABASE = "jdbc:sqlite:src/test/resources/javenderDatabase.db";
     UserInterface uI = new CalendarInterface();
+    MainMenuView mainMenuView = new MainMenuView(uI);
     DataManager dM;
 
     {
@@ -26,6 +27,39 @@ public class CalendarController {
             dM = new JooqDataManager(PATH_TO_DATABASE);
         } catch (DataManagerException e) {
             throw new RuntimeException("Couldn't connect to database");
+        }
+    }
+
+    public void mainMenu() {
+        boolean running = true;
+
+        while (running) {
+            mainMenuView.displayMainMenu();
+            int choice = mainMenuView.getUserChoice();
+
+            switch (choice) {
+                case 1:
+                    addAppointment();
+                    break;
+                case 2:
+                    editAppointment();
+                    break;
+                case 3:
+                    removeAppointment();
+                    break;
+                case 4:
+                    addTag();
+                    break;
+                case 5:
+                    editTag();
+                    break;
+                case 6:
+                    mainMenuView.displayExitMessage();
+                    running = false;
+                    break;
+                default:
+                    mainMenuView.displayInvalidChoiceMessage();
+            }
         }
     }
 

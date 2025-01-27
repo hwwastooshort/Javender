@@ -70,4 +70,7 @@ public interface UserInterface {
      * **/
     String startDeletingAppointment();
 
+    int getIntegerInput();
+
+    void displayMessage(String s);
 }

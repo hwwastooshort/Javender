@@ -273,4 +273,18 @@ public class CalendarInterface implements UserInterface{
         System.out.println(prompt);
     }
 
+    public void displayMessage(String message) {
+        System.out.println(message);
+    }
+
+    public int getIntegerInput() {
+        while (!scanner.hasNextInt()) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.next();
+        }
+        int input = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+        return input;
+    }
+
 }
