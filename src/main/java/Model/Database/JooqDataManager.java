@@ -391,6 +391,12 @@ public class JooqDataManager implements DataManager {
         try {
             logger.info("Updating appointment: {}", appointment);
 
+            //check if appointment is in database
+            if (getAppointmentById(appointment.getAppointmentId()).isEmpty()) {
+                logger.warn("No appointment found with ID: {}", appointment.getAppointmentId());
+                throw new DataManagerException("No appointment found with ID: " + appointment.getAppointmentId());
+            }
+
             create.update(APPOINTMENT)
                     .set(APPOINTMENT.STARTDATE, appointment.getStartDate().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
                     .set(APPOINTMENT.ENDDATE, appointment.getEndDate().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME))
