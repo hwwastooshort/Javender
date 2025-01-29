@@ -110,7 +110,7 @@ public class CalendarControllerTests {
         assertTrue(output.contains("Tag title:"));
         assertTrue(output.contains("Tag color:"));
 
-        Tag addedTag = dm.getTagByTitle("Pumpen gehen").orElse(null);
+        Tag addedTag = dm.getTagByName("Pumpen gehen").orElse(null);
         assertNotNull(addedTag);
         assertEquals("red", addedTag.getColor());
     }
@@ -122,7 +122,7 @@ public class CalendarControllerTests {
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
 
         CalendarController cc = new CalendarController();
-        Tag existingTag = dm.getTagByTitle("Personal").orElse(null);
+        Tag existingTag = dm.getTagByName("Personal").orElse(null);
         assertNotNull(existingTag);
         assertEquals("Personal", existingTag.getName());
         assertEquals("red", existingTag.getColor());
@@ -138,7 +138,7 @@ public class CalendarControllerTests {
         assertTrue(output.contains("Tag color:"));
         assertTrue(output.contains("You have successfully overwritten the tag. Updated tag: \"Personal\""));
 
-        Tag addedTag = dm.getTagByTitle("Personal").orElse(null);
+        Tag addedTag = dm.getTagByName("Personal").orElse(null);
         assertNotNull(addedTag);
         assertEquals("blue", addedTag.getColor());
         assertEquals(addedTag.getTagId(), existingTagId);
@@ -152,7 +152,7 @@ public class CalendarControllerTests {
 
         CalendarController cc = new CalendarController();
 
-        Tag existingTag = dm.getTagByTitle("Personal").orElse(null);
+        Tag existingTag = dm.getTagByName("Personal").orElse(null);
         assertNotNull(existingTag);
         assertEquals("Personal", existingTag.getName());
         assertEquals("red", existingTag.getColor());
@@ -166,7 +166,7 @@ public class CalendarControllerTests {
         assertTrue(output.contains("Tag title:"));
         assertTrue(output.contains("Canceled! You have not overwritten the tag."));
 
-        Tag finalTag = dm.getTagByTitle("Personal").orElse(null);
+        Tag finalTag = dm.getTagByName("Personal").orElse(null);
         assertNotNull(finalTag);
         assertEquals("red", finalTag.getColor());
     }

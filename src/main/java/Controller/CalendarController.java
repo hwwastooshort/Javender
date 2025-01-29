@@ -9,7 +9,6 @@ import View.CalendarInterface;
 import View.MainMenuView;
 import View.UserInterface;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -48,7 +47,7 @@ public class CalendarController {
                     editAppointment();
                     break;
                 case 3:
-                    removeAppointment();
+                    deleteAppointment();
                     break;
                 case 4:
                     addTag();
@@ -191,7 +190,7 @@ public class CalendarController {
         uI.startTagCreation();
         String title = uI.getTagTitle();
         try{
-            Optional<Tag> optionalTag = dM.getTagByTitle(title);
+            Optional<Tag> optionalTag = dM.getTagByName(title);
             if(optionalTag.isEmpty()){
                 String color = uI.getTagColor();
                 Tag newTag = new Tag(title,color);
@@ -219,7 +218,7 @@ public class CalendarController {
     public void editTag(){
         String title = uI.startEditingTag();
         try {
-            Optional<Tag> optionalTag = dM.getTagByTitle(title);
+            Optional<Tag> optionalTag = dM.getTagByName(title);
             if(optionalTag.isEmpty()){
                 uI.displayError("There was no tag with the title \"" + title + "\".");
                 return;
@@ -329,7 +328,7 @@ public class CalendarController {
         return appointment;
     }
 
-    public void removeAppointment(){
+    public void deleteAppointment(){
         String title = uI.startDeletingAppointment();
         try {
             List<Appointment> appointments = dM.getAppointmentsByTitle(title);
@@ -340,6 +339,21 @@ public class CalendarController {
             }
         }catch(DataManagerException e){
             uI.displayError("There was a problem with removing the appointment.");
+            uI.displayError(e.getMessage());
+        }
+    }
+
+    public void deleteTag(){
+        String name = uI.startDeletingTag();
+        try {
+            Optional<Tag> optionalTag = dM.getTagByName(name);
+            if(optionalTag.isEmpty()){
+                uI.displayError("There was no tag with the name \"" + name + "\"");
+                return;
+            }
+            Tag tag = optionalTag.get();
+            dM.removeTag(tag);
+        }catch(DataManagerException e){
             uI.displayError(e.getMessage());
         }
     }

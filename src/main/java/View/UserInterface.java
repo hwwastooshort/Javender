@@ -66,9 +66,15 @@ public interface UserInterface {
 
     /**
      * asks the user to enter the title of the appointment they want to delete
-     * @return name of the appointment
+     * @return title of the appointment
      * **/
     String startDeletingAppointment();
+
+    /**
+     * asks the user to enter the name of the tag they want to delete
+     * @return name of the tag
+     * **/
+    String startDeletingTag();
 
     int getIntegerInput();
 
