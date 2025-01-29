@@ -53,7 +53,7 @@ public interface UserInterface {
      * asks the user to enter the title of the tag they want to edit
      * @return name of the tag
      * **/
-    String startTagEditing();
+    String startEditingTag();
 
     void tagEditingMenu();
 
@@ -61,7 +61,7 @@ public interface UserInterface {
     String formatPrompt(String prompt);
     int tagAlreadyExists(Tag existingTag);
     void successfullyOverwriteTag(Tag newTag);
-    void cancleOverwriteTag();
+    void cancelOverwriteTag();
     String getMonthWithText(LocalDate date, String prompt);
 
     /**
@@ -73,4 +73,5 @@ public interface UserInterface {
     int getIntegerInput();
 
     void displayMessage(String s);
+
 }

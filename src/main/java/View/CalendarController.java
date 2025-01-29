@@ -204,7 +204,7 @@ public class CalendarController {
                 uI.successfullyOverwriteTag(overwritingTag);
                 return;
             }
-            uI.cancleOverwriteTag();
+            uI.cancelOverwriteTag();
         }catch (DataManagerException e){
             uI.displayError(e.getMessage());
         }
@@ -214,7 +214,7 @@ public class CalendarController {
      * logic to edit the tags assigned to an appointment the is chosen by the user
      * **/
     public void editTag(){
-        String title = uI.startTagEditing();
+        String title = uI.startEditingTag();
         try {
             Optional<Tag> optionalTag = dM.getTagByTitle(title);
             if(optionalTag.isEmpty()){
