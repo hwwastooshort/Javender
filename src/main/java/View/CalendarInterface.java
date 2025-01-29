@@ -190,9 +190,10 @@ public class CalendarInterface implements UserInterface{
         return scanner.nextLine();
     }
 
-    public String getTagColor(){
-        System.out.print("Tag color: ");
-        return scanner.nextLine();
+    public int getTagColorIndex(){
+        System.out.print("Choose one of the following colors for your tag: ");
+        System.out.println("1.RED\n2.GREEN\n3.YELLOW\n4.BLUE\n5.PURPLE\n6.CYAN\n7.WHITE");
+        return getIntegerInput();
     }
 
     public int tagAlreadyExists(Tag existingTag){

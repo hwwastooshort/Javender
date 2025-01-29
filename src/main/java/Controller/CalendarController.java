@@ -194,7 +194,8 @@ public class CalendarController {
         try{
             Optional<Tag> optionalTag = dM.getTagByName(title);
             if(optionalTag.isEmpty()){
-                String color = uI.getTagColor();
+                int colorIndex = uI.getTagColorIndex();
+                String color = intToColor(colorIndex);
                 Tag newTag = new Tag(title,color);
                 dM.addTag(newTag);
                 return;
@@ -202,7 +203,8 @@ public class CalendarController {
             Tag tag = optionalTag.get();
             int choice = uI.tagAlreadyExists(optionalTag.get());
             if(choice == 1){
-                String color = uI.getTagColor();
+                int colorIndex = uI.getTagColorIndex();
+                String color = intToColor(colorIndex);
                 Tag overwritingTag = new Tag(tag.getTagId(), title, color);
                 dM.updateTag(overwritingTag);
                 uI.successfullyOverwriteTag(overwritingTag);
@@ -212,6 +214,38 @@ public class CalendarController {
         }catch (DataManagerException e){
             uI.displayError(e.getMessage());
         }
+    }
+
+    /**
+     * @param colorIndex index of the color the user chose
+     * @return Color corresponding to the colorIndex
+     * **/
+    private String intToColor(int colorIndex){
+        String color;
+        switch (colorIndex){
+            case 1:
+                color = "red";
+                break;
+            case 2:
+                color = "green";
+                break;
+            case 3:
+                color = "yellow";
+                break;
+            case 4:
+                color = "blue";
+                break;
+            case 5:
+                color = "purple";
+                break;
+            case 6:
+                color = "cyan";
+                break;
+            default:
+                color = "white";
+                break;
+        }
+        return color;
     }
 
     /**
@@ -228,7 +262,7 @@ public class CalendarController {
             Tag tag = optionalTag.get();
             uI.tagEditMenu();
             tag.setName(uI.getTagTitle());
-            tag.setColor(uI.getTagColor());
+            tag.setColor(intToColor(uI.getTagColorIndex()));
             dM.updateTag(tag);
         }catch (DataManagerException e){
             uI.displayError(e.getMessage());

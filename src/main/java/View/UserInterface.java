@@ -37,7 +37,7 @@ public interface UserInterface {
 
     String getTagTitle();
 
-    String getTagColor();
+    int getTagColorIndex();
 
     /**
      * asks the user to enter the title of the appointment they want to edit
