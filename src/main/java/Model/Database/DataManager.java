@@ -40,7 +40,7 @@ public interface DataManager {
 
     public List<Appointment> getAppointmentsByTitle(String title) throws DataManagerException;
 
-    Optional<Tag> getTagByTitle(String title) throws DataManagerException;
+    Optional<Tag> getTagByName(String name) throws DataManagerException;
 
     void updateTag(Tag tag) throws DataManagerException;
 

@@ -9,7 +9,6 @@ import View.CalendarInterface;
 import View.MainMenuView;
 import View.UserInterface;
 
-import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -60,7 +59,7 @@ public class CalendarController {
                     editAppointment();
                     break;
                 case 3:
-                    removeAppointment();
+                    deleteAppointment();
                     break;
                 case 4:
                     addTag();
@@ -69,6 +68,9 @@ public class CalendarController {
                     editTag();
                     break;
                 case 6:
+                    deleteTag();
+                    break;
+                case 7:
                     mainMenuView.displayExitMessage();
                     running = false;
                     break;
@@ -106,7 +108,6 @@ public class CalendarController {
 
         }catch(DataManagerException e){
             uI.displayError("There was a problem with adding the created appointment to the database in addAppointment.");
-            e.printStackTrace();
         }
 
     }
@@ -203,7 +204,7 @@ public class CalendarController {
         uI.startTagCreation();
         String title = uI.getTagTitle();
         try{
-            Optional<Tag> optionalTag = dM.getTagByTitle(title);
+            Optional<Tag> optionalTag = dM.getTagByName(title);
             if(optionalTag.isEmpty()){
                 String color = uI.getTagColor();
                 Tag newTag = new Tag(title,color);
@@ -219,7 +220,7 @@ public class CalendarController {
                 uI.successfullyOverwriteTag(overwritingTag);
                 return;
             }
-            uI.cancleOverwriteTag();
+            uI.cancelOverwriteTag();
         }catch (DataManagerException e){
             uI.displayError(e.getMessage());
         }
@@ -229,20 +230,20 @@ public class CalendarController {
      * logic to edit the tags assigned to an appointment the is chosen by the user
      * **/
     public void editTag(){
-        String title = uI.startTagEditing();
+        String title = uI.startEditingTag();
         try {
-            Optional<Tag> optionalTag = dM.getTagByTitle(title);
+            Optional<Tag> optionalTag = dM.getTagByName(title);
             if(optionalTag.isEmpty()){
                 uI.displayError("There was no tag with the title \"" + title + "\".");
                 return;
             }
             Tag tag = optionalTag.get();
-            uI.tagEditingMenu();
+            uI.tagEditMenu();
             tag.setName(uI.getTagTitle());
             tag.setColor(uI.getTagColor());
             dM.updateTag(tag);
         }catch (DataManagerException e){
-            e.printStackTrace();
+            uI.displayError(e.getMessage());
         }
 
     }
@@ -341,7 +342,7 @@ public class CalendarController {
         return appointment;
     }
 
-    public void removeAppointment(){
+    public void deleteAppointment(){
         String title = uI.startDeletingAppointment();
         try {
             List<Appointment> appointments = dM.getAppointmentsByTitle(title);
@@ -352,6 +353,21 @@ public class CalendarController {
             }
         }catch(DataManagerException e){
             uI.displayError("There was a problem with removing the appointment.");
+            uI.displayError(e.getMessage());
+        }
+    }
+
+    public void deleteTag(){
+        String name = uI.startDeletingTag();
+        try {
+            Optional<Tag> optionalTag = dM.getTagByName(name);
+            if(optionalTag.isEmpty()){
+                uI.displayError("There was no tag with the name \"" + name + "\"");
+                return;
+            }
+            Tag tag = optionalTag.get();
+            dM.removeTag(tag);
+        }catch(DataManagerException e){
             uI.displayError(e.getMessage());
         }
     }

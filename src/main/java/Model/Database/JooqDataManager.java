@@ -21,8 +21,6 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.xml.crypto.Data;
-
 import static org.jooq.generated.Tables.*;
 
 public class JooqDataManager implements DataManager {
@@ -462,7 +460,7 @@ public class JooqDataManager implements DataManager {
         }
     }
 
-    public Optional<Tag> getTagByTitle(String title) throws DataManagerException {
+    public Optional<Tag> getTagByName(String title) throws DataManagerException {
         //get tag by title
         try {
             logger.info("Fetching tag by title: {}", title);
@@ -480,7 +478,7 @@ public class JooqDataManager implements DataManager {
     public void updateTag(Tag tag) throws DataManagerException {
         try {
             logger.info("Updating tag: {}", tag);
-            getTagByTitle(tag.getName()).ifPresentOrElse(
+            getTagByName(tag.getName()).ifPresentOrElse(
                     existingTag -> {
                         create.update(TAG)
                                 .set(TAG.NAME, tag.getName())

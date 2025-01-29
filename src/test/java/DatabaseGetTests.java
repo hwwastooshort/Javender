@@ -223,6 +223,6 @@ public class DatabaseGetTests {
     @Test
     void testGetTagByTitle() throws DataManagerException {
         String givenTitle = "Personal";
-        assertThat(dm.getTagByTitle(givenTitle).get()).isEqualTo(new Tag(1, "Personal", "red"));
+        assertThat(dm.getTagByName(givenTitle).get()).isEqualTo(new Tag(1, "Personal", "red"));
     }
 }

@@ -238,7 +238,7 @@ public class CalendarInterface implements UserInterface{
         System.out.println("You have successfully overwritten the tag. Updated tag: \"" + newTag.getName() + "\"");
     }
 
-    public void cancleOverwriteTag(){
+    public void cancelOverwriteTag(){
         System.out.println("Canceled! You have not overwritten the tag.");
     }
 
@@ -272,12 +272,12 @@ public class CalendarInterface implements UserInterface{
         return input;
     }
 
-    public String startTagEditing(){
+    public String startEditingTag(){
         System.out.println("Enter the title of the tag that you want to edit.");
         return scanner.nextLine();
     }
 
-    public void tagEditingMenu(){
+    public void tagEditMenu(){
         System.out.println("Enter the new details of the tag.");
     }
 
@@ -286,6 +286,12 @@ public class CalendarInterface implements UserInterface{
         System.out.println("Enter the title of the appointment you want to delete.");
         return scanner.nextLine();
     }
+
+    public String startDeletingTag(){
+        System.out.println("Enter the name of the tag you want to delete:");
+        return scanner.nextLine();
+    }
+
     public void displayError(String prompt){
         System.out.println(prompt);
     }

@@ -119,9 +119,9 @@ public class DatabaseInsertTests {
     void testUpdateTag() throws DataManagerException {
         Tag startTag = new Tag("Start", "blue");
         dm.addTag(startTag);
-        assertEquals(startTag, dm.getTagByTitle("Start").orElseThrow(), "The tag should be present in the database");
+        assertEquals(startTag, dm.getTagByName("Start").orElseThrow(), "The tag should be present in the database");
         dm.updateTag(new Tag("Start", "yellow"));
-        assertEquals("yellow", dm.getTagByTitle("Start").orElseThrow().getColor(), "The tag should have been updated");
+        assertEquals("yellow", dm.getTagByName("Start").orElseThrow().getColor(), "The tag should have been updated");
 
     }
 
