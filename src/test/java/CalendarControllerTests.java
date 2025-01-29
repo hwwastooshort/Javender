@@ -99,7 +99,7 @@ public class CalendarControllerTests {
     @Test
     void testAddNewTag() throws DataManagerException {
 
-        String simulatedInput = "Pumpen gehen\nred\n";
+        String simulatedInput = "Pumpen gehen\n1\n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
 
         CalendarController cc = new CalendarController();
@@ -108,7 +108,8 @@ public class CalendarControllerTests {
         String output = outputStream.toString();
         assertTrue(output.contains("Enter the details of the new Tag"));
         assertTrue(output.contains("Tag title:"));
-        assertTrue(output.contains("Tag color:"));
+        assertTrue(output.contains("Choose one of the following colors for your tag: "));
+        assertTrue(output.contains("1.RED\n2.GREEN\n3.YELLOW\n4.BLUE\n5.PURPLE\n6.CYAN\n7.WHITE"));
 
         Tag addedTag = dm.getTagByName("Pumpen gehen").orElse(null);
         assertNotNull(addedTag);
@@ -118,7 +119,7 @@ public class CalendarControllerTests {
     @Test
     void testAddAndOverwriteExistingTag() throws DataManagerException {
 
-        String simulatedInput = "Personal\n1\nblue\n";
+        String simulatedInput = "Personal\n1\n4\n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
 
         CalendarController cc = new CalendarController();
@@ -135,7 +136,7 @@ public class CalendarControllerTests {
         assertTrue(output.contains("Enter the details of the new Tag"));
         assertTrue(output.contains("Tag title:"));
         assertTrue(output.contains("The tag with the name \"Personal\" already exists."));
-        assertTrue(output.contains("Tag color:"));
+        assertTrue(output.contains("Choose one of the following colors for your tag: "));
         assertTrue(output.contains("You have successfully overwritten the tag. Updated tag: \"Personal\""));
 
         Tag addedTag = dm.getTagByName("Personal").orElse(null);
