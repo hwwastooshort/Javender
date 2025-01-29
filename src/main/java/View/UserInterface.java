@@ -5,6 +5,7 @@ import Model.Entities.Tag;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface UserInterface {
@@ -15,7 +16,8 @@ public interface UserInterface {
      * @param date any day in the month that is supposed to be displayed
      * @return a string of the days in a month divided by weeks
      */
-    String getMonth(LocalDate date);
+    String getMonth(LocalDate date, List<Appointment> appointmentList);
+    String getMonthWithText(LocalDate date, String prompt, List<Appointment> appointmentList);
 
     void startAppointmentCreation();
 
@@ -62,8 +64,6 @@ public interface UserInterface {
     int tagAlreadyExists(Tag existingTag);
     void successfullyOverwriteTag(Tag newTag);
     void cancelOverwriteTag();
-    String getMonthWithText(LocalDate date, String prompt);
-
     /**
      * asks the user to enter the title of the appointment they want to delete
      * @return title of the appointment

@@ -36,6 +36,18 @@ public class CalendarController {
         boolean running = true;
 
         while (running) {
+            try {
+                System.out.println(
+                    uI.getMonth(
+                        LocalDate.now(),
+                        dM.getAppointmentsByRange(
+                            LocalDate.now().withDayOfMonth(1).atStartOfDay(),
+                            LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth()).atTime(23, 59, 59)
+                        )
+                    ));
+            } catch (DataManagerException e) {
+                throw new RuntimeException(e);
+            }
             mainMenuView.displayMainMenu();
             int choice = mainMenuView.getUserChoice();
 
