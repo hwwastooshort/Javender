@@ -260,7 +260,7 @@ public class CalendarInterface implements UserInterface{
         return scanner.nextLine();
     }
 
-    public void tagEditingMenu(){
+    public void tagEditMenu(){
         System.out.println("Enter the new details of the tag.");
     }
 

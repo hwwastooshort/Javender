@@ -93,7 +93,6 @@ public class CalendarController {
 
         }catch(DataManagerException e){
             uI.displayError("There was a problem with adding the created appointment to the database in addAppointment.");
-            e.printStackTrace();
         }
 
     }
@@ -224,12 +223,12 @@ public class CalendarController {
                 return;
             }
             Tag tag = optionalTag.get();
-            uI.tagEditingMenu();
+            uI.tagEditMenu();
             tag.setName(uI.getTagTitle());
             tag.setColor(uI.getTagColor());
             dM.updateTag(tag);
         }catch (DataManagerException e){
-            e.printStackTrace();
+            uI.displayError(e.getMessage());
         }
 
     }

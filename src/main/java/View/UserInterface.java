@@ -55,7 +55,7 @@ public interface UserInterface {
      * **/
     String startEditingTag();
 
-    void tagEditingMenu();
+    void tagEditMenu();
 
     void displayError(String prompt);
     String formatPrompt(String prompt);
