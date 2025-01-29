@@ -19,31 +19,48 @@ public class CalendarInterface implements UserInterface{
      * @return A formatted string that visually represents the calendar for the given month,
      *         including the month/year header, days of the week, and the days of the month.
      */
-    public String getMonth(LocalDate date) {
+    public String getMonth(LocalDate date, List<Appointment> appointmentList) {
         StringBuilder monthString = new StringBuilder();
 
         String days = "MO TU WE TH FR SA SU";
 
         String dateHeader = date.getMonth().toString() + "\t" + date.getYear();
         int dateHeaderMargin = dateHeader.length() + (days.length() - dateHeader.length()) / 2;
-
         String dateHeaderCentered = String.format("%" + dateHeaderMargin + "s\n", dateHeader);
 
         monthString.append(dateHeaderCentered).append(days).append("\n");
+
         int offset = getDayOffset(date);
         for (int i = 0; i < offset; i++) {
             monthString.append("   ");
         }
 
         int dayPosition = offset;
-        for (int day = 1; day <= date.getMonth().length(date.isLeapYear()); day++) {
-            monthString.append(String.format("%2d ", day));
+        for (int day = 1; day <= date.lengthOfMonth(); day++) {
+            // Filtere die Termine nach dem aktuellen Tag
+            int finalDay = day;
+            List<Appointment> dayAppointments = appointmentList.stream()
+                .filter(a -> a.getStartDate().getDayOfMonth() == finalDay)
+                .toList();
+
+            if (dayAppointments.isEmpty()) {
+                monthString.append(String.format("%2d ", day));
+            } else {
+                // Finde die erste verfügbare Farbe für den Tag
+                String color = dayAppointments.get(0).getTags().isEmpty()
+                    ? "white" // Standardfarbe, falls keine Tags existieren
+                    : dayAppointments.get(0).getTags().get(0).getColor();
+
+                String formattedDay = ColorManager.getColoredText(color, Integer.toString(day));
+                monthString.append(String.format("%11s ", formattedDay));
+            }
 
             dayPosition = (dayPosition + 1) % 7;
             if (dayPosition == 0) {
                 monthString.append("\n");
             }
         }
+
         return monthString.toString();
     }
 
@@ -55,8 +72,8 @@ public class CalendarInterface implements UserInterface{
      * @return A formatted string where each line contains a part of the month data (left-aligned)
      *         and a corresponding part of the prompt (right-aligned), with proper spacing.
      */
-    public String getMonthWithText(LocalDate date, String prompt){
-        String monthString = getMonth(date);
+    public String getMonthWithText(LocalDate date, String prompt, List<Appointment> appointmentList){
+        String monthString = getMonth(date, appointmentList);
         String promptString = formatPrompt(prompt);
 
         List<String> monthLines = new ArrayList<>(Arrays.stream(monthString.split("\n")).toList());

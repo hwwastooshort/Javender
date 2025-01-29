@@ -12,8 +12,6 @@ public class MainMenuView {
     }
 
     public void displayMainMenu() {
-        ui.displayMessage(ui.getMonth(LocalDate.now()));
-
         ui.displayMessage("\n=== Main Menu ===");
         ui.displayMessage("1. Add appointment");
         ui.displayMessage("2. Edit appointment");
