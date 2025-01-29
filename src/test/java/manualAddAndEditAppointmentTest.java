@@ -1,4 +1,4 @@
-import View.CalendarController;
+import Controller.CalendarController;
 
 public class manualAddAndEditAppointmentTest {
     public static void main(String[] args) {
