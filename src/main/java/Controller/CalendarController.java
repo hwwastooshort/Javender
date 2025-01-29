@@ -1,10 +1,13 @@
-package View;
+package Controller;
 
 import Model.Database.DataManager;
 import Model.Database.DataManagerException;
 import Model.Database.JooqDataManager;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
+import View.CalendarInterface;
+import View.MainMenuView;
+import View.UserInterface;
 
 import java.awt.*;
 import java.time.LocalDate;

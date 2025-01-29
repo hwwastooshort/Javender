@@ -1,10 +1,8 @@
 import Model.Database.DataManager;
 import Model.Database.DataManagerException;
 import Model.Database.JooqDataManager;
-import View.CalendarController;
+import Controller.CalendarController;
 import Model.Entities.Tag;
-import View.CalendarInterface;
-import View.UserInterface;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,8 +17,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Scanner;
 
 import static org.jooq.impl.DSL.out;
 import static org.jooq.impl.DSL.when;
