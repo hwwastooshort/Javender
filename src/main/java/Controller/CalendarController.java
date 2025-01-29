@@ -56,6 +56,9 @@ public class CalendarController {
                     editTag();
                     break;
                 case 6:
+                    deleteTag();
+                    break;
+                case 7:
                     mainMenuView.displayExitMessage();
                     running = false;
                     break;

@@ -20,7 +20,8 @@ public class MainMenuView {
         ui.displayMessage("3. Remove appointment");
         ui.displayMessage("4. Add tag");
         ui.displayMessage("5. Edit tag");
-        ui.displayMessage("6. Exit");
+        ui.displayMessage("6. Remove Tag");
+        ui.displayMessage("7. Exit");
     }
 
     public int getUserChoice() {

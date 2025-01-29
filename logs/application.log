@@ -1626,3 +1626,8 @@
 2025-01-29 17:33:49 [main] INFO  Model.Database.JooqDataManager - Removing tag: Tag{tagId=276, name='abc', color=red}
 2025-01-29 17:33:49 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 276
 2025-01-29 17:33:49 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 276
+2025-01-29 17:55:16 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-29 17:55:16 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-29 17:55:26 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-29 17:55:27 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-01-29 17:55:37 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: abc
