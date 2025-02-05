@@ -478,7 +478,7 @@ public class JooqDataManager implements DataManager {
     public void updateTag(Tag tag) throws DataManagerException {
         try {
             logger.info("Updating tag: {}", tag);
-            getTagByName(tag.getName()).ifPresentOrElse(
+            getTagById(tag.getTagId()).ifPresentOrElse(
                     existingTag -> {
                         create.update(TAG)
                                 .set(TAG.NAME, tag.getName())
