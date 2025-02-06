@@ -22,16 +22,8 @@ public class CalendarInterface implements UserInterface{
      * @return A formatted string that visually represents the calendar for the given month,
      *         including the month/year header, days of the week, and the days of the month.
      */
-    public String getMonth(LocalDate date) {
+    private String getMonth(LocalDate date) {
         StringBuilder monthString = new StringBuilder();
-
-        String days = "MO TU WE TH FR SA SU";
-
-        String dateHeader = date.getMonth().toString() + "\t" + date.getYear();
-        int dateHeaderMargin = dateHeader.length() + (days.length() - dateHeader.length()) / 2;
-        String dateHeaderCentered = String.format("%" + dateHeaderMargin + "s\n", dateHeader);
-
-        monthString.append(ColorManager.getColoredText("bold", dateHeaderCentered)).append(days).append("\n");
 
         int offset = getDayOffset(date);
         for (int i = 0; i < offset; i++) {
@@ -46,19 +38,69 @@ public class CalendarInterface implements UserInterface{
                 monthString.append("\n");
             }
         }
+        monthString.append("   ".repeat(7 - dayPosition));
 
         return monthString.toString();
     }
 
-    public String getMonthWithAppointments(LocalDate date, List<Appointment> appointmentList) {
+    public String getCalendar(LocalDate date, List<Appointment> appointmentList, int monthAmount){
+        StringBuilder calendarView = new StringBuilder();
+        String days = monthAmount == 1 ? "MO TU WE TH FR SA SU": "    MO TU WE TH FR SA SU";
+
+        if(monthAmount == 1) {
+            String dateHeader = date.getMonth().toString() + "\t" + date.getYear();
+            int dateHeaderMargin = dateHeader.length() + (days.length() - dateHeader.length()) / 2;
+            String dateHeaderCentered = String.format("%" + dateHeaderMargin + "s\n", dateHeader);
+
+            calendarView.append(ColorManager.getColoredText("bold", dateHeaderCentered)).append(days).append("\n");
+            calendarView.append(getMonthWithAppointments(date, appointmentList));
+            return calendarView.toString();
+        }
+
+        String currentDay = LocalDateTime.now().getDayOfWeek().toString().charAt(0)
+            + LocalDateTime.now().getDayOfWeek().toString().substring(1).toLowerCase() + " "
+            + LocalDateTime.now().getDayOfMonth() + " "
+            + LocalDateTime.now().getMonth().toString().charAt(0)
+            + LocalDateTime.now().getMonth().toString().substring(1).toLowerCase();
+
+        calendarView.append(ColorManager.getColoredText("bold",
+            ColorManager.getColoredText("underline", currentDay))).append("\n");
+        calendarView.append(days);
+
+        for(int i = 0; i < monthAmount; i++){
+            String[] month = getMonthWithAppointments(date.plusMonths(i),appointmentList).split("\n");
+
+            StringBuilder formattedMonth = new StringBuilder();
+            for(int j = 0; j < month.length; j++){
+                String preString = j == 0 ? date.getMonth().plus(i).toString().substring(0,3) + " ": "    ";
+                formattedMonth.append("\n").append(preString).append(month[j]);
+            }
+            calendarView.append(formattedMonth);
+        }
+        return calendarView.toString();
+    }
+
+    /**
+     * Generates a formatted month view with highlighted appointment days.
+     *
+     * @param date A LocalDate object representing the date, used to determine the month and year
+     * @param appointmentList A list of appointments to check for highlighting days.
+     * @return A string representation of the month with appointments highlighted.
+     */
+    private String getMonthWithAppointments(LocalDate date, List<Appointment> appointmentList) {
         String monthString = getMonth(date);
-        System.out.println(appointmentList);
 
         for(int day = 1; day <= date.lengthOfMonth(); day++){
-            int currentDay = day;
+            LocalDate currentDay = date.withDayOfMonth(day);
+
             List<Appointment> dayAppointments = appointmentList.stream()
-                .filter(appointment -> currentDay >= appointment.getStartDate().getDayOfMonth()
-                                    && currentDay <= appointment.getEndDate().getDayOfMonth())
+                .filter(appointment ->
+                    (currentDay.isAfter(appointment.getStartDate().toLocalDate())
+                        || currentDay.isEqual(appointment.getStartDate().toLocalDate()))
+                        &&
+                        (currentDay.isBefore(appointment.getEndDate().toLocalDate())
+                            || currentDay.isEqual(appointment.getEndDate().toLocalDate()))
+                )
                 .toList();
 
             if (!dayAppointments.isEmpty()) {

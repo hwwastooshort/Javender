@@ -16,8 +16,7 @@ public interface UserInterface {
      * @param date any day in the month that is supposed to be displayed
      * @return a string of the days in a month divided by weeks
      */
-    String getMonth(LocalDate date);
-    String getMonthWithAppointments(LocalDate date, List<Appointment> appointmentList);
+    public String getCalendar(LocalDate date, List<Appointment> appointmentList, int monthAmount);
     String getMonthWithText(LocalDate date, String prompt, List<Appointment> appointmentList);
 
     void startAppointmentCreation();
