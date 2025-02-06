@@ -6,7 +6,7 @@ import Model.Database.JooqDataManager;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
 import View.CalendarInterface;
-import View.MainMenuView;
+import View.ManageMenuView;
 import View.UserInterface;
 
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ public class CalendarController {
 
     private final String PATH_TO_DATABASE = "jdbc:sqlite:src/test/resources/javenderDatabase.db";
     UserInterface uI = new CalendarInterface();
-    MainMenuView mainMenuView = new MainMenuView(uI);
+    ManageMenuView manageMenuView = new ManageMenuView(uI);
     DataManager dM;
 
     {
@@ -48,34 +48,22 @@ public class CalendarController {
             } catch (DataManagerException e) {
                 throw new RuntimeException(e);
             }
-            mainMenuView.displayMainMenu();
-            int choice = mainMenuView.getUserChoice();
+            uI.displayMessage("Enter \"help\" to see all available commands.");
+            String choice = uI.getUserCommand();
 
             switch (choice) {
-                case 1:
-                    addAppointment();
+                case "help":
+                    uI.displayCommandList();
                     break;
-                case 2:
-                    editAppointment();
+                case "manage":
+                    manageMenu();
                     break;
-                case 3:
-                    deleteAppointment();
-                    break;
-                case 4:
-                    addTag();
-                    break;
-                case 5:
-                    editTag();
-                    break;
-                case 6:
-                    deleteTag();
-                    break;
-                case 7:
-                    mainMenuView.displayExitMessage();
+                case "exit":
+                    manageMenuView.displayExitMessage();
                     running = false;
                     break;
                 default:
-                    mainMenuView.displayInvalidChoiceMessage();
+                    manageMenuView.displayInvalidChoiceMessage();
             }
         }
     }
@@ -403,6 +391,38 @@ public class CalendarController {
             dM.removeTag(tag);
         }catch(DataManagerException e){
             uI.displayError(e.getMessage());
+        }
+    }
+
+    public void manageMenu(){
+        manageMenuView.displayManageMenu();
+        int choice = manageMenuView.getUserChoice();
+        switch (choice){
+            case 1:
+                addAppointment();
+                break;
+            case 2:
+                editAppointment();
+                break;
+            case 3:
+                deleteAppointment();
+                break;
+            case 4:
+                addTag();
+                break;
+            case 5:
+                editTag();
+                break;
+            case 6:
+                deleteTag();
+                break;
+            case 7:
+                uI.displayMessage("Leaving manage menu...");
+                break;
+            default:
+                manageMenuView.displayInvalidChoiceMessage();
+                manageMenu();
+                break;
         }
     }
 }

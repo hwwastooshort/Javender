@@ -194,8 +194,9 @@ public class CalendarInterface implements UserInterface{
         return scanner.nextLine();
     }
 
+    //TODO wenn man versucht einen tag ein zweites mal hinzuzufügen den tag stattdessen entfernen
     public Optional<Tag> getTag(List<Tag> tags){
-        System.out.println("Select the tag you want to add to your appointment:");
+        System.out.println("Select the tags you want to add to your appointment:");
         for (int i = 0; i < tags.size(); i++) {
             System.out.println(i + 1 + ". " + tags.get(i).getName());
         }
@@ -310,6 +311,12 @@ public class CalendarInterface implements UserInterface{
         System.out.println(message);
     }
 
+    public void displayCommandList() {
+        System.out.println("Name & description of all available commands:\n" +
+                "-\"manage\": opens the menu for managing appointments and tags\n" +
+                "-\"exit\": closes the program");
+    }
+
     public int getIntegerInput() {
         while (!scanner.hasNextInt()) {
             System.out.println("Invalid input. Please enter a number.");
@@ -320,9 +327,14 @@ public class CalendarInterface implements UserInterface{
         return input;
     }
 
+    public String getUserCommand(){
+        return scanner.nextLine();
+    }
+
     public static void clearScreen() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
 
 }

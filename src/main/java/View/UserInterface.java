@@ -81,4 +81,9 @@ public interface UserInterface {
 
     void displayMessage(String s);
 
+    void displayCommandList();
+
+    String getUserCommand();
+
+
 }
