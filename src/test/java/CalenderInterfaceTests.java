@@ -21,7 +21,7 @@ public class CalenderInterfaceTests {
         try {
             DataManager dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDataBase.db");
             List<Appointment> appointmentList = dm.getAppointmentsByRange(startRange, endRange);
-            String formattedMonthMarch = cI.getMonth(LocalDate.parse("2025-03-01"), appointmentList);
+            String formattedMonthMarch = cI.getMonth(LocalDate.parse("2025-03-01"));
 
             assertTrue(formattedMonthMarch.contains("     MARCH\t2025"));
             assertTrue(formattedMonthMarch.contains("MO TU WE TH FR SA SU"));

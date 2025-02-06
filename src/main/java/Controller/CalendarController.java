@@ -38,7 +38,7 @@ public class CalendarController {
         while (running) {
             try {
                 System.out.println(
-                    uI.getMonth(
+                    uI.getMonthWithAppointments(
                         LocalDate.now(),
                         dM.getAppointmentsByRange(
                             LocalDate.now().withDayOfMonth(1).atStartOfDay(),
