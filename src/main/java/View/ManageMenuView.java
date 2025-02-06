@@ -1,18 +1,14 @@
 package View;
 
-import Controller.CalendarController;
-
-import java.time.LocalDate;
-
-public class MainMenuView {
+public class ManageMenuView {
     private final UserInterface ui;
 
-    public MainMenuView(UserInterface ui) {
+    public ManageMenuView(UserInterface ui) {
         this.ui = ui;
     }
 
-    public void displayMainMenu() {
-        ui.displayMessage("\n=== Main Menu ===");
+    public void displayManageMenu() {
+        ui.displayMessage("\n=== Manage Menu ===");
         ui.displayMessage("1. Add appointment");
         ui.displayMessage("2. Edit appointment");
         ui.displayMessage("3. Remove appointment");
