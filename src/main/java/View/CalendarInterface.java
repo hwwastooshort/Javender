@@ -314,7 +314,9 @@ public class CalendarInterface implements UserInterface{
     public void displayCommandList() {
         System.out.println("Name & description of all available commands:\n" +
                 "-\"manage\": opens the menu for managing appointments and tags\n" +
-                "-\"exit\": closes the program");
+                "-\"exit\": closes the program\n" +
+                "\nEnter anything to return to the calendar.");
+        scanner.nextLine();
     }
 
     public int getIntegerInput() {

@@ -38,3 +38,17 @@
 2025-02-06 19:00:27 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 766
 2025-02-06 19:00:47 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-02-28T23:59:59
 2025-02-06 19:00:47 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 766
+2025-02-06 19:06:34 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-06 19:06:35 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-06 19:06:35 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-02-28T23:59:59
+2025-02-06 19:06:35 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 766
+2025-02-06 19:06:45 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-02-28T23:59:59
+2025-02-06 19:06:45 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 766
+2025-02-06 19:06:48 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-02-28T23:59:59
+2025-02-06 19:06:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 766
+2025-02-06 19:08:04 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-06 19:08:04 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-06 19:08:04 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-02-28T23:59:59
+2025-02-06 19:08:05 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 766
+2025-02-06 19:08:19 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-02-28T23:59:59
+2025-02-06 19:08:19 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 766
