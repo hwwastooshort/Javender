@@ -334,6 +334,7 @@ public class JooqDataManager implements DataManager {
         try {
             logger.info("Removing tag with ID: {}", tagId);
             create.deleteFrom(TAG).where(TAG.TAGID.eq(tagId)).execute();
+            create.deleteFrom(APPOINTMENTTAG).where(APPOINTMENTTAG.TAGID.eq(tagId)).execute();
             logger.info("Successfully removed tag with ID: {}", tagId);
             return true;
 
