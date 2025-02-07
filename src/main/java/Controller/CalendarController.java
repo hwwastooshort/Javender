@@ -38,11 +38,11 @@ public class CalendarController {
         while (running) {
             try {
                 System.out.println(
-                    uI.getCalendar(
+                    uI.getCalendarWithUpcomingAppointments(
                         LocalDate.now(),
                         dM.getAppointmentsByRange(
                             LocalDate.now().withDayOfMonth(1).atStartOfDay(),
-                            LocalDate.now().withDayOfMonth(LocalDate.now().lengthOfMonth()).atTime(23, 59, 59)
+                            LocalDate.now().plusMonths(1).withDayOfMonth(LocalDate.now().lengthOfMonth()).atTime(23, 59, 59)
                         ),
                         2
                     ));

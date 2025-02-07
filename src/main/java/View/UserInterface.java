@@ -18,6 +18,7 @@ public interface UserInterface {
      */
     public String getCalendar(LocalDate date, List<Appointment> appointmentList, int monthAmount);
     String getMonthWithText(LocalDate date, String prompt, List<Appointment> appointmentList);
+    String getCalendarWithUpcomingAppointments(LocalDate date, List<Appointment> appointmentList, int monthAmount);
 
     void startAppointmentCreation();
 

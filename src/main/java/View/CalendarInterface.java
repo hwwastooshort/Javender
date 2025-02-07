@@ -3,7 +3,6 @@ package View;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
 
-import java.awt.Color;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -12,8 +11,9 @@ import java.util.*;
 public class CalendarInterface implements UserInterface{
 
     private Scanner scanner = new Scanner(System.in);
-    private final int COMMENT_LENGTH = 30;
-    private final int SPACING = 10;
+    private final int COMMENT_LINE_LENGTH = 30;
+    private final int MAX_COMMENT_LENGTH = COMMENT_LINE_LENGTH * 2 - 3;
+    private final int SPACING = 10;   // Space between the calendar & upcoming appointments
 
     /**
      * Generates a formatted calendar for the specified month and year.
@@ -45,26 +45,32 @@ public class CalendarInterface implements UserInterface{
 
     public String getCalendar(LocalDate date, List<Appointment> appointmentList, int monthAmount){
         StringBuilder calendarView = new StringBuilder();
-        String days = monthAmount == 1 ? "MO TU WE TH FR SA SU": "    MO TU WE TH FR SA SU";
+        String days = monthAmount == 1 ? "MO TU WE TH FR SA SU ": "    MO TU WE TH FR SA SU ";
+        int maxLineLength = days.length();
 
         if(monthAmount == 1) {
-            String dateHeader = date.getMonth().toString() + "\t" + date.getYear();
-            int dateHeaderMargin = dateHeader.length() + (days.length() - dateHeader.length()) / 2;
-            String dateHeaderCentered = String.format("%" + dateHeaderMargin + "s\n", dateHeader);
-
-            calendarView.append(ColorManager.getColoredText("bold", dateHeaderCentered)).append(days).append("\n");
+            String dateHeader = date.getMonth().toString() + " " + date.getYear();
+            int dateHeaderMargin = (days.length() - dateHeader.length()) / 2;
+            String dateHeaderCentered = " ".repeat(dateHeaderMargin)
+                + dateHeader
+                + " ".repeat(maxLineLength - dateHeaderMargin - dateHeader.length());
+            calendarView.append(ColorManager.getColoredText("bold", dateHeaderCentered)).append("\n")
+                .append(days).append("\n");
             calendarView.append(getMonthWithAppointments(date, appointmentList));
             return calendarView.toString();
         }
 
+        String numberSuffix = getNumberSuffix(LocalDateTime.now().getDayOfMonth());
+
         String currentDay = LocalDateTime.now().getDayOfWeek().toString().charAt(0)
-            + LocalDateTime.now().getDayOfWeek().toString().substring(1).toLowerCase() + " "
-            + LocalDateTime.now().getDayOfMonth() + " "
+            + LocalDateTime.now().getDayOfWeek().toString().substring(1).toLowerCase() + ", "
             + LocalDateTime.now().getMonth().toString().charAt(0)
-            + LocalDateTime.now().getMonth().toString().substring(1).toLowerCase();
+            + LocalDateTime.now().getMonth().toString().substring(1).toLowerCase() + " "
+            + LocalDateTime.now().getDayOfMonth() + numberSuffix;
 
         calendarView.append(ColorManager.getColoredText("bold",
-            ColorManager.getColoredText("underline", currentDay))).append("\n");
+            ColorManager.getColoredText("underline", currentDay)))
+            .repeat(" ", maxLineLength - currentDay.length()).append("\n");
         calendarView.append(days);
 
         for(int i = 0; i < monthAmount; i++){
@@ -78,6 +84,18 @@ public class CalendarInterface implements UserInterface{
             calendarView.append(formattedMonth);
         }
         return calendarView.toString();
+    }
+
+    private String getNumberSuffix(int number){
+        if (number >= 11 && number <= 13) {
+            return "th";
+        }
+        return switch (number % 10) {
+            case 1 -> "st";
+            case 2 -> "nd";
+            case 3 -> "rd";
+            default -> "th";
+        };
     }
 
     /**
@@ -163,7 +181,7 @@ public class CalendarInterface implements UserInterface{
         int currLineLength = 0;
 
         for (String string : promptSplit) {
-            if (currLineLength + string.length() <= COMMENT_LENGTH) {
+            if (currLineLength + string.length() <= COMMENT_LINE_LENGTH) {
                 currLineLength += string.length();
                 formattedString.append(string).append(" ");
             } else {
@@ -173,6 +191,121 @@ public class CalendarInterface implements UserInterface{
         }
         return formattedString.toString();
     }
+
+    public String getCalendarWithUpcomingAppointments(LocalDate date, List<Appointment> appointmentList, int monthAmount) {
+        String calendarString = getCalendar(date, appointmentList, monthAmount);
+
+        List<Appointment> upcomingAppointments = appointmentList.stream()
+            .filter(appointment -> appointment.getStartDate()
+            .isAfter(LocalDateTime.now()))
+            .sorted(Comparator.comparing(Appointment::getStartDate))
+            .toList();
+
+        if (upcomingAppointments.isEmpty()) {
+            return calendarString;
+        }
+
+        String appointmentString = formatAppointment(upcomingAppointments.getFirst());
+        if(monthAmount > 1){
+            appointmentString += upcomingAppointments.size() > 1 ? "\n\n" + formatAppointment(upcomingAppointments.get(1)): "";
+        }
+
+        return mergeCalendarWithAppointments(calendarString, appointmentString, upcomingAppointments);
+    }
+
+    private String mergeCalendarWithAppointments(String calendar, String appointments, List<Appointment> upcomingAppointments){
+        List<String> calendarLines = new ArrayList<>(Arrays.stream(calendar.split("\n")).toList());
+        String[] appointmentLines = appointments.split("\n");
+
+        StringBuilder resultString = new StringBuilder();
+
+        resultString.append(calendarLines.removeFirst()).repeat(" ", SPACING)
+            .append(ColorManager.getColoredText("bold",
+                upcomingAppointments.size() > 1 ? "Upcoming Appointments:" : "Upcoming Appointment:")).append("\n");
+
+        int maxLineLength = calendarLines.getFirst().length();
+        resultString.append(calendarLines.removeFirst()).append("\n");
+
+        int maxLineAmount = Math.max(calendarLines.size(), appointmentLines.length);
+
+        for (int i = 0; i < maxLineAmount; i++) {
+            String monthPart = i < calendarLines.size() ? calendarLines.get(i) : " ".repeat(maxLineLength);
+            String appointmentPart = i < appointmentLines.length ? appointmentLines[i] : "";
+
+            resultString.append(monthPart).repeat(" ", SPACING).append(appointmentPart).append("\n");
+        }
+        return resultString.toString();
+    }
+
+    /**
+     * Formats a given Appointment object into multiple lines: Date, Title, Description,
+     * ensuring that each line of the description does not exceed a specified length.
+     *
+     * @param appointment The Appointment object to be formatted.
+     * @return A formatted string where words are split into lines such that the total length of each line
+     *         (including spaces) does not exceed the specified `COMMENT_LINE_LENGTH`.
+     */
+    public String formatAppointment(Appointment appointment){
+        StringBuilder formattedAppointment = new StringBuilder();
+
+
+        String appointmentDate = formatAppointmentDate(appointment);
+
+        formattedAppointment.append(appointmentDate).append("\n");
+        formattedAppointment.append("-> ")
+            .append(ColorManager.getColoredText(appointment.getTags().getFirst().getColor(), appointment.getTitle()))
+            .append("\n");
+
+        formattedAppointment.append(formatAppointmentDescription(appointment));
+        return formattedAppointment.toString();
+    }
+
+    /**
+     * Formats the date of an appointment depending on whether it is a single day or multiple days
+     */
+    private String formatAppointmentDate(Appointment appointment){
+        String singleDayAppointment = appointment.getStartDate().format(DateTimeFormatter.ofPattern("(dd.MM.yyyy | HH:mm "))
+            + appointment.getEndDate().format(DateTimeFormatter.ofPattern("- HH:mm)"));
+
+        String multipleDayAppointment = appointment.getStartDate().format(DateTimeFormatter.ofPattern("(dd.MM.yyyy, HH:mm "))
+            + appointment.getEndDate().format(DateTimeFormatter.ofPattern("- dd.MM.yyyy, HH:mm)"));
+
+        return appointment.getStartDate().toLocalDate().isEqual(appointment.getEndDate().toLocalDate())
+            ? singleDayAppointment
+            : multipleDayAppointment;
+    }
+
+    /**
+     * Formats the description of an appointment to ensure that each line has a maximum of 30 characters (COMMENT_LINE_LENGTH)
+     * Descriptions with more than 57 characters (MAX_COMMENT_LENGTH) will be trimmed and appended with "..."
+     */
+    private String formatAppointmentDescription(Appointment appointment){
+        StringBuilder formattedDescription = new StringBuilder();
+
+        String[] appointmentSplit = appointment.getDescription().split(" ");
+        formattedDescription.append("   ");
+
+        int currLineLength = 0;
+        int totalCommentLength = 0;
+
+        for (String string : appointmentSplit) {
+            if(totalCommentLength + string.length() > MAX_COMMENT_LENGTH){
+                formattedDescription.append("...");
+                break;
+            }
+            if (currLineLength + string.length() <= COMMENT_LINE_LENGTH) {
+                currLineLength += string.length();
+                totalCommentLength += string.length();
+                formattedDescription.append(string).append(" ");
+            } else {
+                currLineLength = string.length();
+                totalCommentLength += string.length();
+                formattedDescription.append("\n").append("   ").append(string).append(" ");
+            }
+        }
+        return formattedDescription.toString();
+    }
+
     private int getMaxLineLength(List<String> prompt){
         int maxLineLength = 0;
         for (String string : prompt) {
