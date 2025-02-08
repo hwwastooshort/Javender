@@ -36,6 +36,7 @@ public class CalendarController {
         boolean running = true;
 
         while (running) {
+            CalendarInterface.clearScreen();
             try {
                 System.out.println(
                     uI.getCalendarWithUpcomingAppointments(

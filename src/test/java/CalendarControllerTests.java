@@ -3,6 +3,7 @@ import Model.Database.DataManagerException;
 import Model.Database.JooqDataManager;
 import Controller.CalendarController;
 import Model.Entities.Tag;
+import View.ColorManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -109,7 +110,13 @@ public class CalendarControllerTests {
         assertTrue(output.contains("Enter the details of the new Tag"));
         assertTrue(output.contains("Tag title:"));
         assertTrue(output.contains("Choose one of the following colors for your tag: "));
-        assertTrue(output.contains("1.RED\n2.GREEN\n3.YELLOW\n4.BLUE\n5.PURPLE\n6.CYAN\n7.WHITE"));
+        assertTrue(output.contains(ColorManager.getColoredText("red","\n1.RED")+
+            ColorManager.getColoredText("green","\n2.GREEN")+
+            ColorManager.getColoredText("yellow","\n3.YELLOW")+
+            ColorManager.getColoredText("blue","\n4.BLUE")+
+            ColorManager.getColoredText("purple","\n5.PURPLE")+
+            ColorManager.getColoredText("cyan","\n6.CYAN")+
+            ColorManager.getColoredText("white","\n7.WHITE")));
 
         Tag addedTag = dm.getTagByName("Pumpen gehen").orElse(null);
         assertNotNull(addedTag);

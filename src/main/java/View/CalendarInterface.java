@@ -3,6 +3,7 @@ package View;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
 
+import java.io.IOException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -394,7 +395,14 @@ public class CalendarInterface implements UserInterface{
 
     public int getTagColorIndex(){
         System.out.print("Choose one of the following colors for your tag: ");
-        System.out.println("1.RED\n2.GREEN\n3.YELLOW\n4.BLUE\n5.PURPLE\n6.CYAN\n7.WHITE");
+        System.out.println(
+            ColorManager.getColoredText("red","\n1.RED")+
+                ColorManager.getColoredText("green","\n2.GREEN")+
+                ColorManager.getColoredText("yellow","\n3.YELLOW")+
+                ColorManager.getColoredText("blue","\n4.BLUE")+
+                ColorManager.getColoredText("purple","\n5.PURPLE")+
+                ColorManager.getColoredText("cyan","\n6.CYAN")+
+                ColorManager.getColoredText("white","\n7.WHITE"));
         return getIntegerInput();
     }
 
@@ -509,8 +517,16 @@ public class CalendarInterface implements UserInterface{
     }
 
     public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            try {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+        }
     }
 
 
