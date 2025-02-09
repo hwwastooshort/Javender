@@ -197,8 +197,9 @@ public class CalendarInterface implements UserInterface{
         String calendarString = getCalendar(date, appointmentList, monthAmount);
 
         List<Appointment> upcomingAppointments = appointmentList.stream()
-            .filter(appointment -> appointment.getStartDate()
-            .isAfter(LocalDateTime.now()))
+            .filter(appointment -> appointment.getStartDate().isAfter(LocalDateTime.now()) // All appointments in the future
+            || (appointment.getStartDate().isBefore(LocalDateTime.now()) // All appointments which are currently running
+            && appointment.getEndDate().isAfter(LocalDateTime.now())))
             .sorted(Comparator.comparing(Appointment::getStartDate))
             .toList();
 
@@ -206,12 +207,18 @@ public class CalendarInterface implements UserInterface{
             return calendarString;
         }
 
-        String appointmentString = formatAppointment(upcomingAppointments.getFirst());
-        if(monthAmount > 1){
-            appointmentString += upcomingAppointments.size() > 1 ? "\n\n" + formatAppointment(upcomingAppointments.get(1)): "";
-        }
+        StringBuilder appointmentString = new StringBuilder();
+        appointmentString.append(ColorManager.getColoredText("bold", "Upcoming Appointment" +
+            (upcomingAppointments.size() > 1 ? "s:" : ":"))).append("\n\n");
 
-        return mergeCalendarWithAppointments(calendarString, appointmentString, upcomingAppointments);
+        appointmentString.append(formatAppointment(upcomingAppointments.getFirst()));
+        if(monthAmount > 1){
+            appointmentString.append(upcomingAppointments.size() > 1
+                ? "\n\n" + formatAppointment(upcomingAppointments.get(1))
+                : "");
+       }
+
+        return mergeCalendarWithAppointments(calendarString, appointmentString.toString(), upcomingAppointments);
     }
 
     private String mergeCalendarWithAppointments(String calendar, String appointments, List<Appointment> upcomingAppointments){
@@ -220,13 +227,7 @@ public class CalendarInterface implements UserInterface{
 
         StringBuilder resultString = new StringBuilder();
 
-        resultString.append(calendarLines.removeFirst()).repeat(" ", SPACING)
-            .append(ColorManager.getColoredText("bold",
-                upcomingAppointments.size() > 1 ? "Upcoming Appointments:" : "Upcoming Appointment:")).append("\n");
-
         int maxLineLength = calendarLines.getFirst().length();
-        resultString.append(calendarLines.removeFirst()).append("\n");
-
         int maxLineAmount = Math.max(calendarLines.size(), appointmentLines.length);
 
         for (int i = 0; i < maxLineAmount; i++) {
@@ -249,13 +250,18 @@ public class CalendarInterface implements UserInterface{
     public String formatAppointment(Appointment appointment){
         StringBuilder formattedAppointment = new StringBuilder();
 
-
         String appointmentDate = formatAppointmentDate(appointment);
 
         formattedAppointment.append(appointmentDate).append("\n");
+        String color = appointment.getTags().isEmpty()
+            ? "white"
+            : appointment.getTags().getFirst().getColor();
+
         formattedAppointment.append("-> ")
-            .append(ColorManager.getColoredText(appointment.getTags().getFirst().getColor(), appointment.getTitle()))
+            .append(ColorManager.getColoredText(color, appointment.getTitle()))
             .append("\n");
+
+
 
         formattedAppointment.append(formatAppointmentDescription(appointment));
         return formattedAppointment.toString();
@@ -270,6 +276,12 @@ public class CalendarInterface implements UserInterface{
 
         String multipleDayAppointment = appointment.getStartDate().format(DateTimeFormatter.ofPattern("(dd.MM.yyyy, HH:mm "))
             + appointment.getEndDate().format(DateTimeFormatter.ofPattern("- dd.MM.yyyy, HH:mm)"));
+
+        if(appointment.getStartDate().isBefore(LocalDateTime.now())
+            && appointment.getEndDate().isAfter(LocalDateTime.now())){
+            singleDayAppointment += ColorManager.getColoredText("yellow"," (Running)");
+            multipleDayAppointment += ColorManager.getColoredText("yellow"," (Running)");
+        }
 
         return appointment.getStartDate().toLocalDate().isEqual(appointment.getEndDate().toLocalDate())
             ? singleDayAppointment
@@ -370,7 +382,6 @@ public class CalendarInterface implements UserInterface{
         return scanner.nextLine();
     }
 
-    //TODO wenn man versucht einen tag ein zweites mal hinzuzufügen den tag stattdessen entfernen
     public Optional<Tag> getTag(List<Tag> tags){
         System.out.println("Select the tags you want to add to your appointment:");
         for (int i = 0; i < tags.size(); i++) {
