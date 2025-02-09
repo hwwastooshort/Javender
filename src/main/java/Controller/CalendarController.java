@@ -9,13 +9,12 @@ import View.CalendarInterface;
 import View.ManageMenuView;
 import View.UserInterface;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
 
 public class CalendarController {
 
@@ -34,24 +33,12 @@ public class CalendarController {
 
     public void mainMenu() {
         boolean running = true;
-
+        LocalDate monthToShow = LocalDate.now();
         while (running) {
             CalendarInterface.clearScreen();
-            try {
-                System.out.println(
-                    uI.getCalendarWithUpcomingAppointments(
-                        LocalDate.now(),
-                        dM.getAppointmentsByRange(
-                            LocalDate.now().withDayOfMonth(1).atStartOfDay(),
-                            LocalDate.now().plusMonths(1).withDayOfMonth(LocalDate.now().lengthOfMonth()).atTime(23, 59, 59)
-                        ),
-                        2
-                    ));
-            } catch (DataManagerException e) {
-                throw new RuntimeException(e);
-            }
+            showMonthsAccordingToDate(monthToShow);
             uI.displayMessage("Enter \"help\" to see all available commands.");
-            String[] arguments = splitUserCommandIntoArgs(uI.getUserCommand());
+            String[] arguments = splitUserCommandIntoArgs(uI.getUserCommand().toLowerCase());
 
             switch (arguments[0]) {
                 case "help":
@@ -59,6 +46,21 @@ public class CalendarController {
                     break;
                 case "manage":
                     manageMenu();
+                    break;
+                case "january": case "february": case "march": case "april":
+                    case "may": case "june": case "july": case "august":
+                        case "september": case "october": case "november":
+                            case "december":
+                    int year = Year.now().getValue();
+                    if(arguments.length > 1) {
+                        try{
+                            year = Year.parse(arguments[1]).getValue();
+                        }catch(DateTimeParseException e){
+                            uI.displayError("The year you entered was not formatted correctly.");
+                        }
+                    }
+                    int month = Month.valueOf(arguments[0].toUpperCase()).getValue();
+                    monthToShow = LocalDate.of(year, month, 1);
                     break;
                 case "exit":
                     manageMenuView.displayExitMessage();
@@ -433,5 +435,25 @@ public class CalendarController {
      * **/
     public String[] splitUserCommandIntoArgs(String userCommand){
         return userCommand.split(" ");
+    }
+
+    private List<Appointment> getAppointmentsAccordingToMonth(LocalDate date) throws DataManagerException {
+        return dM.getAppointmentsByRange(
+                date.withDayOfMonth(1).atStartOfDay(),
+                date.plusMonths(1).withDayOfMonth(date.plusMonths(1).lengthOfMonth()).atTime(23, 59, 59)
+        );
+    }
+
+    private void showMonthsAccordingToDate(LocalDate date){
+        try {
+            System.out.println(
+                    uI.getCalendarWithUpcomingAppointments(
+                            date,
+                            getAppointmentsAccordingToMonth(date),
+                            2
+                    ));
+        } catch (DataManagerException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
