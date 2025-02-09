@@ -177,3 +177,198 @@
 2025-02-07 22:59:48 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
 2025-02-07 22:59:48 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 779
 2025-02-07 22:59:48 [main] WARN  Model.Database.JooqDataManager - No Tags found for Appointment: 779
+2025-02-09 19:19:16 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:19:17 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:19:17 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:19:17 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:22:18 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:22:18 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:22:18 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-28T23:59:59
+2025-02-09 19:22:19 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-28T23:59:59
+2025-02-09 19:22:28 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-28T23:59:59
+2025-02-09 19:22:28 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-28T23:59:59
+2025-02-09 19:22:31 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-28T23:59:59
+2025-02-09 19:22:31 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-28T23:59:59
+2025-02-09 19:25:53 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:53 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:53 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-03-31T23:59
+2025-02-09 19:25:54 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-03-31T23:59
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Updating tag: Tag{tagId=1, name='Personal', color=blue}
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 1
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully updated tag with ID: 1
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Pumpen gehen
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Pumpen gehen', color=red}
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 478
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Pumpen gehen
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=999, startDate=2025-02-09T19:25:54.753956100, endDate=2025-02-09T19:25:54.753956100, title='Non-existent', description='Non-existent', tags=[]}
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 999
+2025-02-09 19:25:54 [main] WARN  Model.Database.JooqDataManager - No appointment found with ID: 999
+2025-02-09 19:25:54 [main] WARN  Model.Database.JooqDataManager - No appointment found with ID: 999
+2025-02-09 19:25:54 [main] ERROR Model.Database.JooqDataManager - Error updating appointment: No appointment found with ID: 999
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: Non-existent
+2025-02-09 19:25:54 [main] WARN  Model.Database.JooqDataManager - No appointments found with title: Non-existent
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching appointments on date: 2025-01-01 with filter: STARTDATE
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching Appointments with StartDate: 2025-01-01
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:54 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 999
+2025-02-09 19:25:54 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 999
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=1, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Updated Title', description='Updated Description', tags=[Tag{tagId=1, name='Personal', color=red}]}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully updated basic appointment data for ID: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Deleted existing tags for appointment ID: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully updated tags for appointment ID: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching all tags from the database
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-01-02T16:00
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2026-01-03T00:00 and 2090-01-04T16:00
+2025-02-09 19:25:55 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2026-01-03T00:00 and 2090-01-04T16:00
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: Doctor Appointment
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 479
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 480
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=479, name='testingTag', color=yellow}, Tag{tagId=480, name='Uni', color=purple}]}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=479, name='testingTag', color=yellow} to Appointment ID: 780
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=480, name='Uni', color=purple} to Appointment ID: 780
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 780
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 780
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 780
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 780
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Removing appointment: Appointment{appointmentId=780, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=479, name='testingTag', color=yellow}, Tag{tagId=480, name='Uni', color=purple}]}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 780
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 780
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 780
+2025-02-09 19:25:55 [main] WARN  Model.Database.JooqDataManager - No appointment found with ID: 780
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 780
+2025-02-09 19:25:55 [main] WARN  Model.Database.JooqDataManager - No Tags found for Appointment: 780
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Hardcore Bodybuilding', color=Regenbogen}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 481
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 481
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Removing tag: Tag{tagId=481, name='Hardcore Bodybuilding', color=Regenbogen}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 481
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 481
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 481
+2025-02-09 19:25:55 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 481
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Start', color=blue}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 482
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Start
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Updating tag: Tag{tagId=482, name='Start', color=yellow}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 482
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully updated tag with ID: 482
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Start
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 483
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 484
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=483, name='testingTag', color=yellow}, Tag{tagId=484, name='Uni', color=purple}]}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=483, name='testingTag', color=yellow} to Appointment ID: 781
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=484, name='Uni', color=purple} to Appointment ID: 781
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 781
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 781
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 781
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Removing all appointments from the database
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 781
+2025-02-09 19:25:55 [main] WARN  Model.Database.JooqDataManager - No appointment found with ID: 781
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 781
+2025-02-09 19:25:55 [main] WARN  Model.Database.JooqDataManager - No Tags found for Appointment: 781
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDataBase.db
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 485
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 486
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=485, name='testingTag', color=yellow}, Tag{tagId=486, name='Uni', color=purple}]}
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=485, name='testingTag', color=yellow} to Appointment ID: 782
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=486, name='Uni', color=purple} to Appointment ID: 782
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 782
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 782
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 782
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-02-09 19:25:55 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 782
+2025-02-09 19:25:55 [main] WARN  Model.Database.JooqDataManager - No Tags found for Appointment: 782

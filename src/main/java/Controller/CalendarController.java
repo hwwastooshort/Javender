@@ -51,9 +51,9 @@ public class CalendarController {
                 throw new RuntimeException(e);
             }
             uI.displayMessage("Enter \"help\" to see all available commands.");
-            String choice = uI.getUserCommand();
+            String[] arguments = splitUserCommandIntoArgs(uI.getUserCommand());
 
-            switch (choice) {
+            switch (arguments[0]) {
                 case "help":
                     uI.displayCommandList();
                     break;
@@ -396,7 +396,7 @@ public class CalendarController {
         }
     }
 
-    public void manageMenu(){
+    private void manageMenu(){
         manageMenuView.displayManageMenu();
         int choice = manageMenuView.getUserChoice();
         switch (choice){
@@ -426,5 +426,12 @@ public class CalendarController {
                 manageMenu();
                 break;
         }
+    }
+
+    /**
+     * splits the arguments of the user command into separate Strings
+     * **/
+    public String[] splitUserCommandIntoArgs(String userCommand){
+        return userCommand.split(" ");
     }
 }
