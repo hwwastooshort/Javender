@@ -179,7 +179,16 @@ public class CalendarControllerTests {
         assertEquals("red", finalTag.getColor());
     }
 
-
-
+    @Test
+    void testSplitUserCommandIntoArgs(){
+        CalendarController cc = new CalendarController();
+        String command = "upcoming 5";
+        String[] args = cc.splitUserCommandIntoArgs(command);
+        assertEquals(args[0], "upcoming");
+        assertEquals(args[1], "5");
+    }
 }
+
+
+
 
