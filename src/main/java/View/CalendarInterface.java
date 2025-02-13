@@ -385,7 +385,7 @@ public class CalendarInterface implements UserInterface{
     public Optional<Tag> getTag(List<Tag> tags){
         System.out.println("Select the tags you want to add to your appointment:");
         for (int i = 0; i < tags.size(); i++) {
-            System.out.println(i + 1 + ". " + tags.get(i).getName());
+            System.out.println(i + 1 + ". " + ColorManager.getColoredText(tags.get(i).getColor(),tags.get(i).getName()));
         }
         System.out.println(tags.size() + 1 +". Exit\n");
         int input = scanner.nextInt();
