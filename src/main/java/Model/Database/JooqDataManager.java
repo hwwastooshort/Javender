@@ -173,10 +173,11 @@ public class JooqDataManager implements DataManager {
             logger.info("Fetching the next {} upcoming appointments", amount);
             Result<?> result = create.select()
                     .from(APPOINTMENT)
-                    .where(APPOINTMENT.STARTDATE.greaterOrEqual(
+                    .where(APPOINTMENT.ENDDATE.greaterThan(
                         date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
                     .limit(amount)
-                    .fetch();
+                    .fetch()
+                    .sortAsc(APPOINTMENT.STARTDATE);
             if(result.isEmpty()){
                 logger.warn("No appointments found after {}", date);
                 return new ArrayList<>();
