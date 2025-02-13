@@ -510,6 +510,7 @@ public class CalendarInterface implements UserInterface{
                 "-\"manage\": opens the menu for managing appointments and tags\n" +
                 "-\"exit\": closes the program\n" +
                 "-<name of a month> (+ <year>): display the respective month (of the corresponding year)" +
+                "-\"now\": display the current month" +
                 "\nEnter anything to return to the calendar.");
         scanner.nextLine();
     }

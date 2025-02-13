@@ -62,6 +62,9 @@ public class CalendarController {
                     int month = Month.valueOf(arguments[0].toUpperCase()).getValue();
                     monthToShow = LocalDate.of(year, month, 1);
                     break;
+                case "now":
+                    monthToShow = LocalDate.now();
+                    break;
                 case "exit":
                     manageMenuView.displayExitMessage();
                     running = false;
