@@ -16,6 +16,8 @@ public interface DataManager {
 
     public List<Appointment> getAppointmentsByDate(LocalDate date, JooqDataManager.DateFilter dateFilter) throws DataManagerException;
 
+    public List<Appointment> getUpcomingAppointments(LocalDateTime date, int amount) throws DataManagerException;
+
     public List<Appointment> getAppointmentsByRange(LocalDateTime startDateTime, LocalDateTime endDateTime) throws DataManagerException;
 
     public Optional<Tag> getTagById(int tagId) throws DataManagerException;

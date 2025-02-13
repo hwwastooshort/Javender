@@ -168,6 +168,40 @@ public class JooqDataManager implements DataManager {
         }
     }
 
+    public List<Appointment> getUpcomingAppointments(LocalDateTime date, int amount) throws DataManagerException{
+        try {
+            logger.info("Fetching the next {} upcoming appointments", amount);
+            Result<?> result = create.select()
+                    .from(APPOINTMENT)
+                    .where(APPOINTMENT.STARTDATE.greaterOrEqual(
+                        date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
+                    .limit(amount)
+                    .fetch();
+            if(result.isEmpty()){
+                logger.warn("No appointments found after {}", date);
+                return new ArrayList<>();
+            }
+            if(result.size() < amount){
+                logger.warn("There where only {}/{} appointments found after {}", result.size(), amount, date);
+            }
+
+            List<Appointment> appointmentList = result.stream()
+                .map(record -> {
+                    try {
+                        return mapToAppointment(record);
+                    } catch (DataManagerException e) {
+                        logger.error("Error mapping record to appointment: {}", record, e);
+                        throw new RuntimeException(e);
+                    }
+                })
+                .toList();
+            return appointmentList;
+        }catch (Exception e){
+            logger.error("Error occurred while fetching upcoming appointments after {}", date, e);
+            throw new DataManagerException("Failed to fetch upcoming appointments after " + date);
+        }
+    }
+
     public List<Appointment> getAppointmentsByRange(LocalDateTime startDateTime, LocalDateTime endDateTime) throws DataManagerException {
         try {
             logger.info("Fetching appointments between {} and {}", startDateTime, endDateTime);

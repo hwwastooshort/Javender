@@ -225,4 +225,58 @@ public class DatabaseGetTests {
         String givenTitle = "Personal";
         assertThat(dm.getTagByName(givenTitle).get()).isEqualTo(new Tag(1, "Personal", "red"));
     }
+
+    @Test
+    void testGetUpcomingAppointments() throws DataManagerException {
+        LocalDateTime date1 = LocalDateTime.parse("2025-01-01T00:00:00");
+        LocalDateTime date2 = LocalDateTime.parse("2025-01-01T10:00:00");
+
+        var actualAppointments = dm.getUpcomingAppointments(date1, 3);
+        var expectedAppointments = List.of(new Appointment(
+                1,
+                LocalDateTime.parse("2025-01-01T09:00:00"),
+                LocalDateTime.parse("2025-01-01T10:00:00"),
+                "Doctor Appointment",
+                "Annual checkup",
+                List.of(new Tag(1, "Personal", "red"))
+            ),
+            new Appointment(
+                2,
+                LocalDateTime.parse("2025-01-01T11:00:00"),
+                LocalDateTime.parse("2025-01-01T12:00:00"),
+                "Team Meeting",
+                "Monthly progress update",
+                List.of(new Tag(2, "Work", "blue"))
+            ),
+            new Appointment(
+                3,
+                LocalDateTime.parse("2025-01-02T14:00:00"),
+                LocalDateTime.parse("2025-01-02T15:00:00"),
+                "Client Presentation",
+                "Present new project proposal",
+                List.of(new Tag(2, "Work", "blue"))
+            )
+        );
+        assertEquals(actualAppointments, expectedAppointments);
+
+        var actualAppointments2 = dm.getUpcomingAppointments(date2, 2);
+        var expectedAppointments2 = List.of(new Appointment(
+                2,
+                LocalDateTime.parse("2025-01-01T11:00:00"),
+                LocalDateTime.parse("2025-01-01T12:00:00"),
+                "Team Meeting",
+                "Monthly progress update",
+                List.of(new Tag(2, "Work", "blue"))
+            ),
+            new Appointment(
+                3,
+                LocalDateTime.parse("2025-01-02T14:00:00"),
+                LocalDateTime.parse("2025-01-02T15:00:00"),
+                "Client Presentation",
+                "Present new project proposal",
+                List.of(new Tag(2, "Work", "blue"))
+            )
+        );
+        assertEquals(actualAppointments2, expectedAppointments2);
+    }
 }
