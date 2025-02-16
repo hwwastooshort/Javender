@@ -15,7 +15,8 @@ public class ManageMenuView {
         ui.displayMessage("4. Add tag");
         ui.displayMessage("5. Edit tag");
         ui.displayMessage("6. Remove Tag");
-        ui.displayMessage("7. Exit");
+        ui.displayMessage("7. Remove all tags");
+        ui.displayMessage("8. Exit");
     }
 
     public int getUserChoice() {

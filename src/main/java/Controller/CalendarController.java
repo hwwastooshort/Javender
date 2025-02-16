@@ -448,6 +448,9 @@ public class CalendarController {
                 deleteTag();
                 break;
             case 7:
+                deleteAllTags();
+                break;
+            case 8:
                 uI.displayMessage("Leaving manage menu...");
                 break;
             default:
