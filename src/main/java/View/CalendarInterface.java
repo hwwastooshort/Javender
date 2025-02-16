@@ -509,9 +509,10 @@ public class CalendarInterface implements UserInterface{
         System.out.println("Name & description of all available commands:\n" +
                 "-\"manage\": opens the menu for managing appointments and tags\n" +
                 "-\"exit\": closes the program\n" +
-                "-<name of a month> (+ <year>): display the respective month (of the corresponding year)" +
-                "-\"now\": display the current month" +
-                "\nEnter anything to return to the calendar.");
+                "-<name of a month> (+ <year>): display the respective month (of the corresponding year)\n" +
+                "-\"now\": display the current month\n" +
+                "-\"upcoming\": display the next 5 upcoming appointments according to the currently displayed month.\n" +
+                "Enter anything to return to the calendar.");
         scanner.nextLine();
     }
 
@@ -523,6 +524,21 @@ public class CalendarInterface implements UserInterface{
         int input = scanner.nextInt();
         scanner.nextLine(); // Consume newline
         return input;
+    }
+
+    public void displayAppointments(List<Appointment> appointments){
+        appointments.forEach(
+                appointment -> {System.out.print(ColorManager.UNDERLINE + appointment.getTitle() + ColorManager.RESET
+                        + ": (" + appointment.getStartDate()
+                        + " - "+appointment.getEndDate()+")\n"
+                        +"\"" + appointment.getDescription() + "\"\nTags: ");
+                        appointment.getTags().forEach(
+                                tag -> System.out.print(
+                                        ColorManager.getColoredText(tag.getColor(), tag.getName()) + " "
+                                )
+                        );
+                }
+        );
     }
 
     public String getUserCommand(){
@@ -541,6 +557,4 @@ public class CalendarInterface implements UserInterface{
             System.out.flush();
         }
     }
-
-
 }

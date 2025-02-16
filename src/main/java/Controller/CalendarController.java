@@ -48,9 +48,8 @@ public class CalendarController {
                     manageMenu();
                     break;
                 case "january": case "february": case "march": case "april":
-                    case "may": case "june": case "july": case "august":
-                        case "september": case "october": case "november":
-                            case "december":
+                case "may": case "june": case "july": case "august":
+                case "september": case "october": case "november": case "december":
                     int year = Year.now().getValue();
                     if(arguments.length > 1) {
                         try{
@@ -64,6 +63,14 @@ public class CalendarController {
                     break;
                 case "now":
                     monthToShow = LocalDate.now();
+                    break;
+                case "upcoming":
+                    try {
+                        List<Appointment> upcomingAppointments = dM.getUpcomingAppointments(monthToShow.atStartOfDay(), 5);
+                        uI.displayAppointments(upcomingAppointments);
+                    }catch(DataManagerException e){
+                        uI.displayError("There was a problem fetching the upcoming appointments.");
+                    }
                     break;
                 case "exit":
                     manageMenuView.displayExitMessage();

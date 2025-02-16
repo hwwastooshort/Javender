@@ -85,5 +85,5 @@ public interface UserInterface {
 
     String getUserCommand();
 
-
+    void displayAppointments(List<Appointment> appointments);
 }
