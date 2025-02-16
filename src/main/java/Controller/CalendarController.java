@@ -393,6 +393,23 @@ public class CalendarController {
         }
     }
 
+    public void deleteAllTags() {
+        boolean confirm = uI.confirmAction("Are you sure you want to delete all tags? This action cannot be undone.");
+
+        if (!confirm) {
+            uI.displayMessage("Task canceled. No tags were deleted.");
+            return;
+        }
+
+        try {
+            dM.removeAllTags();
+            uI.displayMessage("All tags have been successfully deleted.");
+        } catch (DataManagerException e) {
+            uI.displayError("There was a problem deleting all tags.");
+            uI.displayError("Details: " + e.getMessage());
+        }
+    }
+
     public void deleteTag(){
         String name = uI.startDeletingTag();
         try {
