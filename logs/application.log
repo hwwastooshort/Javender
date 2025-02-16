@@ -259,3 +259,54 @@
 2025-02-16 13:16:29 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
 2025-02-16 13:16:29 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 802
 2025-02-16 13:16:29 [main] WARN  Model.Database.JooqDataManager - No Tags found for Appointment: 802
+2025-02-16 14:36:44 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-16 14:36:44 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-16 14:36:44 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:36:45 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:37:08 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:37:08 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:37:27 [main] INFO  Model.Database.JooqDataManager - Fetching the next 5 upcoming appointments
+2025-02-16 14:37:27 [main] WARN  Model.Database.JooqDataManager - No appointments found after 2025-02-16T00:00
+2025-02-16 14:37:27 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:37:27 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:37:54 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:37:54 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:37:54 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:37:54 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:38:03 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:38:03 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:49:10 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-16 14:49:10 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-16 14:49:10 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:49:11 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:49:31 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:49:31 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:49:39 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:49:39 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:49:49 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:49:49 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:50:00 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:50:00 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:50:18 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:50:18 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:51:07 [main] INFO  Model.Database.JooqDataManager - Fetching all tags from the database
+2025-02-16 14:51:12 [main] INFO  Model.Database.JooqDataManager - Adding new appointment: Appointment{appointmentId=0, startDate=2024-12-12T12:22, endDate=2323-12-12T12:22, title='test', description='ifdjefeisjfse', tags=[]}
+2025-02-16 14:51:12 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 803
+2025-02-16 14:51:12 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:51:12 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:51:23 [main] INFO  Model.Database.JooqDataManager - Fetching the next 5 upcoming appointments
+2025-02-16 14:51:23 [main] WARN  Model.Database.JooqDataManager - There where only 1/5 appointments found after 2025-01-01T00:00
+2025-02-16 14:51:23 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 803
+2025-02-16 14:51:23 [main] WARN  Model.Database.JooqDataManager - No Tags found for Appointment: 803
+2025-02-16 14:51:23 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:51:23 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:51:48 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:51:48 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:52:17 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: ifdjefeisjfse
+2025-02-16 14:52:17 [main] WARN  Model.Database.JooqDataManager - No appointments found with title: ifdjefeisjfse
+2025-02-16 14:52:17 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:52:17 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-01-01T00:00 and 2025-02-28T23:59:59
+2025-02-16 14:53:37 [main] INFO  Model.Database.JooqDataManager - Initializing new JooqDataManager to: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-16 14:53:38 [main] INFO  Model.Database.JooqDataManager - Successfully connected to database: jdbc:sqlite:src/test/resources/javenderDatabase.db
+2025-02-16 14:53:38 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-16 14:53:38 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59

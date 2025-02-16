@@ -545,6 +545,12 @@ public class CalendarInterface implements UserInterface{
         return scanner.nextLine();
     }
 
+    public boolean confirmAction(String message) {
+        displayMessage(message + " (yes/no)");
+        String response = getUserCommand().trim().toLowerCase();
+        return response.equals("yes");
+    }
+
     public static void clearScreen() {
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
             try {
