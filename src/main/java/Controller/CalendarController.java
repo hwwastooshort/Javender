@@ -393,6 +393,23 @@ public class CalendarController {
         }
     }
 
+    public void deleteAllAppointments() {
+        boolean confirm = uI.confirmAction("Are you sure you want to delete all appointments? This action cannot be undone.");
+
+        if (!confirm) {
+            uI.displayMessage("Task canceled. No appointments were deleted.");
+            return;
+        }
+
+        try {
+            dM.removeAllAppointments();
+            uI.displayMessage("All appointments have been successfully deleted.");
+        } catch (DataManagerException e) {
+            uI.displayError("There was a problem deleting all appointments.");
+            uI.displayError("Details: " + e.getMessage());
+        }
+    }
+
     public void deleteAllTags() {
         boolean confirm = uI.confirmAction("Are you sure you want to delete all tags? This action cannot be undone.");
 
