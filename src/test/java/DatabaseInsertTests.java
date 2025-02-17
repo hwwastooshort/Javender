@@ -5,9 +5,7 @@ import Model.Database.JooqDataManager;
 import Model.Database.DataManagerException;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,24 +17,26 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DatabaseInsertTests {
 
     private DataManager dm;
 
     @BeforeEach
     void setupDatabase() throws Exception {
-        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
-             Statement statement = connection.createStatement()) {
+        try (var connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
+             var statement = connection.createStatement()) {
 
             String setupSql = Files.readString(Paths.get("src/test/resources/DeleteTestAppointments.sql"));
             statement.executeUpdate(setupSql);
         }
 
-        dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDataBase.db");
+        dm = new JooqDataManager("src/test/resources/javenderDataBase.db");
+        dm.removeAllTags();
         assertNotNull(dm, "Database connection must be established before running tests.");
     }
 
-    @AfterEach
+    @AfterAll
     void cleanupDatabase() throws Exception {
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
              Statement statement = connection.createStatement()) {
@@ -45,7 +45,11 @@ public class DatabaseInsertTests {
             statement.executeUpdate(cleanupSql);
         }
 
+        if (dm instanceof JooqDataManager) {
+            ((JooqDataManager) dm).close();
+        }
     }
+
 
     @Test
     void testAddAppointment() throws DataManagerException {

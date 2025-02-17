@@ -32,14 +32,14 @@ public class CalendarControllerTests {
     @BeforeEach
     void setupDatabase() throws Exception {
         try (
-            Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
-            Statement statement = connection.createStatement()) {
+                Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
+                Statement statement = connection.createStatement()) {
 
             String setupSql = Files.readString(Paths.get("src/test/resources/AddTestAppointments.sql"));
             statement.executeUpdate(setupSql);
         }
 
-        dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDataBase.db");
+        dm = new JooqDataManager("src/test/resources/javenderDataBase.db");
         assertNotNull(dm, "Database connection must be established before running tests.");
 
         System.setOut(new PrintStream(outputStream)); // Umleiten von System.out
@@ -61,7 +61,7 @@ public class CalendarControllerTests {
 
     @Test
     void testValidateDate(){
-        CalendarController cc = new CalendarController();
+        CalendarController cc = new CalendarController(dm);
         String validDate = "2030-10-01";
         String invalidDate = "01-10-2030";
         assertFalse(cc.validateDate(validDate));
@@ -70,7 +70,7 @@ public class CalendarControllerTests {
 
     @Test
     void testValidateTime(){
-        CalendarController cc = new CalendarController();
+        CalendarController cc = new CalendarController(dm);
         String validTime = "12:00";
         String invalidTime = "12-00";
         assertFalse(cc.validateTime(validTime));
@@ -79,7 +79,7 @@ public class CalendarControllerTests {
 
     @Test
     void testValidateDateTimeOrder(){
-        CalendarController cc = new CalendarController();
+        CalendarController cc = new CalendarController(dm);
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime tomorrow = LocalDateTime.now().minusDays(1);
         assertTrue(cc.validateDateTimeOrder(now, tomorrow));
@@ -88,7 +88,7 @@ public class CalendarControllerTests {
 
     @Test
     void testValidateDateEdgeCases() {
-        CalendarController cc = new CalendarController();
+        CalendarController cc = new CalendarController(dm);
 
         String emptyDate = "";
         String nullDate = null;
@@ -103,7 +103,7 @@ public class CalendarControllerTests {
         String simulatedInput = "Pumpen gehen\n1\n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
 
-        CalendarController cc = new CalendarController();
+        CalendarController cc = new CalendarController(dm);
         cc.addTag();
 
         String output = outputStream.toString();
@@ -111,12 +111,12 @@ public class CalendarControllerTests {
         assertTrue(output.contains("Tag title:"));
         assertTrue(output.contains("Choose one of the following colors for your tag: "));
         assertTrue(output.contains(ColorManager.getColoredText("red","\n1.RED")+
-            ColorManager.getColoredText("green","\n2.GREEN")+
-            ColorManager.getColoredText("yellow","\n3.YELLOW")+
-            ColorManager.getColoredText("blue","\n4.BLUE")+
-            ColorManager.getColoredText("purple","\n5.PURPLE")+
-            ColorManager.getColoredText("cyan","\n6.CYAN")+
-            ColorManager.getColoredText("white","\n7.WHITE")));
+                ColorManager.getColoredText("green","\n2.GREEN")+
+                ColorManager.getColoredText("yellow","\n3.YELLOW")+
+                ColorManager.getColoredText("blue","\n4.BLUE")+
+                ColorManager.getColoredText("purple","\n5.PURPLE")+
+                ColorManager.getColoredText("cyan","\n6.CYAN")+
+                ColorManager.getColoredText("white","\n7.WHITE")));
 
         Tag addedTag = dm.getTagByName("Pumpen gehen").orElse(null);
         assertNotNull(addedTag);
@@ -129,7 +129,7 @@ public class CalendarControllerTests {
         String simulatedInput = "Personal\n1\n4\n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
 
-        CalendarController cc = new CalendarController();
+        CalendarController cc = new CalendarController(dm);
         Tag existingTag = dm.getTagByName("Personal").orElse(null);
         assertNotNull(existingTag);
         assertEquals("Personal", existingTag.getName());
@@ -158,7 +158,7 @@ public class CalendarControllerTests {
         String simulatedInput = "Personal\n2\n";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
 
-        CalendarController cc = new CalendarController();
+        CalendarController cc = new CalendarController(dm);
 
         Tag existingTag = dm.getTagByName("Personal").orElse(null);
         assertNotNull(existingTag);
@@ -181,14 +181,10 @@ public class CalendarControllerTests {
 
     @Test
     void testSplitUserCommandIntoArgs(){
-        CalendarController cc = new CalendarController();
+        CalendarController cc = new CalendarController(dm);
         String command = "upcoming 5";
         String[] args = cc.splitUserCommandIntoArgs(command);
         assertEquals(args[0], "upcoming");
         assertEquals(args[1], "5");
     }
 }
-
-
-
-

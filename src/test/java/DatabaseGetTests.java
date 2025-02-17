@@ -1,4 +1,5 @@
 import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import Model.Database.DataManager;
 import Model.Database.JooqDataManager;
@@ -6,9 +7,7 @@ import Model.Database.DataManagerException;
 import Model.Entities.Appointment;
 import Model.Entities.Tag;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,8 +18,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import static org.assertj.core.api.Assertions.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DatabaseGetTests {
 
     private DataManager dm;
@@ -30,11 +29,16 @@ public class DatabaseGetTests {
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
              Statement statement = connection.createStatement()) {
 
+            System.out.println("🟡 Cleaning up test database...");
+            String cleanupSql = Files.readString(Paths.get("src/test/resources/DeleteTestAppointments.sql"));
+            statement.executeUpdate(cleanupSql);
+
+            System.out.println("🟢 Re-inserting test data...");
             String setupSql = Files.readString(Paths.get("src/test/resources/AddTestAppointments.sql"));
             statement.executeUpdate(setupSql);
         }
 
-        dm = new JooqDataManager("jdbc:sqlite:src/test/resources/javenderDataBase.db");
+        dm = new JooqDataManager("src/test/resources/javenderDataBase.db");
         assertNotNull(dm, "Database connection must be established before running tests.");
     }
 
@@ -43,8 +47,12 @@ public class DatabaseGetTests {
         try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
              Statement statement = connection.createStatement()) {
 
-            String cleanupSql = Files.readString(Paths.get("src/test/resources/DeleteTestAppointments.sql"));
-            statement.executeUpdate(cleanupSql);
+            String setupSql = Files.readString(Paths.get("src/test/resources/AddTestAppointments.sql"));
+            statement.executeUpdate(setupSql);
+        }
+
+        if (dm instanceof JooqDataManager) {
+            ((JooqDataManager) dm).close();
         }
     }
 
@@ -78,13 +86,13 @@ public class DatabaseGetTests {
         List<Appointment> fetchedAppointments = dm.getAppointmentsByDate(testDate, JooqDataManager.DateFilter.STARTDATE);
 
         List<Appointment> expectedAppointments = List.of(new Appointment(
-                1,
-                LocalDateTime.parse("2025-01-01T09:00:00"),
-                LocalDateTime.parse("2025-01-01T10:00:00"),
-                "Doctor Appointment",
-                "Annual checkup",
-                List.of(new Tag(1, "Personal", "red"))
-        ),
+                        1,
+                        LocalDateTime.parse("2025-01-01T09:00:00"),
+                        LocalDateTime.parse("2025-01-01T10:00:00"),
+                        "Doctor Appointment",
+                        "Annual checkup",
+                        List.of(new Tag(1, "Personal", "red"))
+                ),
                 new Appointment(
                         2,
                         LocalDateTime.parse("2025-01-01T11:00:00"),
@@ -233,49 +241,49 @@ public class DatabaseGetTests {
 
         var actualAppointments = dm.getUpcomingAppointments(date1, 3);
         var expectedAppointments = List.of(new Appointment(
-                1,
-                LocalDateTime.parse("2025-01-01T09:00:00"),
-                LocalDateTime.parse("2025-01-01T10:00:00"),
-                "Doctor Appointment",
-                "Annual checkup",
-                List.of(new Tag(1, "Personal", "red"))
-            ),
-            new Appointment(
-                2,
-                LocalDateTime.parse("2025-01-01T11:00:00"),
-                LocalDateTime.parse("2025-01-01T12:00:00"),
-                "Team Meeting",
-                "Monthly progress update",
-                List.of(new Tag(2, "Work", "blue"))
-            ),
-            new Appointment(
-                3,
-                LocalDateTime.parse("2025-01-02T14:00:00"),
-                LocalDateTime.parse("2025-01-02T15:00:00"),
-                "Client Presentation",
-                "Present new project proposal",
-                List.of(new Tag(2, "Work", "blue"))
-            )
+                        1,
+                        LocalDateTime.parse("2025-01-01T09:00:00"),
+                        LocalDateTime.parse("2025-01-01T10:00:00"),
+                        "Doctor Appointment",
+                        "Annual checkup",
+                        List.of(new Tag(1, "Personal", "red"))
+                ),
+                new Appointment(
+                        2,
+                        LocalDateTime.parse("2025-01-01T11:00:00"),
+                        LocalDateTime.parse("2025-01-01T12:00:00"),
+                        "Team Meeting",
+                        "Monthly progress update",
+                        List.of(new Tag(2, "Work", "blue"))
+                ),
+                new Appointment(
+                        3,
+                        LocalDateTime.parse("2025-01-02T14:00:00"),
+                        LocalDateTime.parse("2025-01-02T15:00:00"),
+                        "Client Presentation",
+                        "Present new project proposal",
+                        List.of(new Tag(2, "Work", "blue"))
+                )
         );
         assertEquals(actualAppointments, expectedAppointments);
 
         var actualAppointments2 = dm.getUpcomingAppointments(date2, 2);
         var expectedAppointments2 = List.of(new Appointment(
-                2,
-                LocalDateTime.parse("2025-01-01T11:00:00"),
-                LocalDateTime.parse("2025-01-01T12:00:00"),
-                "Team Meeting",
-                "Monthly progress update",
-                List.of(new Tag(2, "Work", "blue"))
-            ),
-            new Appointment(
-                3,
-                LocalDateTime.parse("2025-01-02T14:00:00"),
-                LocalDateTime.parse("2025-01-02T15:00:00"),
-                "Client Presentation",
-                "Present new project proposal",
-                List.of(new Tag(2, "Work", "blue"))
-            )
+                        2,
+                        LocalDateTime.parse("2025-01-01T11:00:00"),
+                        LocalDateTime.parse("2025-01-01T12:00:00"),
+                        "Team Meeting",
+                        "Monthly progress update",
+                        List.of(new Tag(2, "Work", "blue"))
+                ),
+                new Appointment(
+                        3,
+                        LocalDateTime.parse("2025-01-02T14:00:00"),
+                        LocalDateTime.parse("2025-01-02T15:00:00"),
+                        "Client Presentation",
+                        "Present new project proposal",
+                        List.of(new Tag(2, "Work", "blue"))
+                )
         );
         assertEquals(actualAppointments2, expectedAppointments2);
     }
