@@ -14,20 +14,22 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
 
 public class CalendarController {
 
-    private final String PATH_TO_DATABASE = "jdbc:sqlite:src/test/resources/javenderDatabase.db";
     UserInterface uI = new CalendarInterface();
     ManageMenuView manageMenuView = new ManageMenuView(uI);
     DataManager dM;
 
-    {
-        try {
-            dM = new JooqDataManager(PATH_TO_DATABASE);
-        } catch (DataManagerException e) {
-            throw new RuntimeException("Couldn't connect to database");
+    public CalendarController(DataManager dataManager) {
+        this.dM = dataManager;
+    }
+
+    public void shutdown() {
+        if (dM instanceof JooqDataManager) {
+            ((JooqDataManager) dM).close();
         }
     }
 
@@ -47,14 +49,23 @@ public class CalendarController {
                 case "manage":
                     manageMenu();
                     break;
-                case "january": case "february": case "march": case "april":
-                case "may": case "june": case "july": case "august":
-                case "september": case "october": case "november": case "december":
+                case "january":
+                case "february":
+                case "march":
+                case "april":
+                case "may":
+                case "june":
+                case "july":
+                case "august":
+                case "september":
+                case "october":
+                case "november":
+                case "december":
                     int year = Year.now().getValue();
-                    if(arguments.length > 1) {
-                        try{
+                    if (arguments.length > 1) {
+                        try {
                             year = Year.parse(arguments[1]).getValue();
-                        }catch(DateTimeParseException e){
+                        } catch (DateTimeParseException e) {
                             uI.displayError("The year you entered was not formatted correctly.");
                         }
                     }
@@ -68,12 +79,13 @@ public class CalendarController {
                     try {
                         List<Appointment> upcomingAppointments = dM.getUpcomingAppointments(monthToShow.atStartOfDay(), 5);
                         uI.displayAppointments(upcomingAppointments);
-                    }catch(DataManagerException e){
+                    } catch (DataManagerException e) {
                         uI.displayError("There was a problem fetching the upcoming appointments.");
                     }
                     break;
                 case "exit":
                     manageMenuView.displayExitMessage();
+                    shutdown();
                     running = false;
                     break;
                 default:
@@ -85,8 +97,8 @@ public class CalendarController {
     /**
      * gets the data of the appointment that the user wants to add
      * through the user interface and adds it to the database.
-     * **/
-    public void addAppointment(){
+     **/
+    public void addAppointment() {
         Appointment appointment;
 
         uI.startAppointmentCreation();
@@ -97,7 +109,7 @@ public class CalendarController {
 
         LocalDateTime endDateTime = getEndDateTime();
 
-        if(validateDateTimeOrder(startDateTime, endDateTime)){
+        if (validateDateTimeOrder(startDateTime, endDateTime)) {
             addAppointment();
             return;
         }
@@ -108,7 +120,7 @@ public class CalendarController {
             appointment = new Appointment(startDateTime, endDateTime, title, description, tags);
             dM.addAppointment(appointment);
 
-        }catch(DataManagerException e){
+        } catch (DataManagerException e) {
             uI.displayError("There was a problem with adding the created appointment to the database in addAppointment.");
         }
 
@@ -116,15 +128,15 @@ public class CalendarController {
 
     /**
      * gets and validates a StartDateTime
-     * **/
-    private LocalDateTime getStartDateTime(){
+     **/
+    private LocalDateTime getStartDateTime() {
         String startDate = uI.getStartDate();
-        while(validateDate(startDate)){
+        while (validateDate(startDate)) {
             startDate = uI.getStartDate();
         }
 
         String startTime = uI.getStartTime();
-        while(validateTime(startTime)){
+        while (validateTime(startTime)) {
             startTime = uI.getStartTime();
         }
 
@@ -133,14 +145,14 @@ public class CalendarController {
 
     /**
      * gets and validates EndDateTime
-     * **/
-    private LocalDateTime getEndDateTime(){
+     **/
+    private LocalDateTime getEndDateTime() {
         String endDate = uI.getEndDate();
-        while(validateDate(endDate)){
+        while (validateDate(endDate)) {
             endDate = uI.getEndDate();
         }
         String endTime = uI.getEndTime();
-        while(validateTime(endTime)){
+        while (validateTime(endTime)) {
             endTime = uI.getEndTime();
         }
 
@@ -150,12 +162,12 @@ public class CalendarController {
     /**
      * checks if the entered String is formatted correctly to be parsed to
      * a LocalDate object
-     * **/
-    public boolean validateDate(String dateString){
+     **/
+    public boolean validateDate(String dateString) {
         try {
             LocalDate.parse(dateString);
             return false;
-        }catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             uI.displayError("Your input is not formatted correctly.");
             return true;
         }
@@ -164,12 +176,12 @@ public class CalendarController {
     /**
      * checks of the entered String is formatted correctly to be parsed to
      * a LocalTime object
-     * **/
-    public boolean validateTime(String timeString){
+     **/
+    public boolean validateTime(String timeString) {
         try {
             LocalTime.parse(timeString);
             return false;
-        }catch (DateTimeParseException e){
+        } catch (DateTimeParseException e) {
             uI.displayError("Your input is not formatted correctly.");
             return true;
         }
@@ -177,9 +189,9 @@ public class CalendarController {
 
     /**
      * checks if the startTime is chronologically after the endTime
-     * **/
-    public boolean validateDateTimeOrder(LocalDateTime start, LocalDateTime end){
-        if(start.isAfter(end)){
+     **/
+    public boolean validateDateTimeOrder(LocalDateTime start, LocalDateTime end) {
+        if (start.isAfter(end)) {
             uI.displayError("Your appointment can not end before it starts.");
         }
         return start.isAfter(end);
@@ -189,10 +201,10 @@ public class CalendarController {
         List<Tag> addedTags = new ArrayList<Tag>();
         boolean exit = false;
 
-        while(!exit) {
+        while (!exit) {
             Optional<Tag> tag = uI.getTag(tags);
 
-            if(tag.isEmpty()) {
+            if (tag.isEmpty()) {
                 exit = true;
             } else {
                 addedTags.add(tag.get());
@@ -202,21 +214,21 @@ public class CalendarController {
     }
 
     //TODO Ask to replace tag if already existing
-    public void addTag(){
+    public void addTag() {
         uI.startTagCreation();
         String title = uI.getTagTitle();
-        try{
+        try {
             Optional<Tag> optionalTag = dM.getTagByName(title);
-            if(optionalTag.isEmpty()){
+            if (optionalTag.isEmpty()) {
                 int colorIndex = uI.getTagColorIndex();
                 String color = intToColor(colorIndex);
-                Tag newTag = new Tag(title,color);
+                Tag newTag = new Tag(title, color);
                 dM.addTag(newTag);
                 return;
             }
             Tag tag = optionalTag.get();
             int choice = uI.tagAlreadyExists(optionalTag.get());
-            if(choice == 1){
+            if (choice == 1) {
                 int colorIndex = uI.getTagColorIndex();
                 String color = intToColor(colorIndex);
                 Tag overwritingTag = new Tag(tag.getTagId(), title, color);
@@ -225,7 +237,7 @@ public class CalendarController {
                 return;
             }
             uI.cancelOverwriteTag();
-        }catch (DataManagerException e){
+        } catch (DataManagerException e) {
             uI.displayError(e.getMessage());
         }
     }
@@ -233,10 +245,10 @@ public class CalendarController {
     /**
      * @param colorIndex index of the color the user chose
      * @return Color corresponding to the colorIndex
-     * **/
-    private String intToColor(int colorIndex){
+     **/
+    private String intToColor(int colorIndex) {
         String color;
-        switch (colorIndex){
+        switch (colorIndex) {
             case 1:
                 color = "red";
                 break;
@@ -264,12 +276,12 @@ public class CalendarController {
 
     /**
      * logic to edit the tags assigned to an appointment the is chosen by the user
-     * **/
-    public void editTag(){
+     **/
+    public void editTag() {
         String title = uI.startEditingTag();
         try {
             Optional<Tag> optionalTag = dM.getTagByName(title);
-            if(optionalTag.isEmpty()){
+            if (optionalTag.isEmpty()) {
                 uI.displayError("There was no tag with the title \"" + title + "\".");
                 return;
             }
@@ -278,7 +290,7 @@ public class CalendarController {
             tag.setName(uI.getTagTitle());
             tag.setColor(intToColor(uI.getTagColorIndex()));
             dM.updateTag(tag);
-        }catch (DataManagerException e){
+        } catch (DataManagerException e) {
             uI.displayError(e.getMessage());
         }
 
@@ -286,7 +298,7 @@ public class CalendarController {
 
     /**
      * edit an appointment that the user chooses via the ui
-     * **/
+     **/
     public void editAppointment() {
         String appointmentTitle = uI.startEditingAppointment();
         try {
@@ -294,12 +306,12 @@ public class CalendarController {
 
             int appointmentIndex = chooseAppointmentLogic(appointments);
 
-            if(appointmentIndex >= 0){
+            if (appointmentIndex >= 0) {
                 Appointment updatedAppointment = createNewAppointment(appointments.get(appointmentIndex));
 
                 dM.updateAppointment(updatedAppointment);
             }
-        }catch (DataManagerException e){
+        } catch (DataManagerException e) {
             uI.displayError(e.getMessage());
         }
     }
@@ -308,8 +320,8 @@ public class CalendarController {
      * @param appointments All appointments the user gets to chose from
      * @return Index of the appointment chosen by the user,
      * returns -1 if appointments is empty
-     * **/
-    private int chooseAppointmentLogic(List<Appointment> appointments){
+     **/
+    private int chooseAppointmentLogic(List<Appointment> appointments) {
         int appointmentIndex = 0;
 
         if (appointments.isEmpty()) {
@@ -329,10 +341,11 @@ public class CalendarController {
 
     /**
      * create new appointment object based on user inputs
+     *
      * @param appointment appointment that the user wants to edit
      * @return Appointment that contains the new information entered by the user
      * variables that the user does not update contain the data of the parameter
-     * **/
+     **/
     private Appointment createNewAppointment(Appointment appointment) {
 
         int input = 0;
@@ -363,7 +376,7 @@ public class CalendarController {
                     List<Tag> newTags = new ArrayList<>();
                     try {
                         newTags = getAddedTagsList(dM.getAllTags());
-                    }catch(DataManagerException e){
+                    } catch (DataManagerException e) {
                         uI.displayError(e.getMessage());
                     }
                     appointment.setTags(newTags);
@@ -378,16 +391,16 @@ public class CalendarController {
         return appointment;
     }
 
-    public void deleteAppointment(){
+    public void deleteAppointment() {
         String title = uI.startDeletingAppointment();
         try {
             List<Appointment> appointments = dM.getAppointmentsByTitle(title);
             int appointmentIndex = chooseAppointmentLogic(appointments);
-            if(appointmentIndex >= 0) {
+            if (appointmentIndex >= 0) {
                 Appointment appointmentToBeRemoved = appointments.get(appointmentIndex);
                 dM.removeAppointment(appointmentToBeRemoved);
             }
-        }catch(DataManagerException e){
+        } catch (DataManagerException e) {
             uI.displayError("There was a problem with removing the appointment.");
             uI.displayError(e.getMessage());
         }
@@ -427,17 +440,17 @@ public class CalendarController {
         }
     }
 
-    public void deleteTag(){
+    public void deleteTag() {
         String name = uI.startDeletingTag();
         try {
             Optional<Tag> optionalTag = dM.getTagByName(name);
-            if(optionalTag.isEmpty()){
+            if (optionalTag.isEmpty()) {
                 uI.displayError("There was no tag with the name \"" + name + "\"");
                 return;
             }
             Tag tag = optionalTag.get();
             dM.removeTag(tag);
-        }catch(DataManagerException e){
+        } catch (DataManagerException e) {
             uI.displayError(e.getMessage());
         }
     }
@@ -482,8 +495,8 @@ public class CalendarController {
 
     /**
      * splits the arguments of the user command into separate Strings
-     * **/
-    public String[] splitUserCommandIntoArgs(String userCommand){
+     **/
+    public String[] splitUserCommandIntoArgs(String userCommand) {
         return userCommand.split(" ");
     }
 
@@ -494,7 +507,7 @@ public class CalendarController {
         );
     }
 
-    private void showMonthsAccordingToDate(LocalDate date){
+    private void showMonthsAccordingToDate(LocalDate date) {
         try {
             System.out.println(
                     uI.getCalendarWithUpcomingAppointments(
