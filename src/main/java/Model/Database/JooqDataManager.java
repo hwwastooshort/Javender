@@ -270,47 +270,52 @@ public class JooqDataManager implements DataManager {
 
     public int addAppointment(Appointment appointment) throws DataManagerException {
         try {
-            return tryWithDSL(create -> {
-                logger.info("Adding new appointment: {}", appointment);
-                LocalDateTime startDate = appointment.getStartDate();
-                LocalDateTime endDate = appointment.getEndDate();
-                String title = appointment.getTitle();
-                String description = appointment.getDescription();
-                List<Tag> tags = appointment.getTags();
+            return tryWithDSL(create ->
+                    create.transactionResult(configuration -> {
+                        DSLContext ctx = DSL.using(configuration);
+                        logger.info("Adding new appointment in transaction: {}", appointment);
 
-                Record record = create.insertInto(APPOINTMENT, APPOINTMENT.STARTDATE, APPOINTMENT.ENDDATE,
-                                APPOINTMENT.TITLE, APPOINTMENT.DESCRIPTION)
-                        .values(startDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                                endDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), title, description)
-                        .returning(APPOINTMENT.APPOINTMENTID)
-                        .fetchOne();
+                        LocalDateTime startDate = appointment.getStartDate();
+                        LocalDateTime endDate = appointment.getEndDate();
+                        String title = appointment.getTitle();
+                        String description = appointment.getDescription();
+                        List<Tag> tags = appointment.getTags();
 
-                if (record == null) {
-                    throw new DataManagerException("Failed to insert appointment. No ID returned.");
-                }
+                        Record record = ctx.insertInto(APPOINTMENT, APPOINTMENT.STARTDATE, APPOINTMENT.ENDDATE,
+                                        APPOINTMENT.TITLE, APPOINTMENT.DESCRIPTION)
+                                .values(startDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                                        endDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                                        title, description)
+                                .returning(APPOINTMENT.APPOINTMENTID)
+                                .fetchOne();
 
-                int insertedId = record.getValue(APPOINTMENT.APPOINTMENTID);
-
-                if (tags != null && !tags.isEmpty()) {
-                    for (Tag tag : tags) {
-                        boolean exists = create.fetchExists(
-                                create.selectOne()
-                                        .from(APPOINTMENTTAG)
-                                        .where(APPOINTMENTTAG.APPOINTMENTID.eq(insertedId)
-                                                .and(APPOINTMENTTAG.TAGID.eq(tag.getTagId())))
-                        );
-                        if (!exists) {
-                            logger.info("Adding Tag {} to Appointment ID: {}", tag, insertedId);
-                            create.insertInto(APPOINTMENTTAG, APPOINTMENTTAG.APPOINTMENTID, APPOINTMENTTAG.TAGID)
-                                    .values(insertedId, tag.getTagId())
-                                    .execute();
+                        if (record == null) {
+                            throw new DataManagerException("Failed to insert appointment. No ID returned.");
                         }
-                    }
-                }
 
-                logger.info("Successfully added appointment with ID: {}", insertedId);
-                return insertedId;
-            });
+                        int insertedId = record.getValue(APPOINTMENT.APPOINTMENTID);
+
+                        if (tags != null && !tags.isEmpty()) {
+                            for (Tag tag : tags) {
+                                boolean exists = ctx.fetchExists(
+                                        ctx.selectOne()
+                                                .from(APPOINTMENTTAG)
+                                                .where(APPOINTMENTTAG.APPOINTMENTID.eq(insertedId)
+                                                        .and(APPOINTMENTTAG.TAGID.eq(tag.getTagId())))
+                                );
+                                if (!exists) {
+                                    logger.info("Adding Tag {} to Appointment ID: {}", tag, insertedId);
+                                    ctx.insertInto(APPOINTMENTTAG, APPOINTMENTTAG.APPOINTMENTID, APPOINTMENTTAG.TAGID)
+                                            .values(insertedId, tag.getTagId())
+                                            .execute();
+                                }
+                            }
+                        }
+
+                        logger.info("Successfully added appointment with ID: {}", insertedId);
+                        return insertedId;
+                    })
+            );
         } catch (org.jooq.exception.IntegrityConstraintViolationException e) {
             logger.error("Integrity constraint violation while adding appointment: {}", e.getMessage());
             throw new DataManagerException("Integrity constraint violation: " + e.getMessage());
@@ -343,20 +348,27 @@ public class JooqDataManager implements DataManager {
     }
 
     public boolean removeTagByTagId(int tagId) throws DataManagerException {
-        return tryWithDSL(create -> {
-            logger.info("Removing tag with ID: {}", tagId);
+        return tryWithDSL(create ->
+                create.transactionResult(configuration -> {
+                    DSLContext ctx = DSL.using(configuration);
+                    logger.info("Removing tag with ID: {}", tagId);
 
-            create.deleteFrom(APPOINTMENTTAG)
-                    .where(APPOINTMENTTAG.TAGID.eq(tagId))
-                    .execute();
+                    ctx.deleteFrom(APPOINTMENTTAG)
+                            .where(APPOINTMENTTAG.TAGID.eq(tagId))
+                            .execute();
 
-            create.deleteFrom(TAG)
-                    .where(TAG.TAGID.eq(tagId))
-                    .execute();
+                    int rowsDeleted = ctx.deleteFrom(TAG)
+                            .where(TAG.TAGID.eq(tagId))
+                            .execute();
 
-            logger.info("Successfully removed tag with ID: {}", tagId);
-            return true;
-        });
+                    if (rowsDeleted == 0) {
+                        throw new DataManagerException("No tag found with ID: " + tagId);
+                    }
+
+                    logger.info("Successfully removed tag with ID: {}", tagId);
+                    return true;
+                })
+        );
     }
 
     public boolean removeTag(Tag tag) throws DataManagerException {
