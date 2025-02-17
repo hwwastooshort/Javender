@@ -456,18 +456,21 @@ public class CalendarController {
                 deleteAppointment();
                 break;
             case 4:
-                addTag();
+                deleteAllAppointments();
                 break;
             case 5:
-                editTag();
+                addTag();
                 break;
             case 6:
-                deleteTag();
+                editTag();
                 break;
             case 7:
-                deleteAllTags();
+                deleteTag();
                 break;
             case 8:
+                deleteAllTags();
+                break;
+            case 9:
                 uI.displayMessage("Leaving manage menu...");
                 break;
             default:
