@@ -12,8 +12,6 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -88,7 +86,7 @@ public class JooqDataManager implements DataManager {
                     .fetchOne();
 
             if (record == null) {
-                logger.warn("No appointment found with ID: {}", appointmentId);
+                logger.warn("No appointment found in database for ID: {}", appointmentId);
                 return Optional.empty();
             }
 
@@ -280,13 +278,18 @@ public class JooqDataManager implements DataManager {
                 String description = appointment.getDescription();
                 List<Tag> tags = appointment.getTags();
 
-                int insertedId = create.insertInto(APPOINTMENT, APPOINTMENT.STARTDATE, APPOINTMENT.ENDDATE,
+                Record record = create.insertInto(APPOINTMENT, APPOINTMENT.STARTDATE, APPOINTMENT.ENDDATE,
                                 APPOINTMENT.TITLE, APPOINTMENT.DESCRIPTION)
                         .values(startDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                                 endDate.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME), title, description)
                         .returning(APPOINTMENT.APPOINTMENTID)
-                        .fetchOne()
-                        .getValue(APPOINTMENT.APPOINTMENTID);
+                        .fetchOne();
+
+                if (record == null) {
+                    throw new DataManagerException("Failed to insert appointment. No ID returned.");
+                }
+
+                int insertedId = record.getValue(APPOINTMENT.APPOINTMENTID);
 
                 if (tags != null && !tags.isEmpty()) {
                     for (Tag tag : tags) {
@@ -365,12 +368,16 @@ public class JooqDataManager implements DataManager {
         return tryWithDSL(create -> {
             logger.info("Adding new tag: {}", tag);
 
-            int insertedId = create.insertInto(TAG, TAG.NAME, TAG.COLOR)
+            Record record = create.insertInto(TAG, TAG.NAME, TAG.COLOR)
                     .values(tag.getName(), tag.getColor())
                     .returning(TAG.TAGID)
-                    .fetchOne()
-                    .getValue(TAG.TAGID);
+                    .fetchOne();
 
+            if (record == null) {
+                throw new DataManagerException("Failed to insert tag. No ID returned.");
+            }
+
+            int insertedId = record.getValue(TAG.TAGID);
             logger.info("Successfully added tag with ID: {}", insertedId);
             return insertedId;
         });
@@ -506,10 +513,10 @@ public class JooqDataManager implements DataManager {
             logger.info("Removing all appointments from the database");
 
             create.deleteFrom(APPOINTMENTTAG).execute();
-            logger.debug("Successfully removed all appointment tags");
+            logger.debug("Successfully removed all appointment");
 
             create.deleteFrom(APPOINTMENT).execute();
-            logger.debug("Successfully removed all appointments");
+            logger.debug("Removed all appointments");
 
             return null;
         });

@@ -1783,3 +1783,12 @@ Model.Database.DataManagerException: No appointment found with ID: 999
 2025-02-17 02:55:56 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
 2025-02-17 02:55:56 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
 2025-02-17 02:55:56 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-02-17 03:08:41 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDatabase.db
+2025-02-17 03:08:41 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-02-17 03:08:41 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@2a65fe7c
+2025-02-17 03:08:41 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-02-17 03:08:41 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-17 03:08:42 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-17 03:08:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-02-17 03:08:46 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-02-17 03:08:46 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.

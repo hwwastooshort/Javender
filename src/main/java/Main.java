@@ -7,7 +7,7 @@ import Model.Database.JooqDataManager;
 public class Main {
     public static void main(String[] args) {
         System.out.println("This is from the main method!");
-        DataManager dataManager = null;
+        DataManager dataManager;
 
         try {
             dataManager = new JooqDataManager("src/test/resources/javenderDatabase.db");

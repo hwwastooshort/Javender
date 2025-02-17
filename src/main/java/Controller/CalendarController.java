@@ -198,7 +198,7 @@ public class CalendarController {
     }
 
     public List<Tag> getAddedTagsList(List<Tag> tags) {
-        List<Tag> addedTags = new ArrayList<Tag>();
+        List<Tag> addedTags = new ArrayList<>();
         boolean exit = false;
 
         while (!exit) {
