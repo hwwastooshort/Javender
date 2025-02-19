@@ -76,8 +76,16 @@ public class CalendarController {
                     monthToShow = LocalDate.now();
                     break;
                 case "upcoming":
+                    int appointmentAmount = 5;
+                    if(arguments.length > 1){
+                        try {
+                            appointmentAmount = Integer.parseInt(arguments[1]);
+                        }catch(NumberFormatException e){
+                            uI.displayError("The second argument has to be a number.");
+                        }
+                    }
                     try {
-                        List<Appointment> upcomingAppointments = dM.getUpcomingAppointments(monthToShow.atStartOfDay(), 5);
+                        List<Appointment> upcomingAppointments = dM.getUpcomingAppointments(monthToShow.atStartOfDay(), appointmentAmount);
                         uI.displayAppointments(upcomingAppointments);
                     } catch (DataManagerException e) {
                         uI.displayError("There was a problem fetching the upcoming appointments.");
