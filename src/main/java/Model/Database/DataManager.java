@@ -49,4 +49,6 @@ public interface DataManager {
     void removeAllAppointments() throws DataManagerException;
 
     void removeAllTags() throws DataManagerException;
+
+    List<Appointment> getUpcomingAppointmentsByTag(LocalDateTime date, int amount, String tagName) throws DataManagerException;
 }

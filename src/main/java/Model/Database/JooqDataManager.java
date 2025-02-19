@@ -549,6 +549,43 @@ public class JooqDataManager implements DataManager {
         });
     }
 
+    public List<Appointment> getUpcomingAppointmentsByTag(LocalDateTime date, int amount, String tagName) throws DataManagerException {
+        return tryWithDSL(create -> {
+            logger.info("Fetching the next {} upcoming appointments after {} with the tag {}", amount, date, tagName);
+
+            Result<?> result = create.select()
+                    .from(APPOINTMENT).naturalJoin(APPOINTMENTTAG).naturalJoin(TAG)
+                    .where(APPOINTMENT.ENDDATE.greaterThan(date.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
+                    .and(DSL.lower(TAG.NAME).eq(tagName.toLowerCase()))
+                    .orderBy(APPOINTMENT.STARTDATE.asc())
+                    .limit(amount)
+                    .fetch();
+
+            if (result.isEmpty()) {
+                logger.warn("No appointments with tag {} found after {}", tagName, date);
+                return new ArrayList<>();
+            }
+
+            if (result.size() < amount) {
+                logger.warn("Only {}/{} appointments with tag {} found after {}", result.size(), amount, tagName, date);
+            }
+
+            List<Appointment> appointmentList = result.stream()
+                    .map(record -> {
+                        try {
+                            return mapToAppointment(record);
+                        } catch (DataManagerException e) {
+                            logger.error("Error mapping record to appointment: {}", record, e);
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .collect(Collectors.toList());
+
+            logger.debug("Successfully fetched {} upcoming appointments after {} with tag {}", appointmentList.size(), date, tagName);
+            return appointmentList;
+        });
+    }
+
     public void close() {
         if (dataSource != null) {
             dataSource.close();

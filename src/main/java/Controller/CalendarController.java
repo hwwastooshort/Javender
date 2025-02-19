@@ -76,20 +76,7 @@ public class CalendarController {
                     monthToShow = LocalDate.now();
                     break;
                 case "upcoming":
-                    int appointmentAmount = 5;
-                    if(arguments.length > 1){
-                        try {
-                            appointmentAmount = Integer.parseInt(arguments[1]);
-                        }catch(NumberFormatException e){
-                            uI.displayError("The second argument has to be a number.");
-                        }
-                    }
-                    try {
-                        List<Appointment> upcomingAppointments = dM.getUpcomingAppointments(monthToShow.atStartOfDay(), appointmentAmount);
-                        uI.displayAppointments(upcomingAppointments);
-                    } catch (DataManagerException e) {
-                        uI.displayError("There was a problem fetching the upcoming appointments.");
-                    }
+                    displayUpcomingAppointments(arguments, monthToShow);
                     break;
                 case "exit":
                     manageMenuView.displayExitMessage();
@@ -99,6 +86,30 @@ public class CalendarController {
                 default:
                     manageMenuView.displayInvalidChoiceMessage();
             }
+        }
+    }
+
+    private void displayUpcomingAppointments(String[] arguments, LocalDate monthToShow){
+        int appointmentAmount = 5;
+        if(arguments.length == 2){
+            try {
+                appointmentAmount = Integer.parseInt(arguments[1]);
+            }catch(NumberFormatException e){
+                uI.displayError("The second argument has to be a number.");
+            }
+        }
+
+        try {
+            List<Appointment> upcomingAppointments;
+            if(arguments.length <= 2) {
+                upcomingAppointments = dM.getUpcomingAppointments(monthToShow.atStartOfDay(), appointmentAmount);
+            }else{
+                String tagToDisplay = arguments[2];
+                upcomingAppointments = dM.getUpcomingAppointmentsByTag(monthToShow.atStartOfDay(), appointmentAmount, tagToDisplay);
+            }
+            uI.displayAppointments(upcomingAppointments);
+        } catch (DataManagerException e) {
+            uI.displayError("There was a problem fetching the upcoming appointments.");
         }
     }
 
