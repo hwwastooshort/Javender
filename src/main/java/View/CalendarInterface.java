@@ -508,10 +508,10 @@ public class CalendarInterface implements UserInterface{
     public void displayCommandList() {
         System.out.println("Name & description of all available commands:\n" +
                 "-\"manage\": opens the menu for managing appointments and tags\n" +
-                "-\"exit\": closes the program\n" +
                 "-<name of a month> (+ <year>): display the respective month (of the corresponding year)\n" +
                 "-\"now\": display the current month\n" +
                 "-\"upcoming\" (+ amount (+tag name)): display the upcoming appointments according to the currently displayed month.\n" +
+                "-\"exit\": closes the program\n" +
                 "Enter anything to return to the calendar.");
         scanner.nextLine();
     }
