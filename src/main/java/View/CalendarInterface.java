@@ -511,7 +511,7 @@ public class CalendarInterface implements UserInterface{
                 "-\"exit\": closes the program\n" +
                 "-<name of a month> (+ <year>): display the respective month (of the corresponding year)\n" +
                 "-\"now\": display the current month\n" +
-                "-\"upcoming\" (+ amount (+tag name)): display the upcoming appointments according to the currently displayed month (that have the corresponding tag).\n" +
+                "-\"upcoming\" (+ amount (+tag name)): display the upcoming appointments according to the currently displayed month.\n" +
                 "Enter anything to return to the calendar.");
         scanner.nextLine();
     }
