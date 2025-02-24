@@ -24,7 +24,7 @@ Hier ist ein Screenshot der Kalenderansicht:
 
 ### 3. Systemanforderungen
 - **Java-Version**: Java 21 oder höher
-- **Maven-Version**: Empfohlen zur Projektverwaltung und Build
+- **Maven-Version**:  3.9.9
 - **Datenbank**: SQLite (integriert über JDBC)
 - **Empfohlene IDE**: IntelliJ IDEA, Eclipse oder VS Code
 

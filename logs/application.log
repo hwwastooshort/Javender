@@ -405,3 +405,10 @@ Model.Database.DataManagerException: No appointment found with ID: 999
 2025-02-24 15:43:40 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
 2025-02-24 15:43:40 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
 2025-02-24 15:43:41 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-24 16:14:30 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-24 16:14:30 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-24 16:14:30 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-24 16:14:30 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-02-01T00:00 and 2025-03-31T23:59:59
+2025-02-24 16:14:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-02-24 16:14:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-02-24 16:14:34 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
