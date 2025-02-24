@@ -10,7 +10,7 @@
 
 Hier ist ein Screenshot der Kalenderansicht:
 
-![Kalenderansicht](./images/image.png)
+![Kalenderansicht](./images/kalenderansicht.png)
 
 ### 2. Features
 - Verwaltung von Terminen (Erstellen, Bearbeiten, Löschen).
