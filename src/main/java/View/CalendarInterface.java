@@ -44,6 +44,18 @@ public class CalendarInterface implements UserInterface{
         return monthString.toString();
     }
 
+    /**
+     * @param date any day in the month that is supposed to be displayed
+     * @return amount of days that need to be skipped in order for the first day
+     * of the month to be aligned with the corresponding day of the week in the CLI
+     * **/
+    private int getDayOffset(LocalDate date) {
+        int offset = 0;
+        DayOfWeek firstDayOfMonth = date.minusDays(date.getDayOfMonth() - 1).getDayOfWeek();
+        offset = firstDayOfMonth.getValue() - 1;
+        return offset;
+    }
+
     public String getCalendar(LocalDate date, List<Appointment> appointmentList, int monthAmount){
         StringBuilder calendarView = new StringBuilder();
         String days = monthAmount == 1 ? "MO TU WE TH FR SA SU ": "    MO TU WE TH FR SA SU ";
@@ -67,7 +79,8 @@ public class CalendarInterface implements UserInterface{
             + LocalDateTime.now().getDayOfWeek().toString().substring(1).toLowerCase() + ", "
             + LocalDateTime.now().getMonth().toString().charAt(0)
             + LocalDateTime.now().getMonth().toString().substring(1).toLowerCase() + " "
-            + LocalDateTime.now().getDayOfMonth() + numberSuffix;
+            + LocalDateTime.now().getDayOfMonth() + numberSuffix + ", "
+            + LocalDateTime.now().getYear();
 
         calendarView.append(ColorManager.getColoredText("bold",
             ColorManager.getColoredText("underline", currentDay)))
@@ -122,15 +135,21 @@ public class CalendarInterface implements UserInterface{
                 )
                 .toList();
 
+            String formattedDay = ColorManager.getColoredText("bg_white", Integer.toString(day));
             if (!dayAppointments.isEmpty()) {
-                // Finde die erste verfügbare Farbe für den Tag
                 String color = dayAppointments.getFirst().getTags().isEmpty()
                     ? "white" // Standardfarbe, falls keine Tags existieren
                     : dayAppointments.getFirst().getTags().getFirst().getColor();
-
-                String formattedDay = ColorManager.getColoredText(color, Integer.toString(day));
+                formattedDay = ColorManager.getColoredText(
+                    currentDay.isEqual(LocalDate.now()) ? "bg_"+color : color,
+                    Integer.toString(day));
                 monthString = monthString.replaceFirst(String.format("%2d",day), String.format("%11s",formattedDay));
             }
+            if(dayAppointments.isEmpty() && currentDay.isEqual(LocalDate.now())){
+                formattedDay = ColorManager.getColoredText("bg_white", Integer.toString(day));
+                monthString = monthString.replaceFirst(String.format("%2d",day), String.format("%11s",formattedDay));
+            }
+
         }
         return monthString;
     }
@@ -327,17 +346,6 @@ public class CalendarInterface implements UserInterface{
             }
         }
         return maxLineLength;
-    }
-    /**
-     * @param date any day in the month that is supposed to be displayed
-     * @return amount of days that need to be skipped in order for the first day
-     * of the month to be aligned with the corresponding day of the week in the CLI
-     * **/
-    private int getDayOffset(LocalDate date) {
-        int offset = 0;
-        DayOfWeek firstDayOfMonth = date.minusDays(date.getDayOfMonth() - 1).getDayOfWeek();
-        offset = firstDayOfMonth.getValue() - 1;
-        return offset;
     }
 
     public void startAppointmentCreation(){
@@ -537,6 +545,7 @@ public class CalendarInterface implements UserInterface{
                                         ColorManager.getColoredText(tag.getColor(), tag.getName()) + " "
                                 )
                         );
+                    System.out.println();
                 }
         );
     }

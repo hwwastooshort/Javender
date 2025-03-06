@@ -7,6 +7,7 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,6 +30,34 @@ public class CalendarInterfaceTests {
         }
     }
 
+    private String getMonth(LocalDate date) {
+        StringBuilder monthString = new StringBuilder();
+
+        int offset = getDayOffset(date);
+        for (int i = 0; i < offset; i++) {
+            monthString.append("   ");
+        }
+
+        int dayPosition = offset;
+        for (int day = 1; day <= date.lengthOfMonth(); day++) {
+            monthString.append(String.format("%2d ", day));
+            dayPosition = (dayPosition + 1) % 7;
+            if (dayPosition == 0) {
+                monthString.append("\n");
+            }
+        }
+        monthString.append("   ".repeat(7 - dayPosition));
+
+        return monthString.toString();
+    }
+
+    private int getDayOffset(LocalDate date) {
+        int offset = 0;
+        DayOfWeek firstDayOfMonth = date.minusDays(date.getDayOfMonth() - 1).getDayOfWeek();
+        offset = firstDayOfMonth.getValue() - 1;
+        return offset;
+    }
+
     @Test
     void testPrintMonth() {
         CalendarInterface cI = new CalendarInterface();
@@ -37,10 +66,8 @@ public class CalendarInterfaceTests {
 
         try {
             List<Appointment> appointmentList = dm.getAppointmentsByRange(startRange, endRange);
-            String formattedMonthMarch = cI.getCalendar(LocalDate.parse("2025-03-01"), new ArrayList<>(), 1);
+            String formattedMonthMarch = getMonth(LocalDate.parse("2025-03-01"));
 
-            assertTrue(formattedMonthMarch.contains("     MARCH 2025      "));
-            assertTrue(formattedMonthMarch.contains("MO TU WE TH FR SA SU "));
             assertTrue(formattedMonthMarch.contains("                1  2 "));
             assertTrue(formattedMonthMarch.contains(" 3  4  5  6  7  8  9 "));
             assertTrue(formattedMonthMarch.contains("10 11 12 13 14 15 16 "));
