@@ -82,10 +82,10 @@ public class CalendarInterface implements UserInterface{
             + LocalDateTime.now().getDayOfMonth() + numberSuffix + ", "
             + LocalDateTime.now().getYear();
 
+        int repeatCount = Math.max(0, maxLineLength - currentDay.length());
         calendarView.append(ColorManager.getColoredText("bold",
-            ColorManager.getColoredText("underline", currentDay)))
-            .repeat(" ", maxLineLength - currentDay.length()).append("\n");
-        calendarView.append(days);
+                        ColorManager.getColoredText("underline", currentDay)))
+                .append(" ".repeat(repeatCount)).append("\n");
 
         for(int i = 0; i < monthAmount; i++){
             String[] month = getMonthWithAppointments(date.plusMonths(i),appointmentList).split("\n");
