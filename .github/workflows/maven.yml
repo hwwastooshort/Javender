@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: macos-latest
 
     steps:
@@ -34,9 +33,16 @@ jobs:
     - name: Package the application
       run: mvn package
 
-    - name: Deploy artifact (optional)
-      if: always()
-      uses: actions/upload-artifact@v4
+    - name: Determine Version
+      id: get_version
+      run: echo "version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+    - name: Create GitHub Release
+      if: success()
+      uses: softprops/action-gh-release@v2
       with:
-        name: javender-artifact
-        path: target/*.jar
+        tag_name: v${{ env.version }}
+        release_name: Release v${{ env.version }}
+        draft: false
+        prerelease: false
+        files: target/*.jar
