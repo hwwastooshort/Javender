@@ -36,16 +36,16 @@ jobs:
     - name: Package the application
       run: mvn package
 
-    - name: Determine Version
-      id: get_version
-      run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+    - name: Get timestamp for release
+      id: timestamp
+      run: echo "RELEASE_TAG=v$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
 
     - name: Create GitHub Release
       if: success()
       uses: softprops/action-gh-release@v2
       with:
-        tag_name: v${{ env.VERSION }}
-        name: Release v${{ env.VERSION }}
+        tag_name: ${{ env.RELEASE_TAG }}
+        name: Release ${{ env.RELEASE_TAG }}
         draft: false
         prerelease: false
         files: target/*.jar
