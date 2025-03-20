@@ -10,7 +10,7 @@ public class Main {
         DataManager dataManager;
 
         try {
-            dataManager = new JooqDataManager("src/test/resources/javenderDatabase.db");
+            dataManager = new JooqDataManager("src/main/resources/javenderDatabase.db");
         } catch (DataManagerException e) {
             throw new RuntimeException(e);
         }
