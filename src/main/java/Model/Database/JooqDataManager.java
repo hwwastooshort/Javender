@@ -29,7 +29,7 @@ public class JooqDataManager implements DataManager {
     private static final Logger logger = LoggerFactory.getLogger(JooqDataManager.class);
     private final HikariDataSource dataSource;
 
-    public JooqDataManager(String path_to_database) throws DataManagerException {
+    public JooqDataManager(String path_to_database) {
         logger.info("Initializing JooqDataManager with connection pooling: {}", path_to_database);
 
         HikariConfig config = new HikariConfig();
@@ -383,7 +383,6 @@ public class JooqDataManager implements DataManager {
         tryWithDSL(create -> {
             logger.info("Updating appointment: {}", appointment);
 
-            //check if appointment is in database
             if (getAppointmentById(appointment.getAppointmentId()).isEmpty()) {
                 logger.warn("No appointment found with ID: {}", appointment.getAppointmentId());
                 throw new DataManagerException("No appointment found with ID: " + appointment.getAppointmentId());
@@ -448,7 +447,6 @@ public class JooqDataManager implements DataManager {
     }
 
     public Optional<Tag> getTagByName(String title) throws DataManagerException {
-        //get tag by title
         return tryWithDSL(create -> {
             logger.info("Fetching tag by title: {}", title);
 

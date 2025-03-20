@@ -18,9 +18,9 @@ import java.util.Optional;
 
 public class CalendarController {
 
-    UserInterface uI = new CalendarInterface();
-    ManageMenuView manageMenuView = new ManageMenuView(uI);
-    DataManager dM;
+    final UserInterface uI = new CalendarInterface();
+    final ManageMenuView manageMenuView = new ManageMenuView(uI);
+    final DataManager dM;
 
     public CalendarController(DataManager dataManager) {
         this.dM = dataManager;

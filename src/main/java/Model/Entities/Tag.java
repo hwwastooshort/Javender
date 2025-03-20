@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Tag {
     private int tagId;
     private String name;
-    private String color; // Hex-Code for Color
+    private String color;
 
     public Tag(int tagId, String name, String color) {
         this.tagId = tagId;

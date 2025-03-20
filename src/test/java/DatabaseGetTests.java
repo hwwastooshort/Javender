@@ -193,7 +193,7 @@ public class DatabaseGetTests {
     }
 
     @Test
-    void testUpdateAppointmentThatDoesNotExist() throws DataManagerException {
+    void testUpdateAppointmentThatDoesNotExist() {
         var nonExistentAppointment = new Appointment(
                 999,
                 LocalDateTime.now(),
