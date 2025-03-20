@@ -27,7 +27,7 @@ public class Main {
             //TODO: Logger einbinden
         }
 
-        if (!file.exists()){
+        if (!file.exists()) {
             copyDatabaseFile();
         }
 

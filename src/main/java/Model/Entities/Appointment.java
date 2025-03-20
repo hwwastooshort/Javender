@@ -28,7 +28,7 @@ public class Appointment {
         this.description = description;
         this.tags = tags;
     }
-    
+
     public int getAppointmentId() {
         return appointmentId;
     }

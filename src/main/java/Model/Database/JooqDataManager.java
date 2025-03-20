@@ -236,6 +236,7 @@ public class JooqDataManager implements DataManager {
             return Optional.of(tag);
         });
     }
+
     public int addAppointment(Appointment appointment) throws DataManagerException {
         try {
             return tryWithDSL(create ->

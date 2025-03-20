@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 
 
-
 public class CalendarController {
 
     UserInterface uI = new CalendarInterface();
@@ -89,21 +88,21 @@ public class CalendarController {
         }
     }
 
-    private void displayUpcomingAppointments(String[] arguments, LocalDate monthToShow){
+    private void displayUpcomingAppointments(String[] arguments, LocalDate monthToShow) {
         int appointmentAmount = 5;
-        if(arguments.length == 2){
+        if (arguments.length == 2) {
             try {
                 appointmentAmount = Integer.parseInt(arguments[1]);
-            }catch(NumberFormatException e){
+            } catch (NumberFormatException e) {
                 uI.displayError("The second argument has to be a number.");
             }
         }
 
         try {
             List<Appointment> upcomingAppointments;
-            if(arguments.length <= 2) {
+            if (arguments.length <= 2) {
                 upcomingAppointments = dM.getUpcomingAppointments(monthToShow.atStartOfDay(), appointmentAmount);
-            }else{
+            } else {
                 String tagToDisplay = arguments[2];
                 upcomingAppointments = dM.getUpcomingAppointmentsByTag(monthToShow.atStartOfDay(), appointmentAmount, tagToDisplay);
             }
@@ -224,9 +223,9 @@ public class CalendarController {
 
             if (tag.isEmpty()) {
                 exit = true;
-            } else if(appliedTags.contains(tag.get())){
+            } else if (appliedTags.contains(tag.get())) {
                 appliedTags.remove(tag.get());
-            } else{
+            } else {
                 appliedTags.add(tag.get());
             }
         }
@@ -459,10 +458,10 @@ public class CalendarController {
         }
     }
 
-    private void manageMenu(){
+    private void manageMenu() {
         manageMenuView.displayManageMenu();
         int choice = manageMenuView.getUserChoice();
-        switch (choice){
+        switch (choice) {
             case 1:
                 addAppointment();
                 break;
