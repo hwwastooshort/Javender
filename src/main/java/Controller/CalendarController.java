@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
+
 
 public class CalendarController {
 
@@ -267,31 +267,15 @@ public class CalendarController {
      * @return Color corresponding to the colorIndex
      **/
     private String intToColor(int colorIndex) {
-        String color;
-        switch (colorIndex) {
-            case 1:
-                color = "red";
-                break;
-            case 2:
-                color = "green";
-                break;
-            case 3:
-                color = "yellow";
-                break;
-            case 4:
-                color = "blue";
-                break;
-            case 5:
-                color = "purple";
-                break;
-            case 6:
-                color = "cyan";
-                break;
-            default:
-                color = "white";
-                break;
-        }
-        return color;
+        return switch (colorIndex) {
+            case 1 -> "red";
+            case 2 -> "green";
+            case 3 -> "yellow";
+            case 4 -> "blue";
+            case 5 -> "purple";
+            case 6 -> "cyan";
+            default -> "white";
+        };
     }
 
     /**

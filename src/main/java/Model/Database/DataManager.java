@@ -22,19 +22,18 @@ public interface DataManager {
 
     Optional<Tag> getTagById(int tagId) throws DataManagerException;
 
-    List<Appointment> getAppointmentsByTagId(int tagId) throws DataManagerException;
 
     int addAppointment(Appointment appointment) throws DataManagerException;
 
     void removeAppointmentById(int appointmentId) throws DataManagerException;
 
-    boolean removeTagByTagId(int tagId) throws DataManagerException;
+    void removeTagByTagId(int tagId) throws DataManagerException;
 
     int addTag(Tag tag) throws DataManagerException;
 
     void removeAppointment(Appointment appointment) throws DataManagerException;
 
-    boolean removeTag(Tag tag) throws DataManagerException;
+    void removeTag(Tag tag) throws DataManagerException;
 
     List<Tag> getAllTags() throws DataManagerException;
 

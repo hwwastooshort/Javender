@@ -236,38 +236,6 @@ public class JooqDataManager implements DataManager {
             return Optional.of(tag);
         });
     }
-
-    public List<Appointment> getAppointmentsByTagId(int tagId) throws DataManagerException {
-        return tryWithDSL(create -> {
-            logger.info("Fetching appointments for Tag ID: {}", tagId);
-
-            Result<?> result = create.select()
-                    .from(APPOINTMENT)
-                    .join(APPOINTMENTTAG).on(APPOINTMENT.APPOINTMENTID.eq(APPOINTMENTTAG.APPOINTMENTID))
-                    .where(APPOINTMENTTAG.TAGID.eq(tagId))
-                    .fetch();
-
-            if (result.isEmpty()) {
-                logger.warn("No appointments found for Tag ID: {}", tagId);
-                return new ArrayList<>();
-            }
-
-            List<Appointment> appointmentList = result.stream()
-                    .map(record -> {
-                        try {
-                            return mapToAppointment(record);
-                        } catch (DataManagerException e) {
-                            logger.error("Error mapping record to appointment for Tag ID: {}", tagId, e);
-                            throw new RuntimeException(e);
-                        }
-                    })
-                    .collect(Collectors.toList());
-
-            logger.debug("Successfully fetched {} appointments for Tag ID: {}", appointmentList.size(), tagId);
-            return appointmentList;
-        });
-    }
-
     public int addAppointment(Appointment appointment) throws DataManagerException {
         try {
             return tryWithDSL(create ->
@@ -347,8 +315,8 @@ public class JooqDataManager implements DataManager {
         removeAppointmentById(appointment.getAppointmentId());
     }
 
-    public boolean removeTagByTagId(int tagId) throws DataManagerException {
-        return tryWithDSL(create ->
+    public void removeTagByTagId(int tagId) throws DataManagerException {
+        tryWithDSL(create ->
                 create.transactionResult(configuration -> {
                     DSLContext ctx = DSL.using(configuration);
                     logger.info("Removing tag with ID: {}", tagId);
@@ -371,9 +339,9 @@ public class JooqDataManager implements DataManager {
         );
     }
 
-    public boolean removeTag(Tag tag) throws DataManagerException {
+    public void removeTag(Tag tag) throws DataManagerException {
         logger.info("Removing tag: {}", tag);
-        return removeTagByTagId(tag.getTagId());
+        removeTagByTagId(tag.getTagId());
     }
 
     public int addTag(Tag tag) throws DataManagerException {
