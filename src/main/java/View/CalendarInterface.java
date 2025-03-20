@@ -11,8 +11,9 @@ import java.util.*;
 
 public class CalendarInterface implements UserInterface{
 
-    private final Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
     private final int COMMENT_LINE_LENGTH = 30;
+    private final int MAX_COMMENT_LENGTH = COMMENT_LINE_LENGTH * 2 - 3;
     private final int SPACING = 10;   // Space between the calendar & upcoming appointments
 
     /**
@@ -85,8 +86,8 @@ public class CalendarInterface implements UserInterface{
         int repeatCountCalender = Math.max(0, currentDay.length() - days.length());
 
         calendarView.append(ColorManager.getColoredText("bold",
-                        ColorManager.getColoredText("underline", currentDay)))
-                .append(" ".repeat(repeatCountDate)).append("\n");
+                ColorManager.getColoredText("underline", currentDay)))
+            .append(" ".repeat(repeatCountDate)).append("\n");
         calendarView.append(days).append(" ".repeat(repeatCountCalender));
 
         for(int i = 0; i < monthAmount; i++){
@@ -145,11 +146,11 @@ public class CalendarInterface implements UserInterface{
                 formattedDay = ColorManager.getColoredText(
                     currentDay.isEqual(LocalDate.now()) ? "bg_"+color : color,
                     Integer.toString(day));
-                monthString = monthString.replaceFirst(String.format("%2d",day), String.format("%11s",formattedDay));
+                monthString = monthString.replaceFirst("\\b" + String.format("%2d",day)+ "\\b", String.format("%11s",formattedDay));
             }
             if(dayAppointments.isEmpty() && currentDay.isEqual(LocalDate.now())){
                 formattedDay = ColorManager.getColoredText("bg_white", Integer.toString(day));
-                monthString = monthString.replaceFirst(String.format("%2d",day), String.format("%11s",formattedDay));
+                monthString = monthString.replaceFirst("\\b" + String.format("%2d",day)+ "\\b", String.format("%11s",formattedDay));
             }
 
         }
@@ -185,8 +186,8 @@ public class CalendarInterface implements UserInterface{
 
         List<Appointment> upcomingAppointments = appointmentList.stream()
             .filter(appointment -> appointment.getStartDate().isAfter(LocalDateTime.now()) // All appointments in the future
-            || (appointment.getStartDate().isBefore(LocalDateTime.now()) // All appointments which are currently running
-            && appointment.getEndDate().isAfter(LocalDateTime.now())))
+                || (appointment.getStartDate().isBefore(LocalDateTime.now()) // All appointments which are currently running
+                && appointment.getEndDate().isAfter(LocalDateTime.now())))
             .sorted(Comparator.comparing(Appointment::getStartDate))
             .toList();
 
@@ -203,12 +204,12 @@ public class CalendarInterface implements UserInterface{
             appointmentString.append(upcomingAppointments.size() > 1
                 ? "\n\n" + formatAppointment(upcomingAppointments.get(1))
                 : "");
-       }
+        }
 
-        return mergeCalendarWithAppointments(calendarString, appointmentString.toString(), upcomingAppointments);
+        return mergeCalendarWithAppointments(calendarString, appointmentString.toString());
     }
 
-    private String mergeCalendarWithAppointments(String calendar, String appointments, List<Appointment> upcomingAppointments){
+    private String mergeCalendarWithAppointments(String calendar, String appointments){
         List<String> calendarLines = new ArrayList<>(Arrays.stream(calendar.split("\n")).toList());
         String[] appointmentLines = appointments.split("\n");
 
@@ -238,8 +239,8 @@ public class CalendarInterface implements UserInterface{
         StringBuilder formattedAppointment = new StringBuilder();
 
         String appointmentDate = formatAppointmentDate(appointment);
-
         formattedAppointment.append(appointmentDate).append("\n");
+
         String color = appointment.getTags().isEmpty()
             ? "white"
             : appointment.getTags().getFirst().getColor();
@@ -248,9 +249,9 @@ public class CalendarInterface implements UserInterface{
             .append(ColorManager.getColoredText(color, appointment.getTitle()))
             .append("\n");
 
+        formattedAppointment.append(formatAppointmentDescription(appointment)).append("\n");
+        formattedAppointment.append(formatAppointmentTags(appointment));
 
-
-        formattedAppointment.append(formatAppointmentDescription(appointment));
         return formattedAppointment.toString();
     }
 
@@ -275,6 +276,28 @@ public class CalendarInterface implements UserInterface{
             : multipleDayAppointment;
     }
 
+    private String formatAppointmentTags(Appointment appointment){
+        StringBuilder tags = new StringBuilder();
+
+        if(appointment.getTags().isEmpty()){
+            return "";
+        }
+
+        tags.append("Tags: ");
+        for(int i = 0; i < appointment.getTags().size(); i++){
+            String appointmentColor = appointment.getTags().get(i).getColor();
+            String appointmentName = appointment.getTags().get(i).getName();
+            if(i == 0){
+                tags.append(ColorManager.getColoredText(appointmentColor, appointmentName));
+            }
+            else{
+                tags.append(", ").append(ColorManager.getColoredText(appointmentColor, appointmentName));
+            }
+        }
+        tags.append("\n");
+        return tags.toString();
+    }
+
     /**
      * Formats the description of an appointment to ensure that each line has a maximum of 30 characters (COMMENT_LINE_LENGTH)
      * Descriptions with more than 57 characters (MAX_COMMENT_LENGTH) will be trimmed and appended with "..."
@@ -289,7 +312,6 @@ public class CalendarInterface implements UserInterface{
         int totalCommentLength = 0;
 
         for (String string : appointmentSplit) {
-            int MAX_COMMENT_LENGTH = COMMENT_LINE_LENGTH * 2 - 3;
             if(totalCommentLength + string.length() > MAX_COMMENT_LENGTH){
                 formattedDescription.append("...");
                 break;
@@ -396,9 +418,9 @@ public class CalendarInterface implements UserInterface{
 
     public int tagAlreadyExists(Tag existingTag){
         System.out.println("The tag with the name \"" + existingTag.getName() + "\" already exists.\n"
-                            + "Would you like to overwrite it?\n"
-                            + "1. Yes\n"
-                            + "2. No");
+            + "Would you like to overwrite it?\n"
+            + "1. Yes\n"
+            + "2. No");
         int userInput = 0;
         boolean loop = true;
         while(loop){
@@ -433,9 +455,9 @@ public class CalendarInterface implements UserInterface{
         System.out.println("Choose one of the following appointments: ");
         for(int i = 0; i < appointments.size(); i++){
             System.out.println((i+1) + ": " + appointments.get(i).getTitle()
-                    + " Start Date: " + appointments.get(i).getStartDate()
-                    + " End Date: " + appointments.get(i).getEndDate()
-                    + " Description: " + appointments.get(i).getDescription());
+                + " Start Date: " + appointments.get(i).getStartDate()
+                + " End Date: " + appointments.get(i).getEndDate()
+                + " Description: " + appointments.get(i).getDescription());
         }
         int appointmentIndex = scanner.nextInt() - 1;
         scanner.nextLine();
@@ -484,12 +506,12 @@ public class CalendarInterface implements UserInterface{
 
     public void displayCommandList() {
         System.out.println("Name & description of all available commands:\n" +
-                "-\"manage\": opens the menu for managing appointments and tags\n" +
-                "-<name of a month> (+ <year>): display the respective month (of the corresponding year)\n" +
-                "-\"now\": display the current month\n" +
-                "-\"upcoming\" (+ amount (+tag name)): display the upcoming appointments according to the currently displayed month.\n" +
-                "-\"exit\": closes the program\n" +
-                "Enter anything to return to the calendar.");
+            "-\"manage\": opens the menu for managing appointments and tags\n" +
+            "-<name of a month> (+ <year>): display the respective month (of the corresponding year)\n" +
+            "-\"now\": display the current month\n" +
+            "-\"upcoming\" (+ amount (+tag name)): display the upcoming appointments according to the currently displayed month.\n" +
+            "-\"exit\": closes the program\n" +
+            "Enter anything to return to the calendar.");
         scanner.nextLine();
     }
 
@@ -505,17 +527,17 @@ public class CalendarInterface implements UserInterface{
 
     public void displayAppointments(List<Appointment> appointments){
         appointments.forEach(
-                appointment -> {System.out.print(ColorManager.UNDERLINE + appointment.getTitle() + ColorManager.RESET
-                        + ": (" + appointment.getStartDate()
-                        + " - "+appointment.getEndDate()+")\n"
-                        +"\"" + appointment.getDescription() + "\"\nTags: ");
-                        appointment.getTags().forEach(
-                                tag -> System.out.print(
-                                        ColorManager.getColoredText(tag.getColor(), tag.getName()) + " "
-                                )
-                        );
-                    System.out.println();
-                }
+            appointment -> {System.out.print(ColorManager.UNDERLINE + appointment.getTitle() + ColorManager.RESET
+                + ": (" + appointment.getStartDate()
+                + " - "+appointment.getEndDate()+")\n"
+                +"\"" + appointment.getDescription() + "\"\nTags: ");
+                appointment.getTags().forEach(
+                    tag -> System.out.print(
+                        ColorManager.getColoredText(tag.getColor(), tag.getName()) + " "
+                    )
+                );
+                System.out.println();
+            }
         );
     }
 
