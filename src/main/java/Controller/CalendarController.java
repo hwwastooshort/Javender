@@ -135,7 +135,7 @@ public class CalendarController {
 
         String description = uI.getDescription();
         try {
-            List<Tag> tags = getAddedTagsList(dM.getAllTags());
+            List<Tag> tags = getAddedTagsList(dM.getAllTags(), new ArrayList<>());
             appointment = new Appointment(startDateTime, endDateTime, title, description, tags);
             dM.addAppointment(appointment);
 
@@ -216,20 +216,21 @@ public class CalendarController {
         return start.isAfter(end);
     }
 
-    public List<Tag> getAddedTagsList(List<Tag> tags) {
-        List<Tag> addedTags = new ArrayList<>();
+    public List<Tag> getAddedTagsList(List<Tag> tags, List<Tag> appliedTags) {
         boolean exit = false;
 
         while (!exit) {
-            Optional<Tag> tag = uI.getTag(tags);
+            Optional<Tag> tag = uI.getTag(tags, appliedTags);
 
             if (tag.isEmpty()) {
                 exit = true;
-            } else {
-                addedTags.add(tag.get());
+            } else if(appliedTags.contains(tag.get())){
+                appliedTags.remove(tag.get());
+            } else{
+                appliedTags.add(tag.get());
             }
         }
-        return addedTags;
+        return appliedTags;
     }
 
     //TODO Ask to replace tag if already existing
@@ -394,7 +395,7 @@ public class CalendarController {
                 case 4:
                     List<Tag> newTags = new ArrayList<>();
                     try {
-                        newTags = getAddedTagsList(dM.getAllTags());
+                        newTags = getAddedTagsList(dM.getAllTags(), appointment.getTags());
                     } catch (DataManagerException e) {
                         uI.displayError(e.getMessage());
                     }

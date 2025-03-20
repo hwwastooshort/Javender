@@ -33,7 +33,7 @@ public interface UserInterface {
 
     String getDescription();
 
-    Optional<Tag> getTag(List<Tag> tags);
+    Optional<Tag> getTag(List<Tag> allTags, List<Tag> appliedTags);
 
     void startTagCreation();
 
