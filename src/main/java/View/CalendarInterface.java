@@ -82,10 +82,13 @@ public class CalendarInterface implements UserInterface{
             + LocalDateTime.now().getDayOfMonth() + numberSuffix + ", "
             + LocalDateTime.now().getYear();
 
-        int repeatCount = Math.max(0, maxLineLength - currentDay.length());
+        int repeatCountDate = Math.max(0, maxLineLength - currentDay.length());
+        int repeatCountCalender = Math.max(0, currentDay.length() - days.length());
+
         calendarView.append(ColorManager.getColoredText("bold",
                         ColorManager.getColoredText("underline", currentDay)))
-                .append(" ".repeat(repeatCount)).append("\n");
+                .append(" ".repeat(repeatCountDate)).append("\n");
+        calendarView.append(days).append(" ".repeat(repeatCountCalender));
 
         for(int i = 0; i < monthAmount; i++){
             String[] month = getMonthWithAppointments(date.plusMonths(i),appointmentList).split("\n");
@@ -93,7 +96,7 @@ public class CalendarInterface implements UserInterface{
             StringBuilder formattedMonth = new StringBuilder();
             for(int j = 0; j < month.length; j++){
                 String preString = j == 0 ? date.getMonth().plus(i).toString().substring(0,3) + " ": "    ";
-                formattedMonth.append("\n").append(preString).append(month[j]);
+                formattedMonth.append("\n").append(preString).append(month[j]).append(" ".repeat(repeatCountCalender));
             }
             calendarView.append(formattedMonth);
         }
@@ -152,40 +155,6 @@ public class CalendarInterface implements UserInterface{
 
         }
         return monthString;
-    }
-
-    /**
-     * Combines calendar and a text prompt into a single formatted string.
-     *
-     * @param date   The LocalDate object representing the date, used to generate the calendar.
-     * @param prompt A string prompt that will be formatted into multiple lines and aligned with the month data.
-     * @return A formatted string where each line contains a part of the month data (left-aligned)
-     *         and a corresponding part of the prompt (right-aligned), with proper spacing.
-     */
-    public String getMonthWithText(LocalDate date, String prompt, List<Appointment> appointmentList){
-        String monthString = getMonth(date);
-        String promptString = formatPrompt(prompt);
-
-        List<String> monthLines = new ArrayList<>(Arrays.stream(monthString.split("\n")).toList());
-        String[] promptLines = promptString.split("\n");
-
-        StringBuilder resultString = new StringBuilder();
-
-        int maxLineLength = getMaxLineLength(monthLines);
-        int padding = maxLineLength + SPACING;
-
-        resultString.append(monthLines.removeFirst()).append("\n");
-
-        int maxLineAmount = Math.max(monthLines.size(), promptLines.length);
-
-        for(int i = 0; i < maxLineAmount; i++){
-            String monthPart = i < monthLines.size() ? monthLines.get(i): "";
-            String promptPart = i < promptLines.length ? promptLines[i]: "";
-
-            resultString.append(String.format("%-" + padding + "s %s", monthPart, promptPart)).append("\n");
-        }
-
-        return resultString.toString();
     }
 
     /**
