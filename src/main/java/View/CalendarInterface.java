@@ -11,7 +11,7 @@ import java.util.*;
 
 public class CalendarInterface implements UserInterface{
 
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     private final int COMMENT_LINE_LENGTH = 30;
     private final int MAX_COMMENT_LENGTH = COMMENT_LINE_LENGTH * 2 - 3;
     private final int SPACING = 10;   // Space between the calendar & upcoming appointments
@@ -27,9 +27,7 @@ public class CalendarInterface implements UserInterface{
         StringBuilder monthString = new StringBuilder();
 
         int offset = getDayOffset(date);
-        for (int i = 0; i < offset; i++) {
-            monthString.append("   ");
-        }
+        monthString.append("   ".repeat(Math.max(0, offset)));
 
         int dayPosition = offset;
         for (int day = 1; day <= date.lengthOfMonth(); day++) {
@@ -50,7 +48,7 @@ public class CalendarInterface implements UserInterface{
      * of the month to be aligned with the corresponding day of the week in the CLI
      * **/
     private int getDayOffset(LocalDate date) {
-        int offset = 0;
+        int offset;
         DayOfWeek firstDayOfMonth = date.minusDays(date.getDayOfMonth() - 1).getDayOfWeek();
         offset = firstDayOfMonth.getValue() - 1;
         return offset;
@@ -138,7 +136,7 @@ public class CalendarInterface implements UserInterface{
                 )
                 .toList();
 
-            String formattedDay = ColorManager.getColoredText("bg_white", Integer.toString(day));
+            String formattedDay;
             if (!dayAppointments.isEmpty()) {
                 String color = dayAppointments.getFirst().getTags().isEmpty()
                     ? "white" // Standardfarbe, falls keine Tags existieren
@@ -155,30 +153,6 @@ public class CalendarInterface implements UserInterface{
 
         }
         return monthString;
-    }
-
-    /**
-     * Formats a given prompt string into multiple lines, ensuring that each line does not exceed a specified length.
-     *
-     * @param prompt The input string to be formatted.
-     * @return A formatted string where words are split into lines such that the total length of each line
-     *         (including spaces) does not exceed the specified `commentLength`.
-     */
-    public String formatPrompt(String prompt){
-        String[] promptSplit = prompt.split(" ");
-        StringBuilder formattedString = new StringBuilder();
-        int currLineLength = 0;
-
-        for (String string : promptSplit) {
-            if (currLineLength + string.length() <= COMMENT_LINE_LENGTH) {
-                currLineLength += string.length();
-                formattedString.append(string).append(" ");
-            } else {
-                currLineLength = string.length();
-                formattedString.append("\n").append(string).append(" ");
-            }
-        }
-        return formattedString.toString();
     }
 
     public String getCalendarWithUpcomingAppointments(LocalDate date, List<Appointment> appointmentList, int monthAmount) {
@@ -327,16 +301,6 @@ public class CalendarInterface implements UserInterface{
             }
         }
         return formattedDescription.toString();
-    }
-
-    private int getMaxLineLength(List<String> prompt){
-        int maxLineLength = 0;
-        for (String string : prompt) {
-            if (maxLineLength < string.length()) {
-                maxLineLength = string.length();
-            }
-        }
-        return maxLineLength;
     }
 
     public void startAppointmentCreation(){
@@ -507,13 +471,14 @@ public class CalendarInterface implements UserInterface{
     }
 
     public void displayCommandList() {
-        System.out.println("Name & description of all available commands:\n" +
-            "-\"manage\": opens the menu for managing appointments and tags\n" +
-            "-<name of a month> (+ <year>): display the respective month (of the corresponding year)\n" +
-            "-\"now\": display the current month\n" +
-            "-\"upcoming\" (+ amount (+tag name)): display the upcoming appointments according to the currently displayed month.\n" +
-            "-\"exit\": closes the program\n" +
-            "Enter anything to return to the calendar.");
+        System.out.println("""
+                Name & description of all available commands:
+                -"manage": opens the menu for managing appointments and tags
+                -<name of a month> (+ <year>): display the respective month (of the corresponding year)
+                -"now": display the current month
+                -"upcoming" (+ amount (+tag name)): display the upcoming appointments according to the currently displayed month.
+                -"exit": closes the program
+                Enter anything to return to the calendar.""");
         scanner.nextLine();
     }
 

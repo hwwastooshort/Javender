@@ -5,7 +5,6 @@ import Model.Entities.Tag;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface UserInterface {
@@ -16,7 +15,7 @@ public interface UserInterface {
      * @param date any day in the month that is supposed to be displayed
      * @return a string of the days in a month divided by weeks
      */
-    public String getCalendar(LocalDate date, List<Appointment> appointmentList, int monthAmount);
+    String getCalendar(LocalDate date, List<Appointment> appointmentList, int monthAmount);
     String getCalendarWithUpcomingAppointments(LocalDate date, List<Appointment> appointmentList, int monthAmount);
 
     void startAppointmentCreation();
@@ -60,7 +59,6 @@ public interface UserInterface {
     void tagEditMenu();
 
     void displayError(String prompt);
-    String formatPrompt(String prompt);
     int tagAlreadyExists(Tag existingTag);
     void successfullyOverwriteTag(Tag newTag);
     void cancelOverwriteTag();
