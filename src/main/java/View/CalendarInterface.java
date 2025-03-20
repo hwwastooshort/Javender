@@ -348,7 +348,7 @@ public class CalendarInterface implements UserInterface{
     public Optional<Tag> getTag(List<Tag> allTags, List<Tag> appliedTags){
         System.out.println("Select the tags you want to add to your appointment:");
         for (int i = 0; i < allTags.size(); i++) {
-            System.out.println(i + 1 + ". [" + (appliedTags.contains(allTags.get(i)) ? "✓":" ") + "] "
+            System.out.println(i + 1 + ". [" + (appliedTags.contains(allTags.get(i)) ? "X":" ") + "] "
                 + ColorManager.getColoredText(allTags.get(i).getColor(),allTags.get(i).getName()));
         }
         System.out.println(allTags.size() + 1 +". Exit\n");
@@ -529,5 +529,6 @@ public class CalendarInterface implements UserInterface{
             System.out.print("\033[H\033[2J");
             System.out.flush();
         }
+        System.out.println();
     }
 }
