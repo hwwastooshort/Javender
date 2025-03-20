@@ -7,7 +7,12 @@ import java.io.*;
 import java.nio.file.*;
 
 public class Main {
-    public static void main(String[] args) {
+
+    private static final String SOURCE_PATH = "javenderDataBase.db";
+    private static final String DESTINATION_PATH = "data/db.sqlite";
+
+    public static void main(String[] args) throws DataManagerException {
+
         System.out.println("This is from the main method!");
         DataManager dataManager;
         /*
@@ -16,35 +21,32 @@ public class Main {
          and then delete it when the program is closed.
          */
 
-        try {
-            String databaseFileName = "javenderDataBase.db";
-            File tempDbFile = new File(System.getProperty("java.io.tmpdir"), databaseFileName);
-
-            if (!tempDbFile.exists()) {
-                try (InputStream in = Main.class.getClassLoader().getResourceAsStream(databaseFileName);
-                     OutputStream out = new FileOutputStream(tempDbFile)) {
-
-                    if (in == null) {
-                        throw new FileNotFoundException("Database could not be found in the JAR file");
-                    }
-
-                    byte[] buffer = new byte[1024];
-                    int length;
-                    while ((length = in.read(buffer)) > 0) {
-                        out.write(buffer, 0, length);
-                    }
-                } catch (IOException e) {
-                    throw new RuntimeException("Error while trying to extract the database", e);
-                }
-            }
-            dataManager = new JooqDataManager(tempDbFile.getAbsolutePath());
-
-        } catch (DataManagerException e) {
-            throw new RuntimeException("Error while trying to initialize DataManager", e);
+        File file = new File(DESTINATION_PATH);
+        File parentDir = file.getParentFile();
+        if (parentDir != null && !parentDir.mkdirs() && !parentDir.exists()) {
+            //TODO: Logger einbinden
         }
+
+        if (!file.exists()){
+            copyDatabaseFile();
+        }
+
+        dataManager = new JooqDataManager(DESTINATION_PATH);
 
         CalendarController controller = new CalendarController(dataManager);
         System.out.println("Welcome to Javender!");
         controller.mainMenu();
+    }
+
+    private static void copyDatabaseFile() {
+        ClassLoader classLoader = Main.class.getClassLoader();
+        try (InputStream inputStream = classLoader.getResourceAsStream(SOURCE_PATH)) {
+            if (inputStream == null) {
+                throw new IllegalArgumentException("Datei nicht gefunden!");
+            }
+            Files.copy(inputStream, Paths.get(DESTINATION_PATH));
+        } catch (Exception e) {
+            //TODO: Logger einbinden
+        }
     }
 }

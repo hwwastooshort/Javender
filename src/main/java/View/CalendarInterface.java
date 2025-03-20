@@ -11,9 +11,8 @@ import java.util.*;
 
 public class CalendarInterface implements UserInterface{
 
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
     private final int COMMENT_LINE_LENGTH = 30;
-    private final int MAX_COMMENT_LENGTH = COMMENT_LINE_LENGTH * 2 - 3;
     private final int SPACING = 10;   // Space between the calendar & upcoming appointments
 
     /**
@@ -321,6 +320,7 @@ public class CalendarInterface implements UserInterface{
         int totalCommentLength = 0;
 
         for (String string : appointmentSplit) {
+            int MAX_COMMENT_LENGTH = COMMENT_LINE_LENGTH * 2 - 3;
             if(totalCommentLength + string.length() > MAX_COMMENT_LENGTH){
                 formattedDescription.append("...");
                 break;

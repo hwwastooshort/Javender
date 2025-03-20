@@ -10,37 +10,37 @@ import java.util.Optional;
 
 public interface DataManager {
 
-    public Optional<Appointment> getAppointmentById(int appointmentId) throws DataManagerException;
+    Optional<Appointment> getAppointmentById(int appointmentId) throws DataManagerException;
 
-    public List<Tag> getTagsByAppointmentId(int appointmentId) throws DataManagerException;
+    List<Tag> getTagsByAppointmentId(int appointmentId) throws DataManagerException;
 
-    public List<Appointment> getAppointmentsByDate(LocalDate date, JooqDataManager.DateFilter dateFilter) throws DataManagerException;
+    List<Appointment> getAppointmentsByDate(LocalDate date, JooqDataManager.DateFilter dateFilter) throws DataManagerException;
 
-    public List<Appointment> getUpcomingAppointments(LocalDateTime date, int amount) throws DataManagerException;
+    List<Appointment> getUpcomingAppointments(LocalDateTime date, int amount) throws DataManagerException;
 
-    public List<Appointment> getAppointmentsByRange(LocalDateTime startDateTime, LocalDateTime endDateTime) throws DataManagerException;
+    List<Appointment> getAppointmentsByRange(LocalDateTime startDateTime, LocalDateTime endDateTime) throws DataManagerException;
 
-    public Optional<Tag> getTagById(int tagId) throws DataManagerException;
+    Optional<Tag> getTagById(int tagId) throws DataManagerException;
 
-    public List<Appointment> getAppointmentsByTagId(int tagId) throws DataManagerException;
+    List<Appointment> getAppointmentsByTagId(int tagId) throws DataManagerException;
 
-    public int addAppointment(Appointment appointment) throws DataManagerException;
+    int addAppointment(Appointment appointment) throws DataManagerException;
 
-    public void removeAppointmentById(int appointmentId) throws DataManagerException;
+    void removeAppointmentById(int appointmentId) throws DataManagerException;
 
-    public boolean removeTagByTagId(int tagId) throws DataManagerException;
+    boolean removeTagByTagId(int tagId) throws DataManagerException;
 
-    public int addTag(Tag tag) throws DataManagerException;
+    int addTag(Tag tag) throws DataManagerException;
 
-    public void removeAppointment(Appointment appointment) throws DataManagerException;
+    void removeAppointment(Appointment appointment) throws DataManagerException;
 
-    public boolean removeTag(Tag tag) throws DataManagerException;
+    boolean removeTag(Tag tag) throws DataManagerException;
 
-    public List<Tag> getAllTags() throws DataManagerException;
+    List<Tag> getAllTags() throws DataManagerException;
 
-    public void updateAppointment(Appointment appointment) throws DataManagerException;
+    void updateAppointment(Appointment appointment) throws DataManagerException;
 
-    public List<Appointment> getAppointmentsByTitle(String title) throws DataManagerException;
+    List<Appointment> getAppointmentsByTitle(String title) throws DataManagerException;
 
     Optional<Tag> getTagByName(String name) throws DataManagerException;
 
