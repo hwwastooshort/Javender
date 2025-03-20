@@ -16,9 +16,9 @@ public class Main {
         System.out.println("This is from the main method!");
         DataManager dataManager;
         /*
-         putting the sqlite3 database into the .jar file directly is not possible
-         so we have to extract it to a temporary file in order to use the database
-         and then delete it when the program is closed.
+         putting the database directly into the .jar file is not possible.
+         Therefore, the database is copied to a fresh folder "data", which stores
+         the data of the user.
          */
 
         File file = new File(DESTINATION_PATH);
@@ -34,7 +34,6 @@ public class Main {
         dataManager = new JooqDataManager(DESTINATION_PATH);
 
         CalendarController controller = new CalendarController(dataManager);
-        System.out.println("Welcome to Javender!");
         controller.mainMenu();
     }
 
