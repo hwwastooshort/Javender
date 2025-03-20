@@ -119,42 +119,44 @@ public class CalendarInterface implements UserInterface {
     /**
      * Generates a formatted month view with highlighted appointment days.
      *
-     * @param date            A LocalDate object representing the date, used to determine the month and year
+     * @param date A LocalDate object representing the date, used to determine the month and year
      * @param appointmentList A list of appointments to check for highlighting days.
      * @return A string representation of the month with appointments highlighted.
      */
     private String getMonthWithAppointments(LocalDate date, List<Appointment> appointmentList) {
         String monthString = getMonth(date);
+        LocalDate today = LocalDate.now();
 
         for (int day = 1; day <= date.lengthOfMonth(); day++) {
             LocalDate currentDay = date.withDayOfMonth(day);
 
+            // Prüfen, ob der Tag heute ist oder Termine hat
+            boolean isToday = currentDay.isEqual(today);
             List<Appointment> dayAppointments = appointmentList.stream()
-                    .filter(appointment ->
-                            (currentDay.isAfter(appointment.getStartDate().toLocalDate())
-                                    || currentDay.isEqual(appointment.getStartDate().toLocalDate()))
-                                    &&
-                                    (currentDay.isBefore(appointment.getEndDate().toLocalDate())
-                                            || currentDay.isEqual(appointment.getEndDate().toLocalDate()))
-                    )
-                    .toList();
+                .filter(appointment ->
+                    (currentDay.isEqual(appointment.getStartDate().toLocalDate()) || currentDay.isAfter(appointment.getStartDate().toLocalDate())) &&
+                        (currentDay.isEqual(appointment.getEndDate().toLocalDate()) || currentDay.isBefore(appointment.getEndDate().toLocalDate())))
+                .toList();
 
-            String formattedDay;
-            if (!dayAppointments.isEmpty()) {
-                String color = dayAppointments.getFirst().getTags().isEmpty()
-                        ? "white" // Standardfarbe, falls keine Tags existieren
-                        : dayAppointments.getFirst().getTags().getFirst().getColor();
-                formattedDay = ColorManager.getColoredText(
-                        currentDay.isEqual(LocalDate.now()) ? "bg_" + color : color,
-                        Integer.toString(day));
-                monthString = monthString.replaceFirst("\\b" + String.format("%2d", day) + "\\b", String.format("%11s", formattedDay));
-            }
-            if (dayAppointments.isEmpty() && currentDay.isEqual(LocalDate.now())) {
-                formattedDay = ColorManager.getColoredText("bg_white", Integer.toString(day));
-                monthString = monthString.replaceFirst("\\b" + String.format("%2d", day) + "\\b", String.format("%11s", formattedDay));
-            }
+            // Nur ersetzen, wenn der Tag heute ist oder Termine existieren
+            if (!dayAppointments.isEmpty() || isToday) {
+                String color = "white";
+                if (!dayAppointments.isEmpty()) {
+                    color = dayAppointments.getFirst().getTags().isEmpty() ? "white" : dayAppointments.getFirst().getTags().getFirst().getColor();
+                }
 
+                String formattedDay = ColorManager.getColoredText(isToday ? "bg_" + color : color, Integer.toString(day));
+
+
+                // Formatierung der Zahlen richtig setzen
+                String dayRegex = "\\b" + String.format(day < 10 ? "%d" : "%2d", day) + "\\b";
+                String formattedReplacement = String.format(day < 10 ? "%10s" : "%11s", formattedDay);
+
+                // Ersetze den Tag im String
+                monthString = monthString.replaceFirst(dayRegex, formattedReplacement);
+            }
         }
+
         return monthString;
     }
 
