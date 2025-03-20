@@ -105,7 +105,7 @@
                         <configuration>
                             <jdbc>
                                 <driver>org.sqlite.JDBC</driver>
-                                <url>jdbc:sqlite:${project.basedir}/src/test/resources/javenderDataBase.db</url>
+                                <url>jdbc:sqlite:${project.basedir}/src/main/resources/javenderDataBase.db</url>
                             </jdbc>
                             <generator>
                                 <database>
@@ -121,7 +121,34 @@
                 </executions>
             </plugin>
 
-            <!-- Maven Shade Plugin -->
+            <!-- Maven Resources Plugin zum Kopieren der SQLite-Datenbank -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-database</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <includes>
+                                        <include>javenderDataBase.db</include> <!-- Datenbankdatei -->
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Maven Shade Plugin zum Erstellen eines Fat JAR -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>

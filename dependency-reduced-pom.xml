@@ -27,7 +27,7 @@
             <configuration>
               <jdbc>
                 <driver>org.sqlite.JDBC</driver>
-                <url>jdbc:sqlite:${project.basedir}/src/test/resources/javenderDataBase.db</url>
+                <url>jdbc:sqlite:${project.basedir}/src/main/resources/javenderDataBase.db</url>
               </jdbc>
               <generator>
                 <database>
@@ -38,6 +38,30 @@
                   <directory>${project.build.directory}/generated-sources/jooq</directory>
                 </target>
               </generator>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>copy-database</id>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${project.build.directory}/classes</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/resources</directory>
+                  <includes>
+                    <include>javenderDataBase.db</include>
+                  </includes>
+                </resource>
+              </resources>
             </configuration>
           </execution>
         </executions>
