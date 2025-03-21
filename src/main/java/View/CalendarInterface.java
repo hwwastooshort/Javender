@@ -130,7 +130,7 @@ public class CalendarInterface implements UserInterface {
         for (int day = 1; day <= date.lengthOfMonth(); day++) {
             LocalDate currentDay = date.withDayOfMonth(day);
 
-            // Prüfen, ob der Tag heute ist oder Termine hat
+            // Check whether the day is today or has appointments
             boolean isToday = currentDay.isEqual(today);
             List<Appointment> dayAppointments = appointmentList.stream()
                     .filter(appointment ->
@@ -138,7 +138,7 @@ public class CalendarInterface implements UserInterface {
                                     (currentDay.isEqual(appointment.getEndDate().toLocalDate()) || currentDay.isBefore(appointment.getEndDate().toLocalDate())))
                     .toList();
 
-            // Nur ersetzen, wenn der Tag heute ist oder Termine existieren
+            // Only replace if the day is today or appointments exist
             if (!dayAppointments.isEmpty() || isToday) {
                 String color = "white";
                 if (!dayAppointments.isEmpty()) {
@@ -148,11 +148,11 @@ public class CalendarInterface implements UserInterface {
                 String formattedDay = ColorManager.getColoredText(isToday ? "bg_" + color : color, Integer.toString(day));
 
 
-                // Formatierung der Zahlen richtig setzen
+                // Set the formatting of the numbers correctly
                 String dayRegex = "\\b" + String.format(day < 10 ? "%d" : "%2d", day) + "\\b";
                 String formattedReplacement = String.format(day < 10 ? "%10s" : "%11s", formattedDay);
 
-                // Ersetze den Tag im String
+                // Replace the tag in the string
                 monthString = monthString.replaceFirst(dayRegex, formattedReplacement);
             }
         }
@@ -493,7 +493,7 @@ public class CalendarInterface implements UserInterface {
             scanner.next();
         }
         int input = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
+        scanner.nextLine();
         return input;
     }
 

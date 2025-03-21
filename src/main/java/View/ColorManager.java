@@ -41,7 +41,7 @@ public class ColorManager {
             case "underline" -> UNDERLINE;
             case "white" -> WHITE;
             case "bg_white" -> BG_WHITE;
-            default -> RESET; // Falls eine unbekannte Farbe übergeben wird.
+            default -> RESET; // If an unknown color is passed.
         };
         return colorCode + text + RESET;
     }
