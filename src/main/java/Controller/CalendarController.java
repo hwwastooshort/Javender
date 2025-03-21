@@ -112,10 +112,6 @@ public class CalendarController {
         }
     }
 
-    /**
-     * gets the data of the appointment that the user wants to add
-     * through the user interface and adds it to the database.
-     **/
     public void addAppointment() {
         Appointment appointment;
 
@@ -144,9 +140,6 @@ public class CalendarController {
 
     }
 
-    /**
-     * gets and validates a StartDateTime
-     **/
     private LocalDateTime getStartDateTime() {
         String startDate = uI.getStartDate();
         while (validateDate(startDate)) {
@@ -161,9 +154,6 @@ public class CalendarController {
         return LocalDateTime.of(LocalDate.parse(startDate), LocalTime.parse(startTime));
     }
 
-    /**
-     * gets and validates EndDateTime
-     **/
     private LocalDateTime getEndDateTime() {
         String endDate = uI.getEndDate();
         while (validateDate(endDate)) {
@@ -177,10 +167,6 @@ public class CalendarController {
         return LocalDateTime.of(LocalDate.parse(endDate), LocalTime.parse(endTime));
     }
 
-    /**
-     * checks if the entered String is formatted correctly to be parsed to
-     * a LocalDate object
-     **/
     public boolean validateDate(String dateString) {
         try {
             LocalDate.parse(dateString);
@@ -191,10 +177,6 @@ public class CalendarController {
         }
     }
 
-    /**
-     * checks of the entered String is formatted correctly to be parsed to
-     * a LocalTime object
-     **/
     public boolean validateTime(String timeString) {
         try {
             LocalTime.parse(timeString);
@@ -205,9 +187,6 @@ public class CalendarController {
         }
     }
 
-    /**
-     * checks if the startTime is chronologically after the endTime
-     **/
     public boolean validateDateTimeOrder(LocalDateTime start, LocalDateTime end) {
         if (start.isAfter(end)) {
             uI.displayError("Your appointment can not end before it starts.");
@@ -261,10 +240,6 @@ public class CalendarController {
         }
     }
 
-    /**
-     * @param colorIndex index of the color the user chose
-     * @return Color corresponding to the colorIndex
-     **/
     private String intToColor(int colorIndex) {
         return switch (colorIndex) {
             case 1 -> "red";
@@ -277,9 +252,6 @@ public class CalendarController {
         };
     }
 
-    /**
-     * logic to edit the tags assigned to an appointment the is chosen by the user
-     **/
     public void editTag() {
         String title = uI.startEditingTag();
         try {
@@ -299,9 +271,6 @@ public class CalendarController {
 
     }
 
-    /**
-     * edit an appointment that the user chooses via the ui
-     **/
     public void editAppointment() {
         String appointmentTitle = uI.startEditingAppointment();
         try {
@@ -319,11 +288,6 @@ public class CalendarController {
         }
     }
 
-    /**
-     * @param appointments All appointments the user gets to chose from
-     * @return Index of the appointment chosen by the user,
-     * returns -1 if appointments is empty
-     **/
     private int chooseAppointmentLogic(List<Appointment> appointments) {
         int appointmentIndex = 0;
 
@@ -496,9 +460,6 @@ public class CalendarController {
         }
     }
 
-    /**
-     * splits the arguments of the user command into separate Strings
-     **/
     public String[] splitUserCommandIntoArgs(String userCommand) {
         return userCommand.split(" ");
     }

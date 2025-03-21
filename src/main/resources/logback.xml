@@ -1,32 +1,24 @@
 <configuration>
 
-    <!-- Definition der Encoder für einheitliche Log-Muster -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- Dateiname für das Log -->
         <file>logs/application.log</file>
 
-        <!-- Rollierende Log-Dateien: Alte Dateien werden archiviert -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- Log-Datei pro Tag archivieren -->
             <fileNamePattern>logs/application.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <!-- Maximal 30 Log-Dateien behalten -->
             <maxHistory>30</maxHistory>
         </rollingPolicy>
 
-        <!-- Encoder für Log-Nachrichten -->
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
 
-    <!-- Logger für JOOQ konfigurieren -->
     <logger name="org.jooq" level="WARN" additivity="false">
-        <appender-ref ref="FILE" />
+        <appender-ref ref="FILE"/>
     </logger>
 
-    <!-- Root-Logger-Konfiguration -->
     <root level="info">
-        <appender-ref ref="FILE" />
+        <appender-ref ref="FILE"/>
     </root>
 
 </configuration>

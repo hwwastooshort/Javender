@@ -20,7 +20,6 @@ public class Main {
          Therefore, the database is copied to a fresh folder "data", which stores
          the data of the user.
          */
-        DataManager dataManager;
         File file = new File(DESTINATION_PATH);
         File parentDir = file.getParentFile();
         if (parentDir != null && !parentDir.mkdirs() && !parentDir.exists()) {
@@ -31,7 +30,7 @@ public class Main {
             copyDatabaseFile();
         }
 
-        dataManager = new JooqDataManager(DESTINATION_PATH);
+        var dataManager = new JooqDataManager(DESTINATION_PATH);
         CalendarController controller = new CalendarController(dataManager);
         controller.mainMenu();
     }

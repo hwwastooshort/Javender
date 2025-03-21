@@ -119,7 +119,7 @@ public class CalendarInterface implements UserInterface {
     /**
      * Generates a formatted month view with highlighted appointment days.
      *
-     * @param date A LocalDate object representing the date, used to determine the month and year
+     * @param date            A LocalDate object representing the date, used to determine the month and year
      * @param appointmentList A list of appointments to check for highlighting days.
      * @return A string representation of the month with appointments highlighted.
      */
@@ -133,10 +133,10 @@ public class CalendarInterface implements UserInterface {
             // Prüfen, ob der Tag heute ist oder Termine hat
             boolean isToday = currentDay.isEqual(today);
             List<Appointment> dayAppointments = appointmentList.stream()
-                .filter(appointment ->
-                    (currentDay.isEqual(appointment.getStartDate().toLocalDate()) || currentDay.isAfter(appointment.getStartDate().toLocalDate())) &&
-                        (currentDay.isEqual(appointment.getEndDate().toLocalDate()) || currentDay.isBefore(appointment.getEndDate().toLocalDate())))
-                .toList();
+                    .filter(appointment ->
+                            (currentDay.isEqual(appointment.getStartDate().toLocalDate()) || currentDay.isAfter(appointment.getStartDate().toLocalDate())) &&
+                                    (currentDay.isEqual(appointment.getEndDate().toLocalDate()) || currentDay.isBefore(appointment.getEndDate().toLocalDate())))
+                    .toList();
 
             // Nur ersetzen, wenn der Tag heute ist oder Termine existieren
             if (!dayAppointments.isEmpty() || isToday) {
