@@ -64,7 +64,7 @@ java -jar Javender-1.0-SNAPSHOT.jar
   - `<Name des Monats> (+ <Jahr>)`: Zeigt den gewünschten Monat an 
     - z.B. `janaury 2002` 
   - `upcoming (+ amount (+ tag name))`: Zeigt bevorstehende Termine an, auch nach Tags und Anzahl gefiltert.
-    - z.B. `upcoming + 5 + work`
+    - z.B. `upcoming 5 work`
 
 ## ❗Bekannte Einschränkungen
 - **Textbasierte Oberfläche**: Keine grafische Benutzeroberfläche vorhanden.
