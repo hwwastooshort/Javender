@@ -238,11 +238,11 @@ public class CalendarInterface implements UserInterface {
      * Formats the date of an appointment depending on whether it is a single day or multiple days
      */
     private String formatAppointmentDate(Appointment appointment) {
-        String singleDayAppointment = appointment.getStartDate().format(DateTimeFormatter.ofPattern("(dd.MM.yyyy | HH:mm "))
+        String singleDayAppointment = appointment.getStartDate().format(DateTimeFormatter.ofPattern("(yyyy/MM/dd | HH:mm "))
                 + appointment.getEndDate().format(DateTimeFormatter.ofPattern("- HH:mm)"));
 
-        String multipleDayAppointment = appointment.getStartDate().format(DateTimeFormatter.ofPattern("(dd.MM.yyyy, HH:mm "))
-                + appointment.getEndDate().format(DateTimeFormatter.ofPattern("- dd.MM.yyyy, HH:mm)"));
+        String multipleDayAppointment = appointment.getStartDate().format(DateTimeFormatter.ofPattern("(yyyy/MM/dd, HH:mm "))
+                + appointment.getEndDate().format(DateTimeFormatter.ofPattern("- yyyy/MM/dd, HH:mm)"));
 
         if (appointment.getStartDate().isBefore(LocalDateTime.now())
                 && appointment.getEndDate().isAfter(LocalDateTime.now())) {
@@ -500,9 +500,9 @@ public class CalendarInterface implements UserInterface {
     public void displayAppointments(List<Appointment> appointments) {
         appointments.forEach(
                 appointment -> {
+                    System.out.println();
                     System.out.print(ColorManager.UNDERLINE + appointment.getTitle() + ColorManager.RESET
-                            + ": (" + appointment.getStartDate()
-                            + " - " + appointment.getEndDate() + ")\n"
+                            + " " + formatAppointmentDate(appointment) + "\n"
                             + "\"" + appointment.getDescription() + "\"\nTags: ");
                     appointment.getTags().forEach(
                             tag -> System.out.print(
@@ -512,6 +512,8 @@ public class CalendarInterface implements UserInterface {
                     System.out.println();
                 }
         );
+        System.out.println("\nEnter anything to return to the calendar.");
+        scanner.nextLine();
     }
 
     public String getUserCommand() {
