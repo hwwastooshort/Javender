@@ -1,6 +1,4 @@
-# 📅 Anleitung für den Schnelleinstieg – Javender
-
-## 📌 Erfordernisse
+# 📅Javender 
 
 ### 1. Projektübersicht
 - **Projektname**: Javender
@@ -24,104 +22,58 @@ Hier ist ein Screenshot der Kalenderansicht:
 
 ### 3. Systemanforderungen
 - **Java-Version**: Java 21 oder höher
-- **Maven-Version**:  3.9.9
+- **Maven-Version**: 3.9.9
 - **Datenbank**: SQLite (integriert über JDBC)
 - **Empfohlene IDE**: IntelliJ IDEA, Eclipse oder VS Code
 
 ## 📥 Installation
+### Direkte Installation
+- Die .jar-Datei einfach von den Releases Laden und ausführen.
+```bash
+java -jar Javender-1.0-SNAPSHOT.jar 
+```
+- Achtung ⚠️: Das Programm erstellt in dem Ordner, in dem die .jar liegt bzw. wo sie ausgeführt wird einen Ordner namens "Data" und einen Namens "logs", in "Data" sind ihre Termine und Tags gespeichert, in logs sind die Logs gespeichert.
+### Selber Bauen
+- Das Projekt klonen
+  - Achtung ⚠️: Überprüfen Sie die Java-Version und Maven-Version
+```bash
+git clone https://github.com/hwwastooshort/Javender.git
+```
+- In das Projektverzeichnis wechseln und das Projekt bauen
+```bash
+cd Javender
+mvn clean install 
+```
+- Die entstandene .jar-Datei ausführen oder verschieben, wenn das gewünscht ist
+```bash
+java -jar target/Javender-1.0-SNAPSHOT.jar
+```
+- Achtung ⚠️: Auch hier gilt: Das Programm erstellt in dem Ordner, in dem die .jar liegt bzw. wo sie ausgeführt wird einen Ordner namens "Data" und einen Namens "logs", in "Data" sind ihre Termine und Tags gespeichert, in logs sind die Logs gespeichert.
 
-1. **Repository klonen:**
+## Schnellstart 🚀
+```bash
+java -jar Javender-1.0-SNAPSHOT.jar
+```
+- Sie sollten den jetzigen Monat und den Folgemonat sehen und mit `manage` können Sie Termine verwalten, mit `help` können sie die Befehle nachschlagen.
 
-    1. #### Mit SSH (empfohlen, wenn ein SSH-Key eingerichtet ist):
+## Verwendung 🛠️
+- Nach dem Starten des Programms können Sie Befehle eingeben, um Termine zu verwalten und anzuzeigen.
+- Verfügbare Befehle:
+  - `manage`: Verwalten Sie Termine (Erstellen, Bearbeiten, Löschen).
+  - `now`: Zeigt den jetzigen Monat an
+  - `<Name des Monats> (+ <Jahr>)`: Zeigt den gewünschten Monat an 
+    - z.B. `janaury 2002` 
+  - `upcoming (+ amount (+ tag name))`: Zeigt bevorstehende Termine an, auch nach Tags und Anzahl gefiltert.
+    - z.B. `upcoming + 5 + work`
 
-    ```bash
-    git clone git@github.com:hwwastooshort/Javender.git
-    ```
-
-   💡 **Hinweis:**  
-   Falls noch kein SSH-Key eingerichtet wurde, folgen Sie der [GitHub-Dokumentation zur SSH-Konfiguration](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
-
-    ---
-
-    2. #### Mit HTTPS (einfach, keine SSH-Konfiguration erforderlich):
-
-    ```bash
-    git clone https://github.com/hwwastooshort/Javender.git
-    ```
-
-   💡 **Hinweis:**  
-   Bei privaten Repositories wird nach den GitHub-Anmeldedaten oder einem **Personal Access Token (PAT)** gefragt.  
-   [Mehr Informationen zum PAT](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token)
-
-    ---
-
-   Wechseln Sie in das Projektverzeichnis:
-
-    ```bash
-    cd javender
-    ```
-
-2. **Abhängigkeiten installieren & Projekt bauen:**
-
-    ```bash
-    mvn clean install
-    ```
-
-3. **Datenbank vorbereiten:**  
-   Stellen Sie sicher, dass sich die `javenderDatabase.db` im Verzeichnis `src/test/resources/` befindet.
-
-4. **jOOQ Code generieren (optional, falls Schema geändert wurde):**
-
-    ```bash
-    mvn generate-sources
-    ```
-
-
-## 🚀 Schnellstart
-
-1. **Anwendung starten**:
-    ```bash
-    java -jar target/Javender-1.0-SNAPSHOT.jar
-    ```
-
-2. **Erwartetes Verhalten**:
-    - Nach dem Start wird die textbasierte Kalenderansicht angezeigt.
-    - Die Eingabeaufforderung lädt zur Navigation oder Verwaltung ein.
-    - Mit `help` wird eine Liste aller verfügbaren Befehle angezeigt.
-
-## 📚 Anwendungsbeispiele
-
-- **Monatsansicht anzeigen**:
-    ```bash
-    january 2025
-    ```
-
-- **Termin erstellen**:
-    ```bash
-    manage
-    # Dann die Option „Add appointment“ wählen und Details eingeben.
-    ```
-
-- **Bevorstehende Termine anzeigen**:
-    ```bash
-    upcoming 3
-    # Zeigt die nächsten 3 bevorstehenden Termine an.
-    ```
-
-- **Nach Tags filtern**:
-    ```bash
-    upcoming 5 meeting
-    # Zeigt die nächsten 5 Termine mit dem Tag "meeting".
-    ```
-
-## ⚠️ Bekannte Einschränkungen
+## ❗Bekannte Einschränkungen
 - **Textbasierte Oberfläche**: Keine grafische Benutzeroberfläche vorhanden.
 - **Fehler bei Datums-/Zeiteingaben**: Falsch formatierte Eingaben können zu Fehlern führen.
-- **Keine Unterstützung für wiederkehrende Termine** (z.B. wöchentliche Meetings).
-- **Begrenzte Farbauswahl bei Tags**.
+- **Keine Unterstützung für wiederkehrende Termine**: Z.B. wöchentliche Meetings sind nicht möglich.
+- **Begrenzte Farbauswahl bei Tags**: Es stehen nur wenige Farben zur Verfügung.
 - **Keine Erinnerungsfunktion**: Nutzer:innen werden nicht automatisch an Termine erinnert.
-- **Eingeschränkte Suchfunktion**: nach Terminen oder Tags.
+- **Eingeschränkte Suchfunktion**: Suche nach Terminen oder Tags ist begrenzt.
 - **Keine Mehrbenutzer-Unterstützung**: Es gibt keine Möglichkeit, mehrere Benutzerprofile zu verwalten.
-- **Keine Synchronisierung mit externen Kalendern** (z.B. Google Kalender, Outlook).
-- **Keine Export-/Importfunktion**: Termine können nicht als CSV, iCal oder andere Formate exportiert oder importiert werden.
+- **Keine Synchronisierung mit externen Kalendern**: Z.B. Google Kalender oder Outlook werden nicht unterstützt.
+- **Keine Export-/Importfunktion**: Termine können nicht als CSV, iCal oder in andere Formate exportiert oder importiert werden.
 - **Keine Zeitformat-Einstellungen**: Es wird ausschließlich das 24-Stunden-Format verwendet.

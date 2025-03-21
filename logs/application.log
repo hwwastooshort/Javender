@@ -377,3 +377,1186 @@ Model.Database.DataManagerException: No appointment found with ID: 999
 2025-03-21 10:30:32 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
 2025-03-21 10:30:32 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
 2025-03-21 10:30:32 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:05:35 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDatabase.db
+2025-03-21 13:05:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-21 13:05:35 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@7b94089b
+2025-03-21 13:05:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-21 13:05:35 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-03-31T23:59
+2025-03-21 13:05:36 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-03-31T23:59
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.sqlite.jdbc4.JDBC4Connection@405325cf
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection org.sqlite.jdbc4.JDBC4Connection@601cbd8c
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=999, startDate=2025-03-21T13:05:36.211263, endDate=2025-03-21T13:05:36.211273, title='Non-existent', description='Non-existent', tags=[]}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 999
+2025-03-21 13:05:36 [main] WARN  Model.Database.JooqDataManager - No appointment found in database for ID: 999
+2025-03-21 13:05:36 [main] WARN  Model.Database.JooqDataManager - No appointment found with ID: 999
+2025-03-21 13:05:36 [main] ERROR Model.Database.JooqDataManager - Database operation failed
+Model.Database.DataManagerException: No appointment found with ID: 999
+	at Model.Database.JooqDataManager.lambda$updateAppointment$17(JooqDataManager.java:388)
+	at Model.Database.JooqDataManager.tryWithDSL(JooqDataManager.java:53)
+	at Model.Database.JooqDataManager.updateAppointment(JooqDataManager.java:383)
+	at DatabaseGetTests.lambda$testUpdateAppointmentThatDoesNotExist$0(DatabaseGetTests.java:205)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3111)
+	at DatabaseGetTests.testUpdateAppointmentThatDoesNotExist(DatabaseGetTests.java:205)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection org.sqlite.jdbc4.JDBC4Connection@5a4c638d
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: Non-existent
+2025-03-21 13:05:36 [main] WARN  Model.Database.JooqDataManager - No appointments found with title: Non-existent
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection org.sqlite.jdbc4.JDBC4Connection@66908383
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointments on date: 2025-01-01 with filter: STARTDATE
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-6 - Added connection org.sqlite.jdbc4.JDBC4Connection@2d7e1102
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 999
+2025-03-21 13:05:36 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 999
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-7 - Added connection org.sqlite.jdbc4.JDBC4Connection@6ac97b84
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 1
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-8 - Added connection org.sqlite.jdbc4.JDBC4Connection@66434cc8
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching the next 3 upcoming appointments after 2025-01-01T00:00
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching the next 2 upcoming appointments after 2025-01-01T10:00
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-9 - Added connection org.sqlite.jdbc4.JDBC4Connection@278f8425
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=1, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Updated Title', description='Updated Description', tags=[Tag{tagId=1, name='Personal', color=red}]}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully updated basic appointment data for ID: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Deleted existing tags for appointment ID: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully updated tags for appointment ID: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-10 - Added connection org.sqlite.jdbc4.JDBC4Connection@12db3386
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching all tags from the database
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-11 - Added connection org.sqlite.jdbc4.JDBC4Connection@44c5a16f
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-12 - Added connection org.sqlite.jdbc4.JDBC4Connection@1763992e
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-01-02T16:00
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-13 - Added connection org.sqlite.jdbc4.JDBC4Connection@56ba8773
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-14 - Added connection org.sqlite.jdbc4.JDBC4Connection@7f02251
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2026-01-03T00:00 and 2090-01-04T16:00
+2025-03-21 13:05:36 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2026-01-03T00:00 and 2090-01-04T16:00
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-15 - Added connection org.sqlite.jdbc4.JDBC4Connection@3a4ba480
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching the next 2 upcoming appointments after 2025-01-01T00:00 with the tag work
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching the next 2 upcoming appointments after 2025-01-01T00:00 with the tag PerSONal
+2025-03-21 13:05:36 [main] WARN  Model.Database.JooqDataManager - Only 1/2 appointments with tag PerSONal found after 2025-01-01T00:00
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-16 - Added connection org.sqlite.jdbc4.JDBC4Connection@24097e9b
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: Doctor Appointment
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-17 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-17 - Added connection org.sqlite.jdbc4.JDBC4Connection@4abf3f0
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-17 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Updating tag: Tag{tagId=1, name='Personal', color=blue}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully updated tag with ID: 1
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-18 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-18 - Added connection org.sqlite.jdbc4.JDBC4Connection@bdc8014
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-18 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-19 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-19 - Added connection org.sqlite.jdbc4.JDBC4Connection@7435a578
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-19 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Pumpen gehen
+2025-03-21 13:05:36 [main] WARN  Model.Database.JooqDataManager - No tag found with title: Pumpen gehen
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Pumpen gehen', color=red}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 798
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Pumpen gehen
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-20 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-20 - Added connection org.sqlite.jdbc4.JDBC4Connection@6b474074
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-20 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-21 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-21 - Added connection org.sqlite.jdbc4.JDBC4Connection@54f66455
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-21 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-22 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-22 - Added connection org.sqlite.jdbc4.JDBC4Connection@5e4fa1da
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-22 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-23 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-23 - Added connection org.sqlite.jdbc4.JDBC4Connection@511505e7
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-23 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-24 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-24 - Added connection org.sqlite.jdbc4.JDBC4Connection@795fd838
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-24 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-25 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-25 - Added connection org.sqlite.jdbc4.JDBC4Connection@1949309d
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-25 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 799
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 800
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new appointment in transaction: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=799, name='testingTag', color=yellow}, Tag{tagId=800, name='Uni', color=purple}]}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=799, name='testingTag', color=yellow} to Appointment ID: 892
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=800, name='Uni', color=purple} to Appointment ID: 892
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 892
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 892
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 892
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 892
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Removing appointment: Appointment{appointmentId=892, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=799, name='testingTag', color=yellow}, Tag{tagId=800, name='Uni', color=purple}]}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 892
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 892
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 892
+2025-03-21 13:05:36 [main] WARN  Model.Database.JooqDataManager - No appointment found in database for ID: 892
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 892
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-26 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-26 - Added connection org.sqlite.jdbc4.JDBC4Connection@1f38957
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-26 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Hardcore Bodybuilding', color=Regenbogen}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 801
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 801
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Removing tag: Tag{tagId=801, name='Hardcore Bodybuilding', color=Regenbogen}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 801
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 801
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 801
+2025-03-21 13:05:36 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 801
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-27 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-27 - Added connection org.sqlite.jdbc4.JDBC4Connection@7207cb51
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-27 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Start', color=blue}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 802
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Start
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Updating tag: Tag{tagId=802, name='Start', color=yellow}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 802
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully updated tag with ID: 802
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Start
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-28 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-28 - Added connection org.sqlite.jdbc4.JDBC4Connection@66c83fc8
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-28 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 803
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 804
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new appointment in transaction: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=803, name='testingTag', color=yellow}, Tag{tagId=804, name='Uni', color=purple}]}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=803, name='testingTag', color=yellow} to Appointment ID: 893
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=804, name='Uni', color=purple} to Appointment ID: 893
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 893
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 893
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 893
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Removing all appointments from the database
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 893
+2025-03-21 13:05:36 [main] WARN  Model.Database.JooqDataManager - No appointment found in database for ID: 893
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 893
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Starting...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-29 - Added connection org.sqlite.jdbc4.JDBC4Connection@676ff3b0
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Start completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 805
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 806
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding new appointment in transaction: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=805, name='testingTag', color=yellow}, Tag{tagId=806, name='Uni', color=purple}]}
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=805, name='testingTag', color=yellow} to Appointment ID: 894
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=806, name='Uni', color=purple} to Appointment ID: 894
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 894
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 894
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 894
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 894
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Shutdown initiated...
+2025-03-21 13:05:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Shutdown completed.
+2025-03-21 13:05:36 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:05:39 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: data/db.sqlite
+2025-03-21 13:05:39 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-21 13:05:39 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@2362f559
+2025-03-21 13:05:39 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-21 13:05:39 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:05:39 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:05:51 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Sport
+2025-03-21 13:05:51 [main] WARN  Model.Database.JooqDataManager - No tag found with title: Sport
+2025-03-21 13:05:54 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Sport', color=blue}
+2025-03-21 13:05:54 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 2
+2025-03-21 13:05:54 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:05:54 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:05:58 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:05:58 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:06:14 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Studium
+2025-03-21 13:06:14 [main] WARN  Model.Database.JooqDataManager - No tag found with title: Studium
+2025-03-21 13:06:16 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Studium', color=red}
+2025-03-21 13:06:16 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 3
+2025-03-21 13:06:16 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:06:16 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:06:23 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:06:23 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:06:30 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Privat
+2025-03-21 13:06:30 [main] WARN  Model.Database.JooqDataManager - No tag found with title: Privat
+2025-03-21 13:06:33 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Privat', color=purple}
+2025-03-21 13:06:33 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 4
+2025-03-21 13:06:33 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:06:33 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:07:37 [main] INFO  Model.Database.JooqDataManager - Fetching all tags from the database
+2025-03-21 13:07:42 [main] INFO  Model.Database.JooqDataManager - Adding new appointment in transaction: Appointment{appointmentId=0, startDate=2025-03-21T18:00, endDate=2025-03-21T18:00, title='Prog 3 Abgabe', description='Prog3 Projekt Deadline auf Moodle', tags=[Tag{tagId=3, name='Studium', color=red}]}
+2025-03-21 13:07:42 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=3, name='Studium', color=red} to Appointment ID: 2
+2025-03-21 13:07:42 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 2
+2025-03-21 13:07:42 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:07:42 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:08:44 [main] INFO  Model.Database.JooqDataManager - Fetching all tags from the database
+2025-03-21 13:08:47 [main] INFO  Model.Database.JooqDataManager - Adding new appointment in transaction: Appointment{appointmentId=0, startDate=2025-03-24T13:00, endDate=2025-03-24T15:00, title='Push-Day', description='Fokus auf Brust und Schultern', tags=[Tag{tagId=2, name='Sport', color=blue}]}
+2025-03-21 13:08:47 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=2, name='Sport', color=blue} to Appointment ID: 3
+2025-03-21 13:08:47 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 3
+2025-03-21 13:08:47 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:08:47 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:08:47 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:09:21 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: Prog 3 Abgabe
+2025-03-21 13:09:21 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:09:47 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=2, startDate=2025-03-28T18:00, endDate=2025-03-28T18:00, title='Prog 3 Abgabe', description='Prog3 Projekt Deadline auf Moodle', tags=[Tag{tagId=3, name='Studium', color=red}]}
+2025-03-21 13:09:47 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 2
+2025-03-21 13:09:47 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:09:47 [main] INFO  Model.Database.JooqDataManager - Successfully updated basic appointment data for ID: 2
+2025-03-21 13:09:47 [main] INFO  Model.Database.JooqDataManager - Deleted existing tags for appointment ID: 2
+2025-03-21 13:09:47 [main] INFO  Model.Database.JooqDataManager - Successfully updated tags for appointment ID: 2
+2025-03-21 13:09:47 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:09:47 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:09:47 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:26:12 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDatabase.db
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@7b94089b
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-21 13:26:12 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-03-31T23:59
+2025-03-21 13:26:12 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-03-31T23:59
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-21 13:26:12 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:12 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.sqlite.jdbc4.JDBC4Connection@405325cf
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-03-21 13:26:12 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-03-21 13:26:12 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:12 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection org.sqlite.jdbc4.JDBC4Connection@601cbd8c
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2025-03-21 13:26:12 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=999, startDate=2025-03-21T13:26:12.959536, endDate=2025-03-21T13:26:12.959547, title='Non-existent', description='Non-existent', tags=[]}
+2025-03-21 13:26:12 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 999
+2025-03-21 13:26:12 [main] WARN  Model.Database.JooqDataManager - No appointment found in database for ID: 999
+2025-03-21 13:26:12 [main] WARN  Model.Database.JooqDataManager - No appointment found with ID: 999
+2025-03-21 13:26:12 [main] ERROR Model.Database.JooqDataManager - Database operation failed
+Model.Database.DataManagerException: No appointment found with ID: 999
+	at Model.Database.JooqDataManager.lambda$updateAppointment$17(JooqDataManager.java:388)
+	at Model.Database.JooqDataManager.tryWithDSL(JooqDataManager.java:53)
+	at Model.Database.JooqDataManager.updateAppointment(JooqDataManager.java:383)
+	at DatabaseGetTests.lambda$testUpdateAppointmentThatDoesNotExist$0(DatabaseGetTests.java:205)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3111)
+	at DatabaseGetTests.testUpdateAppointmentThatDoesNotExist(DatabaseGetTests.java:205)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2025-03-21 13:26:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-03-21 13:26:12 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection org.sqlite.jdbc4.JDBC4Connection@5a4c638d
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: Non-existent
+2025-03-21 13:26:13 [main] WARN  Model.Database.JooqDataManager - No appointments found with title: Non-existent
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection org.sqlite.jdbc4.JDBC4Connection@66908383
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointments on date: 2025-01-01 with filter: STARTDATE
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-6 - Added connection org.sqlite.jdbc4.JDBC4Connection@2d7e1102
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 999
+2025-03-21 13:26:13 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 999
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-7 - Added connection org.sqlite.jdbc4.JDBC4Connection@6ac97b84
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 1
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-8 - Added connection org.sqlite.jdbc4.JDBC4Connection@66434cc8
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching the next 3 upcoming appointments after 2025-01-01T00:00
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching the next 2 upcoming appointments after 2025-01-01T10:00
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-9 - Added connection org.sqlite.jdbc4.JDBC4Connection@278f8425
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=1, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Updated Title', description='Updated Description', tags=[Tag{tagId=1, name='Personal', color=red}]}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully updated basic appointment data for ID: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Deleted existing tags for appointment ID: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully updated tags for appointment ID: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-10 - Added connection org.sqlite.jdbc4.JDBC4Connection@12db3386
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching all tags from the database
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-11 - Added connection org.sqlite.jdbc4.JDBC4Connection@44c5a16f
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-12 - Added connection org.sqlite.jdbc4.JDBC4Connection@1763992e
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-01-02T16:00
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-13 - Added connection org.sqlite.jdbc4.JDBC4Connection@56ba8773
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-14 - Added connection org.sqlite.jdbc4.JDBC4Connection@7f02251
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2026-01-03T00:00 and 2090-01-04T16:00
+2025-03-21 13:26:13 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2026-01-03T00:00 and 2090-01-04T16:00
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-15 - Added connection org.sqlite.jdbc4.JDBC4Connection@3a4ba480
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching the next 2 upcoming appointments after 2025-01-01T00:00 with the tag work
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching the next 2 upcoming appointments after 2025-01-01T00:00 with the tag PerSONal
+2025-03-21 13:26:13 [main] WARN  Model.Database.JooqDataManager - Only 1/2 appointments with tag PerSONal found after 2025-01-01T00:00
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-16 - Added connection org.sqlite.jdbc4.JDBC4Connection@24097e9b
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: Doctor Appointment
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-17 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-17 - Added connection org.sqlite.jdbc4.JDBC4Connection@4abf3f0
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-17 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Updating tag: Tag{tagId=1, name='Personal', color=blue}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully updated tag with ID: 1
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-18 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-18 - Added connection org.sqlite.jdbc4.JDBC4Connection@bdc8014
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-18 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-19 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-19 - Added connection org.sqlite.jdbc4.JDBC4Connection@7435a578
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-19 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Pumpen gehen
+2025-03-21 13:26:13 [main] WARN  Model.Database.JooqDataManager - No tag found with title: Pumpen gehen
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Pumpen gehen', color=red}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 807
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Pumpen gehen
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-20 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-20 - Added connection org.sqlite.jdbc4.JDBC4Connection@6b474074
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-20 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-21 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-21 - Added connection org.sqlite.jdbc4.JDBC4Connection@54f66455
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-21 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-22 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-22 - Added connection org.sqlite.jdbc4.JDBC4Connection@5e4fa1da
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-22 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-23 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-23 - Added connection org.sqlite.jdbc4.JDBC4Connection@511505e7
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-23 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-24 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-24 - Added connection org.sqlite.jdbc4.JDBC4Connection@795fd838
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-24 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-25 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-25 - Added connection org.sqlite.jdbc4.JDBC4Connection@1949309d
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-25 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 808
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 809
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new appointment in transaction: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=808, name='testingTag', color=yellow}, Tag{tagId=809, name='Uni', color=purple}]}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=808, name='testingTag', color=yellow} to Appointment ID: 895
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=809, name='Uni', color=purple} to Appointment ID: 895
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 895
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 895
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 895
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 895
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Removing appointment: Appointment{appointmentId=895, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=808, name='testingTag', color=yellow}, Tag{tagId=809, name='Uni', color=purple}]}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 895
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 895
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 895
+2025-03-21 13:26:13 [main] WARN  Model.Database.JooqDataManager - No appointment found in database for ID: 895
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 895
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-26 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-26 - Added connection org.sqlite.jdbc4.JDBC4Connection@1f38957
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-26 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Hardcore Bodybuilding', color=Regenbogen}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 810
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 810
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Removing tag: Tag{tagId=810, name='Hardcore Bodybuilding', color=Regenbogen}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 810
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 810
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 810
+2025-03-21 13:26:13 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 810
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-27 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-27 - Added connection org.sqlite.jdbc4.JDBC4Connection@7207cb51
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-27 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Start', color=blue}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 811
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Start
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Updating tag: Tag{tagId=811, name='Start', color=yellow}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 811
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully updated tag with ID: 811
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Start
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-28 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-28 - Added connection org.sqlite.jdbc4.JDBC4Connection@66c83fc8
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-28 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 812
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 813
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new appointment in transaction: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=812, name='testingTag', color=yellow}, Tag{tagId=813, name='Uni', color=purple}]}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=812, name='testingTag', color=yellow} to Appointment ID: 896
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=813, name='Uni', color=purple} to Appointment ID: 896
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 896
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 896
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 896
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Removing all appointments from the database
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 896
+2025-03-21 13:26:13 [main] WARN  Model.Database.JooqDataManager - No appointment found in database for ID: 896
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 896
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Starting...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-29 - Added connection org.sqlite.jdbc4.JDBC4Connection@676ff3b0
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Start completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 814
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 815
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding new appointment in transaction: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=814, name='testingTag', color=yellow}, Tag{tagId=815, name='Uni', color=purple}]}
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=814, name='testingTag', color=yellow} to Appointment ID: 897
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=815, name='Uni', color=purple} to Appointment ID: 897
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 897
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 897
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 897
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 897
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Shutdown initiated...
+2025-03-21 13:26:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Shutdown completed.
+2025-03-21 13:26:13 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:01 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDatabase.db
+2025-03-21 13:33:01 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-21 13:33:01 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@7b94089b
+2025-03-21 13:33:01 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-21 13:33:01 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-03-31T23:59
+2025-03-21 13:33:02 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-03-31T23:59
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection org.sqlite.jdbc4.JDBC4Connection@405325cf
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection org.sqlite.jdbc4.JDBC4Connection@601cbd8c
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=999, startDate=2025-03-21T13:33:02.143933, endDate=2025-03-21T13:33:02.143946, title='Non-existent', description='Non-existent', tags=[]}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 999
+2025-03-21 13:33:02 [main] WARN  Model.Database.JooqDataManager - No appointment found in database for ID: 999
+2025-03-21 13:33:02 [main] WARN  Model.Database.JooqDataManager - No appointment found with ID: 999
+2025-03-21 13:33:02 [main] ERROR Model.Database.JooqDataManager - Database operation failed
+Model.Database.DataManagerException: No appointment found with ID: 999
+	at Model.Database.JooqDataManager.lambda$updateAppointment$17(JooqDataManager.java:388)
+	at Model.Database.JooqDataManager.tryWithDSL(JooqDataManager.java:53)
+	at Model.Database.JooqDataManager.updateAppointment(JooqDataManager.java:383)
+	at DatabaseGetTests.lambda$testUpdateAppointmentThatDoesNotExist$0(DatabaseGetTests.java:205)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3111)
+	at DatabaseGetTests.testUpdateAppointmentThatDoesNotExist(DatabaseGetTests.java:205)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:728)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:218)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:214)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:139)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:69)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:198)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:169)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:93)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:58)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:141)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:57)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:103)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:85)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LazyLauncher.execute(LazyLauncher.java:56)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:184)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:148)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:122)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-4 - Added connection org.sqlite.jdbc4.JDBC4Connection@5a4c638d
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: Non-existent
+2025-03-21 13:33:02 [main] WARN  Model.Database.JooqDataManager - No appointments found with title: Non-existent
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-4 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-5 - Added connection org.sqlite.jdbc4.JDBC4Connection@66908383
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointments on date: 2025-01-01 with filter: STARTDATE
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-5 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-6 - Added connection org.sqlite.jdbc4.JDBC4Connection@2d7e1102
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 999
+2025-03-21 13:33:02 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 999
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-6 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-7 - Added connection org.sqlite.jdbc4.JDBC4Connection@6ac97b84
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 1
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-7 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-8 - Added connection org.sqlite.jdbc4.JDBC4Connection@66434cc8
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching the next 3 upcoming appointments after 2025-01-01T00:00
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching the next 2 upcoming appointments after 2025-01-01T10:00
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-8 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-9 - Added connection org.sqlite.jdbc4.JDBC4Connection@278f8425
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Updating appointment: Appointment{appointmentId=1, startDate=2025-01-01T09:00, endDate=2025-01-01T10:00, title='Updated Title', description='Updated Description', tags=[Tag{tagId=1, name='Personal', color=red}]}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully updated basic appointment data for ID: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Deleted existing tags for appointment ID: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully updated tags for appointment ID: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-9 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-10 - Added connection org.sqlite.jdbc4.JDBC4Connection@12db3386
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching all tags from the database
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-10 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-11 - Added connection org.sqlite.jdbc4.JDBC4Connection@44c5a16f
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-11 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-12 - Added connection org.sqlite.jdbc4.JDBC4Connection@1763992e
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-01-01T00:00 and 2025-01-02T16:00
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-12 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-13 - Added connection org.sqlite.jdbc4.JDBC4Connection@56ba8773
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-13 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-14 - Added connection org.sqlite.jdbc4.JDBC4Connection@7f02251
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2026-01-03T00:00 and 2090-01-04T16:00
+2025-03-21 13:33:02 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2026-01-03T00:00 and 2090-01-04T16:00
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-14 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-15 - Added connection org.sqlite.jdbc4.JDBC4Connection@3a4ba480
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching the next 2 upcoming appointments after 2025-01-01T00:00 with the tag work
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 2
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 3
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching the next 2 upcoming appointments after 2025-01-01T00:00 with the tag PerSONal
+2025-03-21 13:33:02 [main] WARN  Model.Database.JooqDataManager - Only 1/2 appointments with tag PerSONal found after 2025-01-01T00:00
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-15 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-16 - Added connection org.sqlite.jdbc4.JDBC4Connection@24097e9b
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointments with title: Doctor Appointment
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 1
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-16 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-17 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-17 - Added connection org.sqlite.jdbc4.JDBC4Connection@4abf3f0
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-17 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Updating tag: Tag{tagId=1, name='Personal', color=blue}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully updated tag with ID: 1
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-18 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-18 - Added connection org.sqlite.jdbc4.JDBC4Connection@bdc8014
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-18 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-19 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-19 - Added connection org.sqlite.jdbc4.JDBC4Connection@7435a578
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-19 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Pumpen gehen
+2025-03-21 13:33:02 [main] WARN  Model.Database.JooqDataManager - No tag found with title: Pumpen gehen
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Pumpen gehen', color=red}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 816
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Pumpen gehen
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-20 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-20 - Added connection org.sqlite.jdbc4.JDBC4Connection@6b474074
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-20 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-21 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-21 - Added connection org.sqlite.jdbc4.JDBC4Connection@54f66455
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-21 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-22 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-22 - Added connection org.sqlite.jdbc4.JDBC4Connection@5e4fa1da
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-22 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Personal
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-23 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-23 - Added connection org.sqlite.jdbc4.JDBC4Connection@511505e7
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-23 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-24 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-24 - Added connection org.sqlite.jdbc4.JDBC4Connection@795fd838
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-24 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-25 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-25 - Added connection org.sqlite.jdbc4.JDBC4Connection@1949309d
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-25 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 817
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 818
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new appointment in transaction: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=817, name='testingTag', color=yellow}, Tag{tagId=818, name='Uni', color=purple}]}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=817, name='testingTag', color=yellow} to Appointment ID: 898
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=818, name='Uni', color=purple} to Appointment ID: 898
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 898
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 898
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 898
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 898
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Removing appointment: Appointment{appointmentId=898, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=817, name='testingTag', color=yellow}, Tag{tagId=818, name='Uni', color=purple}]}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Removing appointment with ID: 898
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully removed appointment with ID: 898
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 898
+2025-03-21 13:33:02 [main] WARN  Model.Database.JooqDataManager - No appointment found in database for ID: 898
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 898
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-26 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-26 - Added connection org.sqlite.jdbc4.JDBC4Connection@1f38957
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-26 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Hardcore Bodybuilding', color=Regenbogen}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 819
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 819
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Removing tag: Tag{tagId=819, name='Hardcore Bodybuilding', color=Regenbogen}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Removing tag with ID: 819
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully removed tag with ID: 819
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 819
+2025-03-21 13:33:02 [main] WARN  Model.Database.JooqDataManager - No Tag found with ID: 819
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-27 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-27 - Added connection org.sqlite.jdbc4.JDBC4Connection@7207cb51
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-27 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Start', color=blue}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 820
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Start
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Updating tag: Tag{tagId=820, name='Start', color=yellow}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tag with ID: 820
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully updated tag with ID: 820
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching tag by title: Start
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-28 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-28 - Added connection org.sqlite.jdbc4.JDBC4Connection@66c83fc8
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-28 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 821
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 822
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new appointment in transaction: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=821, name='testingTag', color=yellow}, Tag{tagId=822, name='Uni', color=purple}]}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=821, name='testingTag', color=yellow} to Appointment ID: 899
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=822, name='Uni', color=purple} to Appointment ID: 899
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 899
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 899
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 899
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Removing all appointments from the database
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 899
+2025-03-21 13:33:02 [main] WARN  Model.Database.JooqDataManager - No appointment found in database for ID: 899
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 899
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: src/test/resources/javenderDataBase.db
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Starting...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-29 - Added connection org.sqlite.jdbc4.JDBC4Connection@676ff3b0
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Start completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='testingTag', color=yellow}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 823
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new tag: Tag{tagId=0, name='Uni', color=purple}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added tag with ID: 824
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding new appointment in transaction: Appointment{appointmentId=0, startDate=2030-10-01T00:00, endDate=2030-10-01T02:00, title='Meeting', description='Presenting results', tags=[Tag{tagId=823, name='testingTag', color=yellow}, Tag{tagId=824, name='Uni', color=purple}]}
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=823, name='testingTag', color=yellow} to Appointment ID: 900
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Adding Tag Tag{tagId=824, name='Uni', color=purple} to Appointment ID: 900
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Successfully added appointment with ID: 900
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching appointment with ID: 900
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 900
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Removing all tags from the database
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Fetching Tags assigned to Appointment: 900
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Shutdown initiated...
+2025-03-21 13:33:02 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-29 - Shutdown completed.
+2025-03-21 13:33:02 [main] INFO  Model.Database.JooqDataManager - Database connection pool closed.
+2025-03-21 13:33:05 [main] INFO  Model.Database.JooqDataManager - Initializing JooqDataManager with connection pooling: data/db.sqlite
+2025-03-21 13:33:05 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-03-21 13:33:05 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.sqlite.jdbc4.JDBC4Connection@2362f559
+2025-03-21 13:33:05 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-03-21 13:33:05 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:33:05 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:34:51 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:34:51 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:35:00 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2002-01-01T00:00 and 2002-02-28T23:59:59
+2025-03-21 13:35:00 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2002-01-01T00:00 and 2002-02-28T23:59:59
+2025-03-21 13:35:30 [main] INFO  Model.Database.JooqDataManager - Fetching appointments between 2025-03-01T00:00 and 2025-04-30T23:59:59
+2025-03-21 13:35:30 [main] WARN  Model.Database.JooqDataManager - No appointments found between 2025-03-01T00:00 and 2025-04-30T23:59:59
