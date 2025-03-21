@@ -1,6 +1,6 @@
 # 📅Javender 
 
-### 1. Projektübersicht
+### Projektübersicht
 - **Projektname**: Javender
 - **Kurzbeschreibung**:  
   Javender ist eine Kalenderanwendung, die es Benutzern ermöglicht, Termine zu verwalten, Tags zu vergeben und anstehende Ereignisse einfach anzuzeigen. Das Tool hilft bei der Organisation des täglichen Lebens und bietet eine einfache textbasierte Benutzeroberfläche.
@@ -10,7 +10,7 @@ Hier ist ein Screenshot der Kalenderansicht:
 
 ![Kalenderansicht](./images/kalenderansicht.png)
 
-### 2. Features
+### Features
 - Verwaltung von Terminen (Erstellen, Bearbeiten, Löschen).
 - Tagging-System zur Kategorisierung von Terminen.
 - Übersichtliche Monatsansicht mit farblicher Markierung von Terminen.
@@ -20,7 +20,7 @@ Hier ist ein Screenshot der Kalenderansicht:
 - Integration mit SQLite-Datenbank zur persistenten Speicherung.
 - Unterstützung von jOOQ für Datenbankinteraktionen.
 
-### 3. Systemanforderungen
+### Systemanforderungen
 - **Java-Version**: Java 21 oder höher
 - **Maven-Version**: 3.9.9
 - **Datenbank**: SQLite (integriert über JDBC)
