@@ -1,5 +1,4 @@
 import Controller.CalendarController;
-import Model.Database.DataManager;
 import Model.Database.DataManagerException;
 import Model.Database.JooqDataManager;
 import org.slf4j.Logger;
@@ -14,7 +13,7 @@ public class Main {
     private static final String DESTINATION_PATH = "data/db.sqlite";
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
-    public static void main(String[] args) throws DataManagerException {
+    public static void main(String[] args) {
         /*
          putting the database directly into the .jar file is not possible.
          Therefore, the database is copied to a fresh folder "data", which stores

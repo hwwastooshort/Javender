@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -19,7 +18,7 @@ public class CalendarInterfaceTests {
     private DataManager dm;
 
     @BeforeAll
-    void setupDatabase() throws DataManagerException {
+    void setupDatabase() {
         dm = new JooqDataManager("src/test/resources/javenderDatabase.db");
     }
 
@@ -52,7 +51,7 @@ public class CalendarInterfaceTests {
     }
 
     private int getDayOffset(LocalDate date) {
-        int offset = 0;
+        int offset;
         DayOfWeek firstDayOfMonth = date.minusDays(date.getDayOfMonth() - 1).getDayOfWeek();
         offset = firstDayOfMonth.getValue() - 1;
         return offset;
@@ -60,12 +59,10 @@ public class CalendarInterfaceTests {
 
     @Test
     void testPrintMonth() {
-        CalendarInterface cI = new CalendarInterface();
         LocalDateTime startRange = LocalDateTime.parse("2025-03-01T00:00");
         LocalDateTime endRange = LocalDateTime.parse("2025-03-31T23:59");
 
         try {
-            List<Appointment> appointmentList = dm.getAppointmentsByRange(startRange, endRange);
             String formattedMonthMarch = getMonth(LocalDate.parse("2025-03-01"));
 
             assertTrue(formattedMonthMarch.contains("                1  2 "));

@@ -19,8 +19,6 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 
-import static org.jooq.impl.DSL.out;
-import static org.jooq.impl.DSL.when;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CalendarControllerTests {
@@ -31,9 +29,8 @@ public class CalendarControllerTests {
     private final PrintStream originalOut = System.out;
     @BeforeEach
     void setupDatabase() throws Exception {
-        try (
-                Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
-                Statement statement = connection.createStatement()) {
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:src/test/resources/javenderDataBase.db");
+             Statement statement = connection.createStatement()) {
 
             String setupSql = Files.readString(Paths.get("src/test/resources/AddTestAppointments.sql"));
             statement.executeUpdate(setupSql);
@@ -91,10 +88,9 @@ public class CalendarControllerTests {
         CalendarController cc = new CalendarController(dm);
 
         String emptyDate = "";
-        String nullDate = null;
 
         assertTrue(cc.validateDate(emptyDate));
-        assertThrows(NullPointerException.class, () -> cc.validateDate(nullDate));
+        assertThrows(NullPointerException.class, () -> cc.validateDate(null));
     }
 
     @Test
@@ -164,7 +160,6 @@ public class CalendarControllerTests {
         assertNotNull(existingTag);
         assertEquals("Personal", existingTag.getName());
         assertEquals("red", existingTag.getColor());
-        int existingTagId = existingTag.getTagId();
 
         // Adding + Cancel Overwriting the tag
         cc.addTag();
