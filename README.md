@@ -30,7 +30,7 @@ Hier ist ein Screenshot der Kalenderansicht:
 ### Direkte Installation
 - Die `.jar`-Datei einfach von den Releases herunterladen und ausführen.
 ```bash
-java -jar Javender-1.0-SNAPSHOT.jar 
+java -jar Javender-1.0.jar 
 ```
 - ⚠️ Achtung: Das Programm erstellt in dem Ordner, in dem die `.jar`-Datei liegt bzw. wo sie ausgeführt wird, zwei Unterordner:
   - "Data": Hier werden Ihre Termine und Tags gespeichert.
@@ -48,14 +48,14 @@ mvn clean install
 ```
 - Die erstellte `.jar`-Datei ausführen oder verschieben, falls gewünscht.
 ```bash
-java -jar target/Javender-1.0-SNAPSHOT.jar
+java -jar target/Javender-1.0.jar
 ```
 - ⚠️ Achtung: Auch hier gilt: Das Programm erstellt im Ordner, in dem die `.jar`-Datei liegt bzw. ausgeführt wird, zwei Unterordner:
   - "Data": Hier werden Ihre Termine und Tags gespeichert.
   - "logs": Hier werden die Protokolldateien gespeichert.
 ## Schnellstart 🚀
 ```bash
-java -jar Javender-1.0-SNAPSHOT.jar
+java -jar Javender-1.0.jar
 ```
 - Sie sollten den aktuellen sowie den nächsten Monat sehen.
 - Mit `manage` können Sie Termine verwalten, mit `help` lassen sich verfügbare Befehle anzeigen.
