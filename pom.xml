@@ -121,7 +121,7 @@
                 </executions>
             </plugin>
 
-            <!-- Maven Resources Plugin zum Kopieren der SQLite-Datenbank -->
+            <!-- Maven Resources Plugin for copying the SQLite-Database -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
