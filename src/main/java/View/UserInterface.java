@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserInterface {
+    @SuppressWarnings("unused")
     String getCalendar(LocalDate date, List<Appointment> appointmentList, int monthAmount);
 
     String getCalendarWithUpcomingAppointments(LocalDate date, List<Appointment> appointmentList, int monthAmount);

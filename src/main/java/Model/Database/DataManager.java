@@ -25,8 +25,10 @@ public interface DataManager {
 
     int addAppointment(Appointment appointment) throws DataManagerException;
 
+    @SuppressWarnings("unused")
     void removeAppointmentById(int appointmentId) throws DataManagerException;
 
+    @SuppressWarnings("unused")
     void removeTagByTagId(int tagId) throws DataManagerException;
 
     int addTag(Tag tag) throws DataManagerException;

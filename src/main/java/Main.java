@@ -1,5 +1,4 @@
 import Controller.CalendarController;
-import Model.Database.DataManagerException;
 import Model.Database.JooqDataManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +37,7 @@ public class Main {
         ClassLoader classLoader = Main.class.getClassLoader();
         try (InputStream inputStream = classLoader.getResourceAsStream(SOURCE_PATH)) {
             if (inputStream == null) {
-                throw new IllegalArgumentException("Datei nicht gefunden!");
+                throw new IllegalArgumentException("File could not be found.");
             }
             Files.copy(inputStream, Paths.get(DESTINATION_PATH));
         } catch (Exception e) {

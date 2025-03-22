@@ -167,6 +167,7 @@ public class CalendarController {
         return LocalDateTime.of(LocalDate.parse(endDate), LocalTime.parse(endTime));
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public boolean validateDate(String dateString) {
         try {
             LocalDate.parse(dateString);
@@ -177,6 +178,7 @@ public class CalendarController {
         }
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
     public boolean validateTime(String timeString) {
         try {
             LocalTime.parse(timeString);

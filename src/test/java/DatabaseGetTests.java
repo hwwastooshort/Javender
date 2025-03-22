@@ -156,6 +156,7 @@ public class DatabaseGetTests {
     void testGetTagById() throws DataManagerException {
         int tagId = 1;
         Tag expectedTag = new Tag(1, "Personal", "red");
+        //noinspection OptionalGetWithoutIsPresent
         assertThat(dm.getTagById(tagId).get()).isEqualTo(expectedTag);
     }
     @Test
@@ -231,6 +232,7 @@ public class DatabaseGetTests {
     @Test
     void testGetTagByTitle() throws DataManagerException {
         String givenTitle = "Personal";
+        //noinspection OptionalGetWithoutIsPresent
         assertThat(dm.getTagByName(givenTitle).get()).isEqualTo(new Tag(1, "Personal", "red"));
     }
 

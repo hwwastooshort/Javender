@@ -33,6 +33,7 @@ public class Appointment {
         return appointmentId;
     }
 
+    @SuppressWarnings("unused")
     public void setAppointmentId(int appointmentId) {
         this.appointmentId = appointmentId;
     }

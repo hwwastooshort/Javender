@@ -1,16 +1,11 @@
 import Model.Database.DataManager;
-import Model.Database.DataManagerException;
 import Model.Database.JooqDataManager;
-import Model.Entities.Appointment;
-import View.CalendarInterface;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CalendarInterfaceTests {
@@ -33,9 +28,7 @@ public class CalendarInterfaceTests {
         StringBuilder monthString = new StringBuilder();
 
         int offset = getDayOffset(date);
-        for (int i = 0; i < offset; i++) {
-            monthString.append("   ");
-        }
+        monthString.append("   ".repeat(Math.max(0, offset)));
 
         int dayPosition = offset;
         for (int day = 1; day <= date.lengthOfMonth(); day++) {
@@ -59,8 +52,6 @@ public class CalendarInterfaceTests {
 
     @Test
     void testPrintMonth() {
-        LocalDateTime startRange = LocalDateTime.parse("2025-03-01T00:00");
-        LocalDateTime endRange = LocalDateTime.parse("2025-03-31T23:59");
 
         try {
             String formattedMonthMarch = getMonth(LocalDate.parse("2025-03-01"));

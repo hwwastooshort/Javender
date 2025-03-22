@@ -22,6 +22,7 @@ public class Tag {
         return tagId;
     }
 
+    @SuppressWarnings("unused")
     public void setTagId(int tagId) {
         this.tagId = tagId;
     }
