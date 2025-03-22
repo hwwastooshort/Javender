@@ -21,7 +21,7 @@ public class CalendarInterface implements UserInterface {
     @SuppressWarnings("FieldCanBeLocal")
     private final int SPACING = 10;   // Space between the calendar & upcoming appointments & intentionally declared as a constant to make adding further features easier
 
-    private String getMonth(LocalDate date) {
+    private String getMonthDaysFormatted(LocalDate date) {
         StringBuilder monthString = new StringBuilder();
 
         int offset = getDayOffset(date);
@@ -53,58 +53,73 @@ public class CalendarInterface implements UserInterface {
         int maxLineLength = days.length();
 
         if (monthAmount == 1) {
-            String dateHeader = date.getMonth().toString() + " " + date.getYear();
-            int dateHeaderMargin = (days.length() - dateHeader.length()) / 2;
-            String dateHeaderCentered = " ".repeat(dateHeaderMargin)
-                    + dateHeader
-                    + " ".repeat(maxLineLength - dateHeaderMargin - dateHeader.length());
-            calendarView.append(ColorManager.getColoredText("bold", dateHeaderCentered)).append("\n")
-                    .append(days).append("\n");
-            calendarView.append(getMonthWithAppointments(date, appointmentList));
-            return calendarView.toString();
+            return getSingleMonthCalendar(date, appointmentList, days, maxLineLength);
         }
 
-        String numberSuffix = getNumberSuffix(LocalDateTime.now().getDayOfMonth());
-
-        String currentDay = LocalDateTime.now().getDayOfWeek().toString().charAt(0)
-                + LocalDateTime.now().getDayOfWeek().toString().substring(1).toLowerCase() + ", "
-                + LocalDateTime.now().getMonth().toString().charAt(0)
-                + LocalDateTime.now().getMonth().toString().substring(1).toLowerCase() + " "
-                + LocalDateTime.now().getDayOfMonth() + numberSuffix + ", "
-                + LocalDateTime.now().getYear();
-
+        String currentDay = formatCurrentDayHeader();
         int repeatCountDate = Math.max(0, maxLineLength - currentDay.length());
         int repeatCountCalender = Math.max(0, currentDay.length() - days.length());
 
         if (!isLocalDateMonthEqual(date, LocalDate.now())) {
-            String warningString = "(You are currently viewing "
-                    + date.getMonth().toString().charAt(0)
-                    + date.getMonth().toString().substring(1).toLowerCase()
-                    + " "
-                    + date.getYear()
-                    + ")\n\n";
-            calendarView.append(ColorManager.getColoredText("yellow", warningString));
+            calendarView.append(ColorManager.getColoredText("yellow", getWarningString(date)));
         }
 
-        calendarView.append(ColorManager.getColoredText(
-                        "bold",
-                        ColorManager.getColoredText("underline", currentDay)
-                ))
-                .append(" ".repeat(repeatCountDate)).append("\n");
-
-        calendarView.append(days).append(" ".repeat(repeatCountCalender));
+        calendarView.append(ColorManager.getColoredText("bold", ColorManager.getColoredText("underline", currentDay)))
+            .append(" ".repeat(repeatCountDate)).append("\n")
+            .append(days).append(" ".repeat(repeatCountCalender));
 
         for (int i = 0; i < monthAmount; i++) {
-            String[] month = getMonthWithAppointments(date.plusMonths(i), appointmentList).split("\n");
-
-            StringBuilder formattedMonth = new StringBuilder();
-            for (int j = 0; j < month.length; j++) {
-                String preString = j == 0 ? date.getMonth().plus(i).toString().substring(0, 3) + " " : "    ";
-                formattedMonth.append("\n").append(preString).append(month[j]).append(" ".repeat(repeatCountCalender));
-            }
-            calendarView.append(formattedMonth);
+            calendarView.append(formatCalendarMonthWithMargin(date.plusMonths(i), appointmentList, repeatCountCalender));
         }
         return calendarView.toString();
+    }
+
+    private String getSingleMonthCalendar(LocalDate date, List<Appointment> appointmentList, String days, int maxLineLength) {
+        StringBuilder calendarView = new StringBuilder();
+        String dateHeader = date.getMonth() + " " + date.getYear();
+        int margin = (days.length() - dateHeader.length()) / 2;
+
+        String dateHeaderCentered = " ".repeat(margin) + dateHeader + " "
+            .repeat(maxLineLength - margin - dateHeader.length());
+
+        if (!isLocalDateMonthEqual(date, LocalDate.now())) {
+            calendarView.append(ColorManager.getColoredText("yellow", getWarningString(date)));
+        }
+
+        return calendarView.append(ColorManager.getColoredText("bold", dateHeaderCentered))
+            .append("\n").append(days).append("\n")
+            .append(getMonthWithAppointments(date, appointmentList))
+            .toString();
+    }
+
+    private String formatCurrentDayHeader(){
+        LocalDateTime now = LocalDateTime.now();
+        String numberSuffix = getNumberSuffix(now.getDayOfMonth());
+
+        return now.getDayOfWeek().toString().charAt(0)
+            + now.getDayOfWeek().toString().substring(1).toLowerCase() + ", "
+            + now.getMonth().toString().charAt(0)
+            + now.getMonth().toString().substring(1).toLowerCase() + " "
+            + now.getDayOfMonth() + numberSuffix + ", "
+            + now.getYear();
+    }
+
+    private String getWarningString(LocalDate date) {
+        return "(You are currently viewing " + date.getMonth().toString().charAt(0)
+            + date.getMonth().toString().substring(1).toLowerCase()
+            + " " + date.getYear() + ")\n\n";
+    }
+
+    private String formatCalendarMonthWithMargin(LocalDate date, List<Appointment> appointmentList, int repeatCountCalender) {
+        String[] month = getMonthWithAppointments(date, appointmentList).split("\n");
+        StringBuilder formattedMonth = new StringBuilder();
+
+        for (int j = 0; j < month.length; j++) {
+            String preString = (j == 0) ? date.getMonth().toString().substring(0, 3) + " " : "    ";
+            formattedMonth.append("\n").append(preString).append(month[j]).append(" ".repeat(repeatCountCalender));
+        }
+
+        return formattedMonth.toString();
     }
 
     private String getNumberSuffix(int number) {
@@ -120,7 +135,7 @@ public class CalendarInterface implements UserInterface {
     }
 
     private String getMonthWithAppointments(LocalDate date, List<Appointment> appointmentList) {
-        String monthString = getMonth(date);
+        String monthString = getMonthDaysFormatted(date);
         LocalDate today = LocalDate.now();
 
         for (int day = 1; day <= date.lengthOfMonth(); day++) {
