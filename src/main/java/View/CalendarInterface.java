@@ -92,7 +92,7 @@ public class CalendarInterface implements UserInterface {
             .toString();
     }
 
-    private String formatCurrentDayHeader(){
+    private String formatCurrentDayHeader() {
         LocalDateTime now = LocalDateTime.now();
         String numberSuffix = getNumberSuffix(now.getDayOfMonth());
 
@@ -495,6 +495,7 @@ public class CalendarInterface implements UserInterface {
     }
 
     public void displayCommandList() {
+        clearScreen();
         System.out.println("""
                 Name & description of all available commands:
                 -"manage": opens the menu for managing appointments and tags
@@ -517,6 +518,7 @@ public class CalendarInterface implements UserInterface {
     }
 
     public void displayAppointments(List<Appointment> appointments) {
+        clearScreen();
         appointments.forEach(
                 appointment -> {
                     System.out.println();
