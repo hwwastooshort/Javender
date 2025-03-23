@@ -1,4 +1,5 @@
 import Controller.CalendarController;
+import Model.Database.DataManager;
 import Model.Database.JooqDataManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class Main {
             copyDatabaseFile();
         }
 
-        var dataManager = new JooqDataManager(DESTINATION_PATH);
+        DataManager dataManager = new JooqDataManager(DESTINATION_PATH);
         CalendarController controller = new CalendarController(dataManager);
         controller.mainMenu();
     }

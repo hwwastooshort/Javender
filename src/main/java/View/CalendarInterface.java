@@ -65,8 +65,8 @@ public class CalendarInterface implements UserInterface {
         }
 
         calendarView.append(ColorManager.getColoredText("bold", ColorManager.getColoredText("underline", currentDay)))
-            .append(" ".repeat(repeatCountDate)).append("\n")
-            .append(days).append(" ".repeat(repeatCountCalender));
+                .append(" ".repeat(repeatCountDate)).append("\n")
+                .append(days).append(" ".repeat(repeatCountCalender));
 
         for (int i = 0; i < monthAmount; i++) {
             calendarView.append(formatCalendarMonthWithMargin(date.plusMonths(i), appointmentList, repeatCountCalender));
@@ -80,16 +80,16 @@ public class CalendarInterface implements UserInterface {
         int margin = (days.length() - dateHeader.length()) / 2;
 
         String dateHeaderCentered = " ".repeat(margin) + dateHeader + " "
-            .repeat(maxLineLength - margin - dateHeader.length());
+                .repeat(maxLineLength - margin - dateHeader.length());
 
         if (!isLocalDateMonthEqual(date, LocalDate.now())) {
             calendarView.append(ColorManager.getColoredText("yellow", getWarningString(date)));
         }
 
         return calendarView.append(ColorManager.getColoredText("bold", dateHeaderCentered))
-            .append("\n").append(days).append("\n")
-            .append(getMonthWithAppointments(date, appointmentList))
-            .toString();
+                .append("\n").append(days).append("\n")
+                .append(getMonthWithAppointments(date, appointmentList))
+                .toString();
     }
 
     private String formatCurrentDayHeader() {
@@ -97,17 +97,17 @@ public class CalendarInterface implements UserInterface {
         String numberSuffix = getNumberSuffix(now.getDayOfMonth());
 
         return now.getDayOfWeek().toString().charAt(0)
-            + now.getDayOfWeek().toString().substring(1).toLowerCase() + ", "
-            + now.getMonth().toString().charAt(0)
-            + now.getMonth().toString().substring(1).toLowerCase() + " "
-            + now.getDayOfMonth() + numberSuffix + ", "
-            + now.getYear();
+                + now.getDayOfWeek().toString().substring(1).toLowerCase() + ", "
+                + now.getMonth().toString().charAt(0)
+                + now.getMonth().toString().substring(1).toLowerCase() + " "
+                + now.getDayOfMonth() + numberSuffix + ", "
+                + now.getYear();
     }
 
     private String getWarningString(LocalDate date) {
         return "(You are currently viewing " + date.getMonth().toString().charAt(0)
-            + date.getMonth().toString().substring(1).toLowerCase()
-            + " " + date.getYear() + ")\n\n";
+                + date.getMonth().toString().substring(1).toLowerCase()
+                + " " + date.getYear() + ")\n\n";
     }
 
     private String formatCalendarMonthWithMargin(LocalDate date, List<Appointment> appointmentList, int repeatCountCalender) {
@@ -225,14 +225,6 @@ public class CalendarInterface implements UserInterface {
         return date1.getMonth() == date2.getMonth() && date1.getYear() == date2.getYear();
     }
 
-    /**
-     * Formats a given Appointment object into multiple lines: Date, Title, Description,
-     * ensuring that each line of the description does not exceed a specified length.
-     *
-     * @param appointment The Appointment object to be formatted.
-     * @return A formatted string where words are split into lines such that the total length of each line
-     * (including spaces) does not exceed the specified `COMMENT_LINE_LENGTH`.
-     */
     public String formatAppointment(Appointment appointment) {
         StringBuilder formattedAppointment = new StringBuilder();
 
@@ -253,9 +245,6 @@ public class CalendarInterface implements UserInterface {
         return formattedAppointment.toString();
     }
 
-    /**
-     * Formats the date of an appointment depending on whether it is a single day or multiple days
-     */
     private String formatAppointmentDate(Appointment appointment) {
         String singleDayAppointment = appointment.getStartDate().format(DateTimeFormatter.ofPattern("(yyyy/MM/dd | HH:mm "))
                 + appointment.getEndDate().format(DateTimeFormatter.ofPattern("- HH:mm)"));
@@ -295,10 +284,6 @@ public class CalendarInterface implements UserInterface {
         return tags.toString();
     }
 
-    /**
-     * Formats the description of an appointment to ensure that each line has a maximum of 30 characters (COMMENT_LINE_LENGTH)
-     * Descriptions with more than 57 characters (MAX_COMMENT_LENGTH) will be trimmed and appended with "..."
-     */
     private String formatAppointmentDescription(Appointment appointment) {
         StringBuilder formattedDescription = new StringBuilder();
 
